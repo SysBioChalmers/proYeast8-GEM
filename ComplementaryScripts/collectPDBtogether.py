@@ -25,8 +25,7 @@ os.system('mv ../pdb_files .')
 
 
 ## code from Hongzhong
-import shutil
-import os
+
 import shutil
 import os
 source = '/Users/luho/PycharmProjects/python learning/venv/project2_pdb/data'
