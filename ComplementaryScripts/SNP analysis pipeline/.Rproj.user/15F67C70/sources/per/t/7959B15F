@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1528383451163.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1437904406",
+    "id" : "7959B15F",
+    "lastKnownWriteTime" : 1528388937,
+    "last_content_update" : 1528388937741,
+    "path" : "~/Google Drive/R application and code/protein 3D structure QC and QA/SNP analysis pipeline/SNP.R",
+    "project_path" : "SNP.R",
+    "properties" : {
+        "cursorPosition" : "202,0",
+        "scrollLine" : "187"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

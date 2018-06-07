@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1528373380838.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "10|79|21|0|\n",
+    "hash" : "2507139813",
+    "id" : "AA244E01",
+    "lastKnownWriteTime" : 1528382755,
+    "last_content_update" : 1528382755658,
+    "path" : "~/Google Drive/R application and code/protein 3D structure QC and QA/SNP analysis pipeline/mapping postion onto sequence.R",
+    "project_path" : "mapping postion onto sequence.R",
+    "properties" : {
+        "cursorPosition" : "54,0",
+        "scrollLine" : "37",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
