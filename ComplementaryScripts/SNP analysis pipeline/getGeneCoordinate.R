@@ -8,7 +8,7 @@ getGeneCoordinate <- function(gene_name, genesum = gene_feature_GEM ){
      ss <- filter(genesum, locus_tag==gene_name)
      gene_snp <- list()
      cds_seq <- vector()
-     if(str_detect(ss$location[1], "complement")==FALSE){
+     if(str_detect(ss$location[1], "complement")==FALSE){ #complement means the seq in the -1 strand
      ll <- ss$cds_location
      ll1 <- unlist(str_split(ll, ","))
      ll1 <- str_replace_all(ll1, "location=join\\(","") %>%
