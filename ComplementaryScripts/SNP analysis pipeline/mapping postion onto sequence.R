@@ -22,11 +22,17 @@ getSingleReactionFormula <- function(description, reaction_ko, ko) {###descripti
 
 #get the gene name
 #try to calculate the mutation on the amino acids based on the coordination on the chromosome
-mutated_test <- read_excel("snp_adaption_to_high_ethanol.XLS")
+mutated_test <- read_excel("data/snp_adaption_to_high_ethanol.XLS")
 mutated_test$Chr <- str_trim(mutated_test$Chr, side = "both")
 mutated_test$Pos <- as.numeric(mutated_test$Pos)
 #function get the gene name based on the mutation position
 getGeneName <- function(chr,mutated_positions,gene_annotation = gene_feature0){
+  #input:
+  #1. chr: chromsome
+  #2. mutated_positiion
+  #3. gene_featured0: contains the gene sequence information from chromsome of sec-s288c ,like the start and end
+  #output:
+  # the gene name contained this mutation
   ss <- filter(gene_feature0, 
                chromosome == chr & 
                  start <= mutated_positions & 
@@ -38,6 +44,8 @@ getGeneName <- function(chr,mutated_positions,gene_annotation = gene_feature0){
   }
   return(ss0)
 }
+
+
 for (i in seq(length(mutated_test$Chr))){
   mutated_test$Gene2[i] <- getGeneName(mutated_test$Chr[i],mutated_test$Pos[i])
 }
@@ -45,6 +53,8 @@ for (i in seq(length(mutated_test$Chr))){
 mutated_test0 <- filter(mutated_test, Gene2 != "INTERGENIC") ##filter the mutated test
 
 #choose the metabolic gene
+#if the gene is type of "complement", then the complement_sign is "TRUE"
+#else the complement_sign is "FALSE"
 gene_feature_GEM$complement_sign <- str_detect(gene_feature_GEM$cds_location,"complement")
 index_m <- which(mutated_test0$Gene2 %in% gene_feature_GEM$locus_tag ==TRUE)
 mutated_gene <- mutated_test0[index_m,]
@@ -89,9 +99,6 @@ for (i in seq(length(mutated_gene1$Chr))){
     mutated_gene1$Alt[i] <- mutated_gene1$Alt[i]
   }
 }
-
-ss <- length(unique(mutated_gene1$Gene2))
-
 
 
 #using function to obtain the each gene's mutation information based on the processed mutation data
@@ -151,7 +158,7 @@ print(gene_snp)
 
 #results analysis
 num_gene_with_nsSNP <- tt[tt > 0]
-num_nsSNP <- sum(num_nsSNP)
+num_nsSNP <- sum(num_gene_with_nsSNP)
 
 protein_mutation <- data.frame(orf=gene_list,nsSNP=tt)
 

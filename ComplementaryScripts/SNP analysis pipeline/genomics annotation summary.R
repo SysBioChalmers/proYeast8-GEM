@@ -3,7 +3,7 @@ library(stringr)
 
 
 ## parse the genomic gbff file
-s288 <- scan("GCF_000146045.2_R64_genomic.gbff", sep = "\n", what = "complex")
+s288 <- scan("data/GCF_000146045.2_R64_genomic.gbff", sep = "\n", what = "complex")
 s288_n <- s288[72:length(s288)]
 s288_n <- str_replace_all(s288_n, "     ", "")
 
@@ -111,7 +111,7 @@ CDS_feature0$location <- str_replace_all(CDS_feature0$location, "CDS ","")
 
 
 ## cds fna file analysis
-s288_cds <- scan("GCF_000146045.2_R64_cds_from_genomic.fna", sep = "\n", what = "complex")
+s288_cds <- scan("data/GCF_000146045.2_R64_cds_from_genomic.fna", sep = "\n", what = "complex")
 s288_cds[1:200]
 index1 <- which(str_detect(s288_cds,">"))
 
@@ -175,7 +175,7 @@ getSingleReactionFormula <- function(description, reaction_ko, ko) {###descripti
 
 ##give the mRNA seq, mRNA length, amino acid sequece and amino acid length
 library(readr)
-s288_SGD <- read_tsv('s288_genome.tsv')
+s288_SGD <- read_tsv('data/s288_genome.tsv')
 gene_feature0$cds_location <- getSingleReactionFormula(cds_fna$location,cds_fna$gene,gene_feature0$locus_tag)
 gene_feature0$cds_seq <- getSingleReactionFormula(cds_fna$cds,cds_fna$gene,gene_feature0$locus_tag)
 gene_feature0$cds_length <- getSingleReactionFormula(cds_fna$length_cds,cds_fna$gene,gene_feature0$locus_tag)
@@ -192,7 +192,7 @@ gene_feature0$end <- as.numeric(gene_feature0$end)
 
 ##choose the metabolic genes
 library(readxl)
-gene_list_yeastGEM <- read_excel("gene_list_yeastGEM.xlsx")
+gene_list_yeastGEM <- read_excel("data/gene_list_yeastGEM.xlsx")
 index1 <-  which (gene_feature0$locus_tag %in% gene_list_yeastGEM$geneNames ==TRUE)
 gene_feature_GEM <- gene_feature0[index1,]
 
@@ -217,6 +217,7 @@ gene_feature_GEM$check <- ((as.numeric(gene_feature_GEM$cds_length))/3-1) == as.
 
 ##############################################
 ## mRNA fna file analysis
+## this part is not used in the followed analysis
 s288_mRNA <- scan("GCA_000146045.2_R64_rna_from_genomic.fna", sep = "\n", what = "complex")
 s288_mRNA[1:200]
 index1 <- which(str_detect(s288_mRNA,">"))
