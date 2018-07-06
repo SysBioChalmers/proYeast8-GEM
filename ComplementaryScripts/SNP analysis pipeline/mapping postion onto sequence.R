@@ -171,6 +171,8 @@ gene_snp[['pro_mutation_count']] <- countMutationProtein(gene_name = ss, mutatio
 
 pos_mutation <- which(gene_snp[['pro_mutation_count']] != 0)
 
+#save the result
+write.table(pos_mutation,'result/pos_mutation.txt', row.names = FALSE, sep = "\t")
 
 
 
