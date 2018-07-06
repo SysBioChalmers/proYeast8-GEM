@@ -7,13 +7,13 @@
     "folds" : "",
     "hash" : "1790077472",
     "id" : "62ED96AB",
-    "lastKnownWriteTime" : 1530884978,
-    "last_content_update" : 1530884978221,
-    "path" : "~/Google Drive/R application and code/protein 3D structure QC and QA/SNP analysis pipeline/genomics annotation summary.R",
+    "lastKnownWriteTime" : 1530885451,
+    "last_content_update" : 1530885451,
+    "path" : "~/Documents/GitHub/proYeast-GEM/ComplementaryScripts/SNP analysis pipeline/genomics annotation summary.R",
     "project_path" : "genomics annotation summary.R",
     "properties" : {
         "cursorPosition" : "197,0",
-        "scrollLine" : "175"
+        "scrollLine" : "0"
     },
     "relative_order" : 1,
     "source_on_save" : false,
