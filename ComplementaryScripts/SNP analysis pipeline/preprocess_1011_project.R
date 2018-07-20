@@ -1,25 +1,18 @@
-library(tidyverse)
-library(stringr)
-library(readxl)
-
 #which gene have mutation fromm 1011 project
-geneName <- list.files('1011_project')
-geneName <- str_replace_all(geneName,'\\.fasta','')
-geneMetabolic <- intersect(geneName, gene_feature_GEM$locus_tag)
+geneName0 <- list.files('1011_project')
+geneName0 <- str_replace_all(geneName,'\\.fasta','')
+geneMetabolic <- intersect(geneName0, gene_feature_GEM$locus_tag)
 
 #YAL012W
 ss = 'YAL012W'
 ss %in% gene_feature_GEM$locus_tag
 gene_snp <- getGeneCoordinate(gene_name = ss, genesum = gene_feature_GEM)
-length(gene_snp$gene)
 
 
 #count the mutant number in each protein position
 #in the first step. read fasta file for each gene and change it into dataframe or list format for next mapping analysis
 #first run a single gene-YAL012W.fasta from 1011 project
-source("https://bioconductor.org/biocLite.R")
-biocLite("Biostrings")
-library("Biostrings")
+
 fastaFile <- readDNAStringSet("data/YAL012W.fasta")
 seq_name = names(fastaFile)
 sequence = paste(fastaFile)
@@ -33,50 +26,44 @@ for (i in seq(length(df$sequence))){
 }
 
 
-findPPosition0 <- function(alted_seq, geneName){
-  #this function is used to find the postion of mutated amino acids based on genomics mutation
-  #alted_seq <- gene1_s0
-  #geneName <- 'YAL012W'
-  gene_snp <- getGeneCoordinate(gene_name = geneName, genesum = gene_feature_GEM)
-  gene_snp[['gene']] <- alted_seq
-  
-  #translation
-  library(seqinr)
-  realcds <- str_to_lower(paste(gene_snp[['gene']],collapse = ""))
-  toycds <- s2c(realcds)
-  gene_snp[['protein_mutated']] <- translate(seq = toycds)
-  
-  #find the relative postion of mutated amino acids
-  aa_position <- which(gene_snp[['protein']] != gene_snp[['protein_mutated']] )
-  
-  #calculate the mutation number in the mutated postion (for specific strain -x)
-  gene_snp[['mutation_position']] <- rep(0,length(gene_snp[['protein']])) #initialize the start value for each positions
-  gene_snp[['mutation_position']][aa_position] <- 1
-  result <- unlist(gene_snp[['mutation_position']])
-  return(result)
-}
-
-
-countMutationProtein0 <- function (gene_name, mutated_gene_seq){
-
-  #mutated_gene_seq <- df_list
-  #geneName = 'YAL012W'
-  
-  gene_snp <- getGeneCoordinate(gene_name = geneName, genesum = gene_feature_GEM)
-  tt <- rep(0,length(gene_snp[['protein']]))
-  for (i in seq(length(mutated_gene_seq))){
-    
-    tt <- tt + findPPosition0(df_list[[i]],geneName)
-  }
-  
-  return(tt)
-}
-
-
 ss = 'YAL012W'
 gene_snp <- getGeneCoordinate(gene_name = ss, genesum = gene_feature_GEM)
 gene_snp[['pro_mutation_count']] <- countMutationProtein0(gene_name = ss, mutated_gene_seq = df_list)
-pos_mutation <- which(gene_snp[['pro_mutation_count']] != 0)
+
+ResidueDistance_1n8p <- read_excel("data/ResidueDistance_1n8p.xlsx",col_names = FALSE)
+ResidueDistance_1n8p <- as.matrix(ResidueDistance_1n8p)
+
+# mapping the mutation postion onto the protein structure
+# for 'YAL012W', the PDB structure id is 'https://www.rcsb.org/structure/1n8p'
+# the amino acid sequence in structure is from 2:394 while  the original sequence is from 1:394
+
+
+#obtain the mutation information for the structure
+amino_acid_3D <- gene_snp[['protein']][2:394]
+pos_mutation_3D <- gene_snp[['pro_mutation_count']][2:394]
+
+#mutation position on structure
+pos_mutation_t <- which(pos_mutation_3D != 0)
+seq0 <- 1:length(pos_mutation_3D)
+#mutation number on structure
+pos_count_t <- pos_mutation_3D[pos_mutation_t]
+
+
+#wap calculation for each pair mutated residue
+#step1 calculate the standardard sample number
+sample_standard <- sampleStand(pos_mutation_3D)
+
+#step2 calculate the wap for each pair of mutated residues based on mutation postion
+wap_original <- getTotalWAP(pos_mutation_t,sample_standard,ResidueDistance_1n8p)
+
+
+#step3 change the postion of mutation while keep the mutation number in each postion
+#only change the postion but not change the mutated number???
+wap_sample0 <- getSampleWAP(pos_mutation_t,sample_standard,ResidueDistance_1n8p, seq=seq0,n=10000)
+
+#step4 analyze the result
+plotNullDistribution(wap_sample0)
+getPvalue(wap_original,wap_sample0)
 
 
 
@@ -84,35 +71,29 @@ pos_mutation <- which(gene_snp[['pro_mutation_count']] != 0)
 
 
 
+#calculate the mutant number near a mutated residue
+# filter the mutantion num smaller than 3
+# just consider the structure affect
+# pos_mutation_3D[which(pos_mutation_3D < 3)] <- 0
+# pos_mutation_3D[which(pos_mutation_3D >=3)] <- 1
+
+residue_forAnalysis <- pos_mutation_3D[pos_mutation_3D >=3]
 
 
+#import the residue distance obtained from python code
+
+calculateMutNear <- function(col0) {
+  
+  #col1 <- unlist(c(ResidueDistance_1n8p[, 1]))
+  col1 <- unlist(col0)
+  index1 <- which(col1 <= 10)
+  count0 <- pos_mutation_3D[index1]
+  mutant_total <- sum(count0)
+  return(mutant_total)
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+total_mutant <- vector()
+total_mutant <- lapply(ResidueDistance_1n8p , calculateMutNear)
+total_mutant <- unlist(total_mutant)
+mutant_1n8p <- data.frame(amino_acid = amino_acid_3D, position = 2:394, mutant_num = total_mutant )
