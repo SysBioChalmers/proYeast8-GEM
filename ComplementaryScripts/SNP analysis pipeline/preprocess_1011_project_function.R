@@ -30,6 +30,8 @@ findPPosition0 <- function(alted_seq, geneName){
   result <- unlist(gene_snp[['mutation_position']])
   return(result)
 }
+
+
 countMutationProtein0 <- function (gene_name, mutated_gene_seq){
 
   #mutated_gene_seq <- df_list
