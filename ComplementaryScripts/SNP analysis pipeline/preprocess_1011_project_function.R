@@ -161,7 +161,7 @@ getTotalWAP <- function (mutated_pos, sample0, distance){
 
 #function to calculate the sample WAP
 getSampleWAP <- function(mutated_pos, sample0, distance, seq=seq0, n=10000){
-  m <- length(pos_mutation_t)
+  m <- length(mutated_pos)
   fixed_sample <- sample0[mutated_pos]
   
   wap_sample <- vector()
@@ -176,6 +176,8 @@ getSampleWAP <- function(mutated_pos, sample0, distance, seq=seq0, n=10000){
   
   return(wap_sample)
 }
+
+
 
 #function to plot the desity graph
 plotNullDistribution <- function(wap_sample) {

@@ -108,9 +108,97 @@ for (i in seq_along(detail_mutant_position)) {
 }
 
 
-pos_mutation_t0 <- detail_mutant_position[[193]]
-wap_original <- getTotalWAP(pos_mutation_t0, sample_standard, ResidueDistance_1n8p)
-wap_sample0 <- getSampleWAP(pos_mutation_t0, sample_standard, ResidueDistance_1n8p, seq = seq0, n = 10000)
-plotNullDistribution(wap_sample0)
-getPvalue(wap_original, wap_sample0)
+#still need a fuction to filter the residue cluster that prepared for staticallly analysis
+
+
+
+
+
+
+#step5 hotspot analysis
+#5.1 estimate the mutation position
+#mutation position on structure
+pos_mutation_t <- which(pos_mutation_3D != 0)
+pos_count_t <- pos_mutation_3D[pos_mutation_t]
+
+distance <- ResidueDistance_1n8p
+  all_pair <- combn(pos_mutation_t, 2)
+  all_pair_distance <- vector()
+  all_pair_list <- vector()
+  aa_distance <- vector()
+  for (i in 1:ncol(all_pair)){
+    s1 <- all_pair[,i]
+    d0 <- distance[s1[1],s1[2]]
+    all_pair_distance[i] <- d0
+    all_pair_list[i] <- paste(s1[1], s1[2], sep = "@")
+    aa_distance[i] <- abs(s1[1]-s1[2])
+    
+    }
+ 
+
+## 
+pos_initial <- 1:393  
+all_distance <- vector()
+all_pair_ini <- combn(pos_initial, 2)
+for (i in 1:ncol(all_pair_ini)){
+  s1 <- all_pair_ini[,i]
+  d0 <- distance[s1[1],s1[2]]
+  all_distance[i] <- d0
+}
+
+##
+pvalue_pair <- vector()
+for (i in seq_along(all_pair_distance)){
+   distance0 <- all_pair_distance[i]
+   pvalue_pair[i] <- length(which(all_distance <= distance0))/length(all_distance)
+}
+
+
+#choose the cluste based on p value, Distance between two pair and sperated residues(>20)
+target_pair <- vector()
+index00 <- which(all_pair_distance <= 10 & pvalue_pair <= 0.05 & aa_distance >=20)
+target_pair <- all_pair_list[index00]
+target_pair_distance <- all_pair_distance[index00]
+#if N > 20
+target_pair0 <- str_split(target_pair, "@")
+
+
+#form the unique clust based on Floyd-Warshall shortest-paths algorithm
+library(igraph)
+#change the pair into the link relation
+links <- data_frame(from= vector(length = length(target_pair0)), to = vector(length = length(target_pair0)), weight=target_pair_distance)
+for (i in seq_along(target_pair0)){
+  links$from[i] <- target_pair0[[i]][1]
+  links$to[i] <- target_pair0[[i]][2]
+  links$weight[i] <- target_pair_distance[i]
+}
+
+g <- graph_from_data_frame(d=links,directed=FALSE) 
+plot(g, edge.arrow.size=.4)
+
+
+detail_mutant_position0 <- list()
+dg <- decompose.graph(g)
+for (i in seq_along(dg)){
+  clust2 <- dg[[i]][1]
+  detail_mutant_position0[[i]] <- as.integer(names(clust2))
+}
+
+
+
+pvalue <- vector()
+for (i in seq_along(detail_mutant_position0)) {
+  if (length(detail_mutant_position0[[i]]) >= 2) {
+    pos_mutation_t0 <- detail_mutant_position0[[i]]
+    wap_original <- getTotalWAP(pos_mutation_t0, sample_standard, ResidueDistance_1n8p)
+    wap_sample0 <- getSampleWAP(pos_mutation_t0, sample_standard, ResidueDistance_1n8p, seq = seq0, n = 10000)
+    pvalue[i] <- getPvalue(wap_original, wap_sample0)
+  } else {
+    pvalue[i] <- 1
+  }
+}
+
+#in the analysis, we can futher calculate the closeness
+
+
 
