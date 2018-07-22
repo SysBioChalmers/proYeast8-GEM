@@ -31,7 +31,7 @@ findPPosition0 <- function(alted_seq, geneName){
   return(result)
 }
 
-countMutationProtein0 <- function (gene_name, mutated_gene_seq){
+countMutationProtein0 <- function (geneName, mutated_gene_seq){
 
   #mutated_gene_seq <- df_list
   #geneName = 'YAL012W'
