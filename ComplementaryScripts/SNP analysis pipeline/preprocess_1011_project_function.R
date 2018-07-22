@@ -2,11 +2,89 @@ library(tidyverse)
 library(stringr)
 library(readxl)
 library("Biostrings")
-#count the mutant number in each protein position
-#in the first step. read fasta file for each gene and change it into dataframe or list format for next mapping analysis
-#first run a single gene-YAL012W.fasta from 1011 project
+library(filesstrings) #move the files
 #source("https://bioconductor.org/biocLite.R")
 #biocLite("Biostrings")
+
+
+#this function is used to filter the whole sample
+filterMetabolicGene <- function() {
+  geneName0 <- list.files("1011_project")
+  geneMetabolic <- paste(str_trim(gene_feature_GEM$locus_tag, side = "both"), ".fasta", sep = "")
+  geneMetabolic0 <- intersect(geneName0, geneMetabolic)
+  dir.create("target_gene")
+  
+  for (i in seq_along(geneMetabolic0)) {
+    geneX <- geneMetabolic0[i]
+    file0 <- paste("1011_project/", geneX, sep = "")
+    file.copy(file0, "target_gene")
+  }
+}
+
+#this function is used to just preprocess the fasta file without filteration
+processFasta <- function(gene_test) {
+  # read each fasta file and change it into a dataframe
+  # exampel:gene_test <- "YAL012W.fasta"
+  gene_name_test <- str_replace_all(gene_test, ".fasta", "")
+  fastaFile <- readDNAStringSet(paste("target_gene/", gene_test, sep = ""))
+  # obtain the strain name information and sequence information
+  seq_name <- names(fastaFile)
+  sequence <- paste(fastaFile)
+  
+  # establish a dataframe contains the strain name and sequnece information
+  df <- data.frame(seq_name, sequence, stringsAsFactors = FALSE)
+  df_list <- list()
+  for (i in seq(length(df$sequence))) {
+    df_list[i] <- str_split(df$sequence[i], "")
+  }
+  
+  return(df_list)
+}
+
+#this function is used to choose the gene based on strain phenotype information
+filterMutationStrainType <- function(gene_test, strain_select) {
+  # read each fasta file and change it into a dataframe
+  # then the filter can be used for each dataframe to obtain the strains we need
+  # gene name
+  # exampel:gene_test <- "YAL012W.fasta"
+  gene_name_test <- str_replace_all(gene_test, ".fasta", "")
+  fastaFile <- readDNAStringSet(paste("target_gene/", gene_test, sep = ""))
+  # obtain the strain name information and sequence information
+  seq_name <- names(fastaFile)
+  sequence <- paste(fastaFile)
+  
+  # establish a dataframe contains the strain name and sequnece information
+  df <- data.frame(seq_name, sequence, stringsAsFactors = FALSE)
+  strain_select['index_strain'] <- paste(strain_select$Standardized_name, "_", gene_name_test, "_", sep = "")
+  
+  
+  for (j in seq_along(df$seq_name)) {
+    exist_sign <- vector()
+    for (i in seq_along(strain_select$index_strain)) {
+      exist_sign[i] <- str_detect(df$seq_name[j], strain_select$index_strain[i])
+    }
+    
+    if (any(exist_sign) == TRUE) {
+      df$choosed[j] <- "YES"
+    } else {
+      df$choosed[j] <- "NO"
+    }
+  }
+  
+  df_refine <- filter(df, choosed == "YES")
+  
+  
+  df_list <- list()
+  for (i in seq(length(df_refine$sequence))) {
+    df_list[i] <- str_split(df_refine$sequence[i], "")
+  }
+  
+  dir.create("target_gene_processed")
+  filename0 <- paste("target_gene_processed/",gene_name_test, ".RData", sep = "")
+  save(df_list, file = filename0)
+  return(df_list)
+}
+
 
 findPPosition0 <- function(alted_seq, geneName){
   #this function is used to find the postion of mutated amino acids based on genomics mutation
@@ -31,6 +109,7 @@ findPPosition0 <- function(alted_seq, geneName){
   return(result)
 }
 
+
 countMutationProtein0 <- function (geneName, mutated_gene_seq){
 
   #mutated_gene_seq <- df_list
@@ -45,6 +124,7 @@ countMutationProtein0 <- function (geneName, mutated_gene_seq){
   
   return(tt)
 }
+
 
 #fuction to calculate the standard samples contained the mutation in the specific postion
 sampleStand <- function (sample_num){
@@ -81,7 +161,7 @@ getTotalWAP <- function (mutated_pos, sample0, distance){
 
 #function to calculate the sample WAP
 getSampleWAP <- function(mutated_pos, sample0, distance, seq=seq0, n=10000){
-  m <- length(pos_mutation_t)
+  m <- length(mutated_pos)
   fixed_sample <- sample0[mutated_pos]
   
   wap_sample <- vector()
@@ -96,6 +176,8 @@ getSampleWAP <- function(mutated_pos, sample0, distance, seq=seq0, n=10000){
   
   return(wap_sample)
 }
+
+
 
 #function to plot the desity graph
 plotNullDistribution <- function(wap_sample) {
@@ -132,14 +214,9 @@ getPvalue <- function(wap_initial, wap_sampling) {
 
 
 #this function is used in DEMO_CLUMPS.r
-calculateMutNear <- function(col0) {
+calculateMutNear <- function(col0, pos_mutation_3D) {
   
-  #col1 <- unlist(c(ResidueDistance_1n8p[, 1]))
-  col1 <- unlist(col0)
-  index1 <- which(col1 <= 10)
-  count0 <- pos_mutation_3D[index1]
-  mutant_total <- sum(count0)
-  return(mutant_total)
+
 }
 
 
