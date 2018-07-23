@@ -1,11 +1,12 @@
 library(tidyverse)
 library(stringr)
 library(readxl)
-library("Biostrings")
+library(Biostrings)
 library(filesstrings) #move the files
 #source("https://bioconductor.org/biocLite.R")
 #biocLite("Biostrings")
-
+library(centiserve) #this package is used to calculate the closeness centrality
+library(igraph)#form the unique clust based on Floyd-Warshall shortest-paths algorithm
 
 #this function is used to filter the whole sample
 filterMetabolicGene <- function() {
@@ -213,13 +214,114 @@ getPvalue <- function(wap_initial, wap_sampling) {
 }
 
 
-#this function is used in DEMO_CLUMPS.r
-calculateMutNear <- function(col0, pos_mutation_3D) {
+#example to calculate closeness centrality
+#install.packages("CINNA")
+#library(CINNA)
+#g <- graph(c(1,2,2,3,3,4,4,2))
+#plot(g, edge.arrow.size=.4)
+#closeness.residual(g)
+
+#this function is used to conduct the hotspot analysis for each PDB structure
+hotSpotAnalysis <- function(pos_mutation_t,
+                            sample_standard,
+                            distance,
+                            pos_initial) {
+  #input:
+  #pos_mutation_t  a vector contains the mutation position of PDB structure
+  #sample_standard  a vector contains the standard mutated sample in each postion
+  #distance    a matrix contains the dstance between each paired amino acid
+  #pos_initial  a vector contains the postion of each residue (coordinate) in the PDB structure
+  
+  #output
+  #a dataframe contains the targeted clustered mutated position, the closess of each cluster and p-value of each cluster
   
 
+  # calculate the residue distance between all pair (how many amino acids separate the pair)
+  all_pair <- combn(pos_mutation_t, 2)
+  all_pair_distance <- vector()
+  all_pair_list <- vector()
+  aa_distance <- vector()
+  for (i in 1:ncol(all_pair)) {
+    s1 <- all_pair[, i]
+    d0 <- distance[s1[1], s1[2]]
+    all_pair_distance[i] <- d0
+    all_pair_list[i] <- paste(s1[1], s1[2], sep = "@")
+    aa_distance[i] <- abs(s1[1] - s1[2])
+  }
+  
+  # calculate the distance between all pair (how many amino acids separate the pair)
+  all_distance <- vector()
+  all_pair_ini <- combn(pos_initial, 2)
+  for (i in 1:ncol(all_pair_ini)) {
+    s1 <- all_pair_ini[, i]
+    d0 <- distance[s1[1], s1[2]]
+    all_distance[i] <- d0
+  }
+  
+  
+  # calculate the P value for each pair of amino acids based on the distance
+  pvalue_pair <- vector()
+  for (i in seq_along(all_pair_distance)) {
+    distance0 <- all_pair_distance[i]
+    pvalue_pair[i] <- length(which(all_distance <= distance0)) / length(all_distance)
+  }
+  
+  # choose the cluste based on p value, Distance between two pair and sperated residues(>20)
+  target_pair <- vector()
+  index00 <- which(all_pair_distance <= 10 & pvalue_pair <= 0.05 & aa_distance >= 20)
+  target_pair <- all_pair_list[index00]
+  target_pair_distance <- all_pair_distance[index00]
+  
+  # change the pair into the link relation
+  target_pair0 <- str_split(target_pair, "@")
+  links <- data_frame(from = vector(length = length(target_pair0)), to = vector(length = length(target_pair0)), weight = target_pair_distance)
+  for (i in seq_along(target_pair0)) {
+    links$from[i] <- target_pair0[[i]][1]
+    links$to[i] <- target_pair0[[i]][2]
+    links$weight[i] <- target_pair_distance[i]
+  }
+  
+  g <- graph_from_data_frame(d = links, directed = FALSE)
+  plot(g)
+  
+  # split the graph into subgraph and get the unique cluster
+  # calculate the closeness centrality for each clust
+  dg <- decompose.graph(g)
+  detail_mutant_position0 <- list()
+  position_combine <- vector()
+  for (i in seq_along(dg)) {
+    clust2 <- dg[[i]][1]
+    detail_mutant_position0[[i]] <- as.integer(names(clust2))
+    position_combine[i] <- paste0(as.integer(names(clust2)), collapse = ";")
+  }
+  
+  closeness0 <- list()
+  cluster_closeness <- vector()
+  dg <- decompose.graph(g)
+  for (i in seq_along(dg)) {
+    closeness0[[i]] <- closeness.residual(dg[[i]])
+    cluster_closeness[i] <- sum(closeness.residual(dg[[i]]))
+  }
+  
+  
+  # calculate the pvalue for each clust
+  pvalue <- vector()
+  for (i in seq_along(detail_mutant_position0)) {
+    if (length(detail_mutant_position0[[i]]) >= 2) {
+      pos_mutation_t0 <- detail_mutant_position0[[i]]
+      wap_original <- getTotalWAP(pos_mutation_t0, sample_standard, distance)
+      wap_sample0 <- getSampleWAP(pos_mutation_t0, sample_standard, distance, seq = pos_initial, n = 10000)
+      pvalue[i] <- getPvalue(wap_original, wap_sample0)
+    } else {
+      pvalue[i] <- 1
+    }
+  }
+  
+  # summarize the result
+  spotSummary <- data_frame(cluster = position_combine, closeness = cluster_closeness, p_value = pvalue)
+  
+  return(spotSummary)
 }
-
-
 
 
 
