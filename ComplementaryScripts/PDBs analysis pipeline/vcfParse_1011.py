@@ -33,7 +33,7 @@ for line in lines:
     elif len(ref) == 1 and alt == 'G':
         out.write(line)
         flag1 += 1
-    elif ',' in alt: # this should be changed into: elif len(ref)==1 and ',' in alt
+    elif len(ref) == 1 and ',' in alt: # this should be changed into: elif len(ref)==1 and ',' in alt
         out.write(line)
         flag1 += 1
     elif len(alt) > 1 and ',' not in alt:
@@ -49,6 +49,10 @@ print('Deletion is:', flag3)
 out.close()
 out1.close()
 out2.close()
+
+
+
+
 
 #second step
 #input the SNP file
