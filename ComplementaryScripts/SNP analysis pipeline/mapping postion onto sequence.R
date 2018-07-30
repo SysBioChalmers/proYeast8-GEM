@@ -142,12 +142,13 @@ findPPosition <- function(mutatedPosition, alted, geneName){
 
 
 
+
 #first run the program for each gene from different conditions or strains
 #pre-process the gene annotation data before mutation mapping
 #update the mutation information in the protein level
 gene_list  <- unique(mutated_gene1$Gene2)
 tt <- vector()
-for (i in 1:638){
+for (i in seq_along(gene_list)){
 ss = gene_list[i]
 gene_snp <- getGeneCoordinate(gene_name = ss, genesum = gene_feature_GEM)
 gene_snp[['pro_mutation_count']] <- countMutationProtein(gene_name = ss, mutation_annotation=mutated_gene1)
@@ -159,48 +160,53 @@ print(gene_snp)
 #results analysis
 num_gene_with_nsSNP <- tt[tt > 0]
 num_nsSNP <- sum(num_gene_with_nsSNP)
-
 protein_mutation <- data.frame(orf=gene_list,nsSNP=tt)
+#import the annotation of these protein
+gene_annotation <- read.delim2("data/all_gene_yeast with annotation from different database.txt")
+protein_mutation$annotation_sgd <- getSingleReactionFormula(gene_annotation$annotation_SGD,gene_annotation$gene,protein_mutation$orf)
+protein_mutation$annotation_uni <- getSingleReactionFormula(gene_annotation$annotation_uniprot,gene_annotation$gene,protein_mutation$orf)
+protein_mutation0 <- protein_mutation[protein_mutation$nsSNP >= 4,]
+write.table(protein_mutation0,"result/protein_mutation0.txt", row.names = FALSE, sep = "\t" )
 
 
-#YPR184W
 
-ss = 'YPR184W'
+#analyze the mutation information with the structure
+ss = 'YBR115C'
+seq_from_3D <- 2:919 #this is the coordinated of original protein sequence and should changed into 3D structure coordinates
+dirForDistanceMatrix <- paste("data/ResidueDistance_",ss,".xlsx", sep = "")
+
+
 gene_snp <- getGeneCoordinate(gene_name = ss, genesum = gene_feature_GEM)
 gene_snp[['pro_mutation_count']] <- countMutationProtein(gene_name = ss, mutation_annotation=mutated_gene1)
-
 pos_mutation <- which(gene_snp[['pro_mutation_count']] != 0)
 
-#save the result
-write.table(pos_mutation,'result/pos_mutation.txt', row.names = FALSE, sep = "\t")
+
+#input the distance of all the pired residues
+ResidueDistance <- read_excel(dirForDistanceMatrix,col_names = FALSE) #in the followed calculation, the matrix dosen't have the col and row names
+ResidueDistance <- as.matrix(ResidueDistance)
+
+
+#obtain the mutation information for the structure
+residueIn3D <- gene_snp[['protein']][seq_from_3D]
+pos_mutation_3D <- gene_snp[['pro_mutation_count']][seq_from_3D]
+
+
+#mutation position on structure and #mutation number on structure
+pos_mutation_c <- which(pos_mutation_3D != 0)
+seq0 <- 1:length(pos_mutation_3D) #seq0 is the coordinate of PDB structure
+pos_count_num <- pos_mutation_3D[pos_mutation_c]
+
+
+#calculate p_values using UPMS method
+sample_standard1 <- sampleStand(pos_mutation_3D)
+wap_original <- getTotalWAP(pos_mutation_c,sample_standard1,ResidueDistance)
+wap_sample0 <- getSampleWAP(pos_mutation_c,sample_standard1,ResidueDistance, seq=seq0,n=10000)
+plotNullDistribution(wap_sample0)
+Strain_3D <- getPvalue(wap_original,wap_sample0)
 
 
 
 
 
 
-
-
-
-
-###############general script
-mutated_gene0 <- filter(mutated_gene1, Gene2=="YDL205C")
-#input the mutation positions of gene on the genome
-#translation of gene into proteins
-#calculate the mutation number on each protein positions
-mutation_position <- which(gene_snp[['gene_coordinate']]==93537)
-gene_snp[['gene']][mutation_position] <- "A"
-
-#translation
-library(seqinr)
-realcds <- str_to_lower(paste(gene_snp[['gene']],collapse = ""))
-toycds <- s2c(realcds)
-gene_snp[['protein_mutated']] <- translate(seq = toycds)
-
-#find the relative postion of mutated amino acids
-aa_position <- which(gene_snp[['protein']] != gene_snp[['protein_mutated']] )
-
-#calculate the mutation number in the mutated postion (for specific strain -x)
-gene_snp[['mutation_num_x']] <- rep(0,length(gene_snp[['protein']])) #initialize the start value for each positions
-gene_snp[['mutation_num_x']][aa_position] <- 1
 
