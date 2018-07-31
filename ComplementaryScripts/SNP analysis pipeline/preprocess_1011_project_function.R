@@ -3,6 +3,7 @@ library(stringr)
 library(readxl)
 library(Biostrings)
 library(filesstrings) #move the files
+library(hongR)
 #source("https://bioconductor.org/biocLite.R")
 #biocLite("Biostrings")
 library(centiserve) #this package is used to calculate the closeness centrality
@@ -111,16 +112,23 @@ findPPosition0 <- function(alted_seq, geneName){
 }
 
 
+#function to obtain the mutation of amino acids residue in the 3d structure based on sequence blast anlysis
+#but it can be very dangeous using this method, as the insertion or deletion could lead to many mutation in a seq
 countMutationProtein0 <- function (geneName, mutated_gene_seq){
 
-  #mutated_gene_seq <- df_list
-  #geneName = 'YAL012W'
-  
+  #mutated_gene_seq <- df_list_filter
+  #geneName = 'YCL018W'
+  df_list <- mutated_gene_seq
   gene_snp <- getGeneCoordinate(gene_name = geneName, genesum = gene_feature_GEM)
   tt <- rep(0,length(gene_snp[['protein']]))
   for (i in seq(length(mutated_gene_seq))){
-    
-    tt <- tt + findPPosition0(df_list[[i]],geneName)
+    if(length(gene_snp[['gene']]) != length(df_list[[i]])) {
+      tt <- tt + rep(0,length(gene_snp[['protein']]))
+       }
+    ##to avoide the insertion or deletion in the seq
+    else{
+      tt <- tt + findPPosition0(df_list[[i]],geneName)
+      }
   }
   
   return(tt)
@@ -221,69 +229,144 @@ getPvalue <- function(wap_initial, wap_sampling) {
 #plot(g, edge.arrow.size=.4)
 #closeness.residual(g)
 
-#this function is used to conduct the hotspot analysis for each PDB structure
-hotSpotAnalysis <- function(pos_mutation_t,
-                            sample_standard,
-                            distance,
-                            pos_initial) {
-  #input:
-  #pos_mutation_t  a vector contains the mutation position of PDB structure
-  #sample_standard  a vector contains the standard mutated sample in each postion
-  #distance    a matrix contains the dstance between each paired amino acid
-  #pos_initial  a vector contains the postion of each residue (coordinate) in the PDB structure
+
+#part 2 function related to hot spot analysis
+# this function is used to establish the relation between the mutated amino acid and related position
+PositionResidue <- function(alted_seq, geneName) {
+  #alted_seq <- df_list[[6]]
+  #geneName <- "YAL012W"
+  gene_snp <- getGeneCoordinate(gene_name = geneName, genesum = gene_feature_GEM)
+  gene_snp[["gene"]] <- alted_seq
+  
+  # translation
+  library(seqinr)
+  realcds <- str_to_lower(paste(gene_snp[["gene"]], collapse = ""))
+  toycds <- s2c(realcds)
+  gene_snp[["protein_mutated"]] <- translate(seq = toycds)
+  
+  # find the relative postion of mutated amino acids
+  aa_position <- which(gene_snp[["protein"]] != gene_snp[["protein_mutated"]])
+  aa_type <- gene_snp[["protein_mutated"]][aa_position]
+  
+  # built the relation between aa_position and aa_type
+  # aa_postion and aa_type should contain one element
+  mutatedAA <- paste(aa_type, aa_position, sep = "@@") # this estabolish the relation between the postion and mutated amino acids
+  return(mutatedAA)
+}
+
+
+#this function is used to put the residue from the same postion together
+ResidueSum <- function(pos_residue) {
+  pos_residue <- unlist(pos_residue)
+  pos_residue_df <- data.frame(pos_aa = pos_residue, pos_aa1 = pos_residue, stringsAsFactors = FALSE)
+  pos_residue_df <- pos_residue_df %>% separate(., pos_aa1, into = c("residue", "position"), sep = "@@")
+  
+  pos_residue_df0 <- data.frame(pos = unique(pos_residue_df$position), stringsAsFactors = FALSE)
+  pos_residue_df0$residue <- getMultipleReactionFormula(pos_residue_df$pos_aa, pos_residue_df$position, pos_residue_df0$pos)
+  pos_residue_df0$pos <- as.numeric(pos_residue_df0$pos)
+  
+  return(pos_residue_df0)
+}
+
+
+#this function is from hongR
+splitAndCombine <- function(gene, rxn,sep0) { ##one rxn has several genes, this function was used to splite the genes
+  
+  gene <- str_split(gene, sep0)
+  tt<- length(gene)
+  gene0 <- list()
+  for (i in 1:tt){
+    gene0[[i]] <- paste(rxn[i], gene[[i]], sep = "@@@")
+    
+  }
+  
+  gene1 <- unique(unlist(gene0)) # the duplicated element is not deleted
+  gene2 <- str_split(gene1, "@@@" )
+  rxnGene <- data.frame(v1=character(length(gene2)),stringsAsFactors = FALSE)
+  tt1 <- length(gene2)
+  for (j in 1:tt1){
+    rxnGene$v1[j] <- gene2[[j]][2]
+    rxnGene$v2[j] <- gene2[[j]][1]
+  }
+  
+  return(rxnGene)
+}
+
+#this function is used to get the vertices
+getHotVertice <- function(aa_3d, residue0, aa_pro, distance0 = ResidueDistance_1n8p) {
+  #input
+  #aa_3d  a vector for the coordinate of PDB structure
+  #residue  a vector for the muated residue information of the stucture
+  #aa_pro a vector for the original coordinate of protein aa sequence
+  #ditance  a matrix for the distance of the paired residue of pdb structure
   
   #output
-  #a dataframe contains the targeted clustered mutated position, the closess of each cluster and p-value of each cluster
+  #dataframe contains the inforation of the mutated residues
   
-
-  # calculate the residue distance between all pair (how many amino acids separate the pair)
-  all_pair <- combn(pos_mutation_t, 2)
+  # establish the structure coordinate and all the residues
+  pos_residue_3d <- data.frame(pos = aa_3d, residue = residue0, stringsAsFactors = FALSE)
+  pos_residue_3d <- splitAndCombine(pos_residue_3d$residue, pos_residue_3d$pos, sep0 = "\\;")
+  colnames(pos_residue_3d) <- c("residue", "pos_3d")
+  pos_residue_3d <- pos_residue_3d[which(pos_residue_3d$residue != "NA"), ]
+  # replace the protein aa coordinate into the structure coordinate
+  pos_residue_3d <- pos_residue_3d %>% separate(., residue, into = c("residue", "pos_pro"))
+  pos_residue_3d$residue <- paste(pos_residue_3d$residue, pos_residue_3d$pos_3d, sep = "@@")
+  all_pair <- combn(pos_residue_3d$residue, 2)
+  all_pair0 <- as.data.frame(t(all_pair))
+  
+  # choose the cluste based on p value, Distance between two pair and sperated residues(>20)
+  all_pair1 <- all_pair0 %>%
+    separate(., V1, into = c("residue", "c1"), sep = "@@") %>%
+    separate(., V2, into = c("residue2", "c2"), sep = "@@")
+  all_pair1[1:10, ]
+  all_pair1$c1 <- as.numeric(all_pair1$c1)
+  all_pair1$c2 <- as.numeric(all_pair1$c2)
+  
   all_pair_distance <- vector()
-  all_pair_list <- vector()
-  aa_distance <- vector()
-  for (i in 1:ncol(all_pair)) {
-    s1 <- all_pair[, i]
-    d0 <- distance[s1[1], s1[2]]
-    all_pair_distance[i] <- d0
-    all_pair_list[i] <- paste(s1[1], s1[2], sep = "@")
-    aa_distance[i] <- abs(s1[1] - s1[2])
+  for (i in seq_along(all_pair1$residue)) {
+    all_pair_distance[i] <- distance0[all_pair1$c1[i], all_pair1$c2[i]]
   }
   
   # calculate the distance between all pair (how many amino acids separate the pair)
+  pos_initial <- 1:length(aa_pro)
   all_distance <- vector()
   all_pair_ini <- combn(pos_initial, 2)
   for (i in 1:ncol(all_pair_ini)) {
     s1 <- all_pair_ini[, i]
-    d0 <- distance[s1[1], s1[2]]
+    d0 <- distance0[s1[1], s1[2]]
     all_distance[i] <- d0
   }
   
+  # first filter based on aa_distance and space distance
+  all_pair0$aa_distance <- abs(all_pair1$c1 - all_pair1$c2)
+  all_pair0$distance <- all_pair_distance
+  all_pair2 <- all_pair0[which((all_pair0$aa_distance > 20 & all_pair0$distance <= 10) | all_pair0$aa_distance == 0), ]
   
   # calculate the P value for each pair of amino acids based on the distance
-  pvalue_pair <- vector()
-  for (i in seq_along(all_pair_distance)) {
-    distance0 <- all_pair_distance[i]
-    pvalue_pair[i] <- length(which(all_distance <= distance0)) / length(all_distance)
+  for (i in seq_along(all_pair2$distance)) {
+    distance0 <- all_pair2$distance[i]
+    all_pair2$pvalue_pair[i] <- length(which(all_distance <= distance0)) / length(all_distance)
   }
   
-  # choose the cluste based on p value, Distance between two pair and sperated residues(>20)
-  target_pair <- vector()
-  index00 <- which(all_pair_distance <= 10 & pvalue_pair <= 0.05 & aa_distance >= 20)
-  target_pair <- all_pair_list[index00]
-  target_pair_distance <- all_pair_distance[index00]
+  all_pair3 <- all_pair2[which(all_pair2$pvalue_pair < 0.05), ]
+  return(all_pair3)
+}
+
+
+#this function is used to obtain the cluster analysis results
+clusterAnalysis <- function(residueInf) {
+  #input
+  #residueInf  dataframe contains the detailed information about the residue
   
-  # change the pair into the link relation
-  target_pair0 <- str_split(target_pair, "@")
-  links <- data_frame(from = vector(length = length(target_pair0)), to = vector(length = length(target_pair0)), weight = target_pair_distance)
-  for (i in seq_along(target_pair0)) {
-    links$from[i] <- target_pair0[[i]][1]
-    links$to[i] <- target_pair0[[i]][2]
-    links$weight[i] <- target_pair_distance[i]
-  }
+  #output
+  # a dataframe contains the cluster information
   
+  # obtain the clusters
+  links <- data_frame(from = residueInf$V1, to = residueInf$V2, weight = residueInf$distance)
   g <- graph_from_data_frame(d = links, directed = FALSE)
   plot(g)
-  
+  # library(networkD3)
+  # simpleNetwork(links, fontSize = 18, opacity = 1, zoom = TRUE,fontFamily = "sans-serif")
   # split the graph into subgraph and get the unique cluster
   # calculate the closeness centrality for each clust
   dg <- decompose.graph(g)
@@ -291,9 +374,10 @@ hotSpotAnalysis <- function(pos_mutation_t,
   position_combine <- vector()
   for (i in seq_along(dg)) {
     clust2 <- dg[[i]][1]
-    detail_mutant_position0[[i]] <- as.integer(names(clust2))
-    position_combine[i] <- paste0(as.integer(names(clust2)), collapse = ";")
+    detail_mutant_position0[[i]] <- names(clust2)
+    position_combine[i] <- paste0(names(clust2), collapse = ";")
   }
+  
   
   closeness0 <- list()
   cluster_closeness <- vector()
@@ -302,36 +386,50 @@ hotSpotAnalysis <- function(pos_mutation_t,
     closeness0[[i]] <- closeness.residual(dg[[i]])
     cluster_closeness[i] <- sum(closeness.residual(dg[[i]]))
   }
+  spotSummary <- data_frame(cluster = position_combine, closeness = cluster_closeness)
+  return(spotSummary)
+}
+
+
+#this function is used to calculate p value for each clust
+getHotPvalue <- function(cluster0, sample_standard, distance, seq) {
+  #cluster0 <- important_hot$cluster
+  #input
+  # cluster0    a vector contains the detailed mutation postion information for each cluster
+  # sample_standard   a vector contains the standard number of mutated residue in each position
+  # ditance a matrix contains the ditance for each paired residue
+  # seq   a vector contains the coordinate information of each amino acid
+  #output
+  # a vector contains the calculated pvalue for each cluster
   
   
-  # calculate the pvalue for each clust
+  # obtain the detaile postion for each cluster
+  cluster1 <- str_split(cluster0, ";")
+  str_replace_all("X@@75", "[:alpha:]@@", "")
+  for (i in seq_along(cluster1)) {
+    cluster1[[i]] <- str_replace_all(cluster1[[i]], "[:alpha:]@@", "")
+  }
+  
+  for (i in seq_along(cluster1)) {
+    cluster1[[i]] <- unique(as.numeric(cluster1[[i]]))
+  }
+  
+  
+  # calculate the p_value
   pvalue <- vector()
-  for (i in seq_along(detail_mutant_position0)) {
-    if (length(detail_mutant_position0[[i]]) >= 2) {
-      pos_mutation_t0 <- detail_mutant_position0[[i]]
+  for (i in seq_along(cluster1)) {
+    if (length(cluster1[[i]]) >= 2) {
+      pos_mutation_t0 <- cluster1[[i]]
       wap_original <- getTotalWAP(pos_mutation_t0, sample_standard, distance)
-      wap_sample0 <- getSampleWAP(pos_mutation_t0, sample_standard, distance, seq = pos_initial, n = 10000)
+      wap_sample0 <- getSampleWAP(pos_mutation_t0, sample_standard, distance, seq, n = 10000)
       pvalue[i] <- getPvalue(wap_original, wap_sample0)
     } else {
       pvalue[i] <- 1
     }
   }
   
-  # summarize the result
-  spotSummary <- data_frame(cluster = position_combine, closeness = cluster_closeness, p_value = pvalue)
-  
-  return(spotSummary)
+  return(pvalue)
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
