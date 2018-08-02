@@ -56,11 +56,6 @@ sample_standard1 <- sampleStand(count_mutation_3D)
 
 #step 3 hot spot analysis
 #this main function will be divided into different parts for easy understanding
-Strain_hotspot <- hotSpotAnalysis(pos_mutation_t = pos_mutation_c,
-                sample_standard = sample_standard1,
-                distance = ResidueDistance_1n8p,
-                pos_initial = seq0
-                )
 
 # with the protein coordinate-mutated amino acid
 pos_residue1 <- list()
@@ -87,5 +82,7 @@ important_hot$pvalue <- getHotPvalue(cluster0 = important_hot$cluster,
                                      sample_standard = sample_standard1, 
                                      distance=ResidueDistance_1n8p, 
                                      seq = seq0)
+
+
 
 

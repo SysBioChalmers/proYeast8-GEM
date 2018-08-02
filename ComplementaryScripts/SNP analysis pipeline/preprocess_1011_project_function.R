@@ -383,7 +383,9 @@ clusterAnalysis <- function(residueInf) {
   cluster_closeness <- vector()
   dg <- decompose.graph(g)
   for (i in seq_along(dg)) {
-    closeness0[[i]] <- closeness.residual(dg[[i]])
+    ##weights represent the distance between the node, has been contained in dg, E(dg).weight could be
+    ##used to check the weiht information in each subgraph
+    closeness0[[i]] <- closeness.residual(dg[[i]]) 
     cluster_closeness[i] <- sum(closeness.residual(dg[[i]]))
   }
   spotSummary <- data_frame(cluster = position_combine, closeness = cluster_closeness)
