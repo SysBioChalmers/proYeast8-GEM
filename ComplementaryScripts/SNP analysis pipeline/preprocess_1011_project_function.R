@@ -8,6 +8,7 @@ library(hongR)
 #biocLite("Biostrings")
 library(centiserve) #this package is used to calculate the closeness centrality
 library(igraph)#form the unique clust based on Floyd-Warshall shortest-paths algorithm
+library(seqinr)
 
 #this function is used to filter the whole sample
 filterMetabolicGene <- function() {
@@ -88,12 +89,74 @@ filterMutationStrainType <- function(gene_test, strain_select) {
 }
 
 
+#---------------version 1
+#the followed two function  were used to estimate the mutation information based on input DNA fasta file
 findPPosition0 <- function(alted_seq, geneName){
   #this function is used to find the postion of mutated amino acids based on genomics mutation
-  #alted_seq <- gene1_s0
+  #alted_seq <- df_list[[1]]
   #geneName <- 'YAL012W'
   gene_snp <- getGeneCoordinate(gene_name = geneName, genesum = gene_feature_GEM)
   gene_snp[['gene']] <- alted_seq
+  
+  #translation
+  #using package seqinr
+  realcds <- str_to_lower(paste(gene_snp[['gene']],collapse = ""))
+  toycds <- s2c(realcds)
+  gene_snp[['protein_mutated']] <- translate(seq = toycds)
+  
+  #find the relative postion of mutated amino acids
+  aa_position <- which(gene_snp[['protein']] != gene_snp[['protein_mutated']] )
+  
+  #calculate the mutation number in the mutated postion (for specific strain -x)
+  gene_snp[['mutation_position']] <- rep(0,length(gene_snp[['protein']])) #initialize the start value for each positions
+  gene_snp[['mutation_position']][aa_position] <- 1
+  result <- unlist(gene_snp[['mutation_position']])
+  return(result)
+}
+#function to obtain the mutation of amino acids residue in the 3d structure based on sequence blast anlysis
+#but it can be very dangeous using this method, as the insertion or deletion could lead to many mutation in a seq
+countMutationProtein0 <- function (geneName, mutated_gene_seq){
+
+  #mutated_gene_seq <- df_list
+  #geneName = 'YAL012W'
+  df_list <- mutated_gene_seq
+  gene_snp <- getGeneCoordinate(gene_name = geneName, genesum = gene_feature_GEM)
+  tt <- rep(0,length(gene_snp[['protein']]))
+  for (i in seq(length(mutated_gene_seq))){
+    if(length(gene_snp[['gene']]) != length(df_list[[i]])) {
+      tt <- tt + rep(0,length(gene_snp[['protein']]))
+       }
+    ##to avoide the insertion or deletion in the seq
+    else{
+      tt <- tt + findPPosition0(df_list[[i]],geneName)
+      }
+  }
+  
+  return(tt)
+}
+
+#----------------vesion 2 
+#the followed two function  were used to estimate the mutation information based on single SNP information
+#using function to obtain the each gene's mutation information based on the processed mutation data
+#These function is used to obtain the count of mutation on portein level
+countMutationProtein <- function (gene_name, mutation_annotation=mutated_gene1){
+  #this function could produce the all the results about mutated amino acids information
+  #gene_name <- "YDL205C"
+  mutated_gene0 <- filter(mutation_annotation, Gene2==gene_name)
+  tt <- rep(0,length(gene_snp[['protein']]))
+  for (i in seq(length(mutated_gene0$Gene2))){
+    tt <- tt + findPPosition(mutated_gene0$Pos[i],mutated_gene0$Alt[i],gene_name)
+  }
+  
+  return(tt)
+}
+findPPosition <- function(mutatedPosition, alted, geneName){
+  #this function is used to find the postion of mutated amino acids based on genomics mutation
+  #mutatedPosition = 93192
+  #alted ='A'
+  mutation_position <- which(gene_snp[['gene_coordinate']]==mutatedPosition)
+  gene_snp <- getGeneCoordinate(gene_name = geneName, genesum = gene_feature_GEM)
+  gene_snp[['gene']][mutation_position] <- alted
   
   #translation
   library(seqinr)
@@ -112,26 +175,21 @@ findPPosition0 <- function(alted_seq, geneName){
 }
 
 
-#function to obtain the mutation of amino acids residue in the 3d structure based on sequence blast anlysis
-#but it can be very dangeous using this method, as the insertion or deletion could lead to many mutation in a seq
-countMutationProtein0 <- function (geneName, mutated_gene_seq){
-
-  #mutated_gene_seq <- df_list_filter
-  #geneName = 'YCL018W'
-  df_list <- mutated_gene_seq
-  gene_snp <- getGeneCoordinate(gene_name = geneName, genesum = gene_feature_GEM)
-  tt <- rep(0,length(gene_snp[['protein']]))
-  for (i in seq(length(mutated_gene_seq))){
-    if(length(gene_snp[['gene']]) != length(df_list[[i]])) {
-      tt <- tt + rep(0,length(gene_snp[['protein']]))
-       }
-    ##to avoide the insertion or deletion in the seq
-    else{
-      tt <- tt + findPPosition0(df_list[[i]],geneName)
-      }
+#if the cds from the minus strand, then the functin changeATCG should be used to firstly 
+#get the mutation information on the minus strand based on that from the positive strand
+changeATCG <- function (ss){
+  # this function was used to get the mutation information from the minus strand based on the mutation information
+  # on the positive strand
+  if (ss =="A"){
+    ss <- "T"
+  } else if(ss=="C"){
+    ss <- "G"
+  } else if(ss=="T"){
+    ss <-"A"
+  } else if(ss=="G"){
+    ss <-"C"
   }
-  
-  return(tt)
+  return(ss)
 }
 
 
@@ -231,7 +289,8 @@ getPvalue <- function(wap_initial, wap_sampling) {
 
 
 #part 2 function related to hot spot analysis
-# this function is used to establish the relation between the mutated amino acid and related position
+#this function return the mutated informaiton based on genomics fasta information
+#this function is used to establish the relation between the mutated amino acid and related position
 PositionResidue <- function(alted_seq, geneName) {
   #alted_seq <- df_list[[6]]
   #geneName <- "YAL012W"
@@ -240,6 +299,33 @@ PositionResidue <- function(alted_seq, geneName) {
   
   # translation
   library(seqinr)
+  realcds <- str_to_lower(paste(gene_snp[["gene"]], collapse = ""))
+  toycds <- s2c(realcds)
+  gene_snp[["protein_mutated"]] <- translate(seq = toycds)
+  
+  # find the relative postion of mutated amino acids
+  aa_position <- which(gene_snp[["protein"]] != gene_snp[["protein_mutated"]])
+  aa_type <- gene_snp[["protein_mutated"]][aa_position]
+  
+  # built the relation between aa_position and aa_type
+  # aa_postion and aa_type should contain one element
+  mutatedAA <- paste(aa_type, aa_position, sep = "@@") # this estabolish the relation between the postion and mutated amino acids
+  return(mutatedAA)
+}
+
+
+#this function return the mutated informaiton based on simple SNP information: mutated position and changed amino acids
+PositionResidue0 <- function(mutatedPosition, alted, geneName) {
+  #mutatedPosition = 130975
+  #alted ='A'
+  #geneName = "YAL012W"
+  gene_snp <- getGeneCoordinate(gene_name = geneName, genesum = gene_feature_GEM)
+  mutation_position <- which(gene_snp[['gene_coordinate']]==mutatedPosition)
+  
+  gene_snp[['gene']][mutation_position] <- alted
+  
+  # translation
+  #library(seqinr)
   realcds <- str_to_lower(paste(gene_snp[["gene"]], collapse = ""))
   toycds <- s2c(realcds)
   gene_snp[["protein_mutated"]] <- translate(seq = toycds)
