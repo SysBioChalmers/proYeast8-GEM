@@ -82,7 +82,7 @@ getGeneCoordinate <- function(gene_name, genesum = gene_feature_GEM ){
 }
 
 
-
+#test of this function
 for (i in 1:1226) {
   print(gene_feature_GEM$locus_tag[i])
   print(getGeneCoordinate(gene_feature_GEM$locus_tag[i]))
