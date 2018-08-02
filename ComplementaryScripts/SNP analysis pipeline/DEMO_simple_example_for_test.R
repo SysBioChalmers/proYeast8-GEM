@@ -188,3 +188,11 @@ closeness.residual(g, weights = weight0)
 sp <- shortest.paths(g, v = V(g), weights = weight0)
 sp[1,]
 1+1/(2^10)+1/(2^2)
+
+
+###change DNA into protein
+?translate
+toycds <- s2c("tctgagcaaataaatcgg")
+translate(seq = toycds) # should be c("S", "E", "Q", "I", "N", "R")
+
+

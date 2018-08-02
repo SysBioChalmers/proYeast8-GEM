@@ -11,24 +11,6 @@ library(tidyverse)
 library(stringr)
 library(readxl)
 
-#common function
-getSingleReactionFormula <- function(description, reaction_ko, ko) {###description can be any charater of metabolite
-  index <- vector()
-  result <- vector()
-  tt <- vector()
-  for (i in 1:length(ko)){
-    if(length(match(ko[i],reaction_ko))){
-      index <- match(ko[i],reaction_ko)
-      tt <- description[index]
-      result[i] <- paste0(tt, collapse = ";")
-    } else{
-      
-      result[i] <- NA
-    }
-  }
-  return(result)
-}
-
 #get the gene name
 #try to calculate the mutation on the amino acids based on the coordination on the chromosome
 mutated_test <- read_excel("data/snp_adaption_to_high_ethanol.XLS")

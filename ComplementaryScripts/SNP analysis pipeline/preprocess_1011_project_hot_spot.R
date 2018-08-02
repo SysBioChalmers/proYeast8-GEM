@@ -1,6 +1,10 @@
-#step 1 fasta file preparation
-#calculation of the mutated residue in each position
+#----------------note
+#this main script is used to handle with the gene mutation from fasta file, not from SNP information
+#it should be careful for the insertion or deletion happened in the genes, in which there existed frameshift mutation
 
+
+
+#step 1 fasta file preparation
 #choose the metabolic gene file
 filterMetabolicGene() # a target gene file will occured after this file
 

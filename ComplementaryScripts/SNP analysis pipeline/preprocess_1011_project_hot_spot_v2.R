@@ -1,10 +1,18 @@
-#in this project, a fasta file could contained different strains, so we need a function to refine each fasta file
-#so that this file just contained the strain or mutation we are interested
+#----------------note
+#this main script is used to handle with the gene mutation only from SNP information
+#in this process, the gene with SNP will be translated into protein, based on which
+#the SNP could be classified into nsSNP and sSNP
+#Only nsSNP is used to mapping onto protein 3D structure
+
+source('genomics annotation summary.R')
+source('getGeneCoordinate.R')
+source('preprocess_1011_project_function.R')
+
+
+#step0 choose samples that need to be analyzed
 strain_classification <- read_excel("data/strain_classification.xls")
 unique(strain_classification$Clades)
 
-#then the filter can be used for each dataframe to obtain the strains we need
-#choose the strain in the clades of bioethanol
 strain_select1 <- filter(strain_classification, str_detect(strain_classification$Clades,"Wine")) %>%
   select(.,Standardized_name)
 
@@ -14,24 +22,7 @@ strain_select1 <- filter(strain_classification, str_detect(strain_classification
 # step 1 
 #preprocess the SNP information
 ss <- "YAL012W"
-infile <- paste("data/",ss, sep = "")
-
-mutated_test <- read.table(infile, header = FALSE, sep = '\t', stringsAsFactors = FALSE)
-colnames(mutated_test) <- c('strain','Gene2','Chr','Pos','Ref','Alt')
-
-mutated_test$complement_sign <- getSingleReactionFormula(gene_feature_GEM$complement_sign,gene_feature_GEM$locus_tag,mutated_test$Gene2)
-
-mutated_gene1 <- mutated_test
-for (i in seq(length(mutated_gene1$Chr))){
-  if(mutated_gene1$complement_sign[i]){
-    mutated_gene1$Ref[i] <- changeATCG(mutated_gene1$Ref[i])
-    mutated_gene1$Alt[i] <- changeATCG(mutated_gene1$Alt[i])
-    
-  } else{
-    mutated_gene1$Ref[i] <- mutated_gene1$Ref[i]
-    mutated_gene1$Alt[i] <- mutated_gene1$Alt[i]
-  }
-}
+mutated_gene1 <- preprocessSNP(ss)
 
 
 gene_snp <- getGeneCoordinate(gene_name = ss, genesum = gene_feature_GEM)
@@ -67,7 +58,7 @@ sample_standard1 <- sampleStand(count_mutation_3D)
 #this main function will be divided into different parts for easy understanding
 pos_residue1 <- list()
 for (i in seq_along(mutated_gene1$strain)){
-  pos_residue1[[i]] <- PositionResidue0(mutated_gene1$Pos[i],mutated_gene1$Alt[i], ss)
+  pos_residue1[[i]] <- PositionResidueSNP(mutated_gene1$Pos[i],mutated_gene1$Alt[i], ss)
 }
 
 

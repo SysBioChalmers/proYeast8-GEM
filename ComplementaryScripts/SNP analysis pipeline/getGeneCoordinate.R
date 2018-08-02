@@ -1,4 +1,5 @@
-#the function is used to obtain a list which contains the coordinate information of each 
+#the function is used to obtain a list which contains the coordinate information of each gene
+#here we firstly on metabolic gene from GEM model
 # A T C G 
 library(stringr)
 library(tidyverse)
@@ -81,12 +82,11 @@ getGeneCoordinate <- function(gene_name, genesum = gene_feature_GEM ){
 
 }
 
-
 #test of this function
-for (i in 1:1226) {
-  print(gene_feature_GEM$locus_tag[i])
-  print(getGeneCoordinate(gene_feature_GEM$locus_tag[i]))
-}
+#for (i in 1:1226) {
+#  print(gene_feature_GEM$locus_tag[i])
+#  print(getGeneCoordinate(gene_feature_GEM$locus_tag[i]))
+#}
 
 
 

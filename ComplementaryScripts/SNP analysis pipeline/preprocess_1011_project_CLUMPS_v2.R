@@ -1,13 +1,19 @@
-#step 1 fasta file preparation
-#calculation of the mutated residue in each position
+#----------------note
+#this main script is used to handle with the gene mutation only from SNP information
+#in this process, the gene with SNP will be translated into protein, based on which
+#the SNP could be classified into nsSNP and sSNP
+#Only nsSNP is used to mapping onto protein 3D structure
+source('genomics annotation summary.R')
+source('getGeneCoordinate.R')
+source('preprocess_1011_project_function.R')
 
-#choose the metabolic gene file
-filterMetabolicGene() # a target gene file will occured after this file
 
-#in this project, a fasta file could contained different strains, so we need a function to refine each fasta file
-#so that this file just contained the strain or mutation we are interested
+#step0 choose samples that need to be analyzed
 strain_classification <- read_excel("data/strain_classification.xls")
 unique(strain_classification$Clades)
+
+strain_select1 <- filter(strain_classification, str_detect(strain_classification$Clades,"Wine")) %>%
+  select(.,Standardized_name)
 
 
 #------------new version----------------------------------------------------------
@@ -15,26 +21,8 @@ unique(strain_classification$Clades)
 # step 1 
 #preprocess the SNP information
 ss <- "YAL012W"
-infile <- paste("data/",ss, sep = "")
+mutated_gene1 <- preprocessSNP(ss)
 
-mutated_test <- read.table(infile, header = FALSE, sep = '\t', stringsAsFactors = FALSE)
-colnames(mutated_test) <- c('strain','Gene2','Chr','Pos','Ref','Alt')
-mutated_test$complement_sign <- getSingleReactionFormula(gene_feature_GEM$complement_sign,gene_feature_GEM$locus_tag,mutated_test$Gene2)
-mutated_gene1 <- mutated_test
-for (i in seq(length(mutated_gene1$Chr))){
-  if(mutated_gene1$complement_sign[i]){
-    mutated_gene1$Ref[i] <- changeATCG(mutated_gene1$Ref[i])
-    mutated_gene1$Alt[i] <- changeATCG(mutated_gene1$Alt[i])
-    
-  } else{
-    mutated_gene1$Ref[i] <- mutated_gene1$Ref[i]
-    mutated_gene1$Alt[i] <- mutated_gene1$Alt[i]
-  }
-}
-
-
-
-ss = "YAL012W"
 gene_snp <- getGeneCoordinate(gene_name = ss, genesum = gene_feature_GEM)
 gene_snp[['pro_mutation_count']] <- countMutationProtein(gene_name = ss, mutation_annotation=mutated_gene1)
 pos_mutation <- which(gene_snp[['pro_mutation_count']] != 0)

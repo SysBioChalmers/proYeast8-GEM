@@ -10,7 +10,8 @@ library(centiserve) #this package is used to calculate the closeness centrality
 library(igraph)#form the unique clust based on Floyd-Warshall shortest-paths algorithm
 library(seqinr)
 
-#this function is used to filter the whole sample
+
+#this function is used to filter fasta file of genes which belong to metabolic
 filterMetabolicGene <- function() {
   geneName0 <- list.files("1011_project")
   geneMetabolic <- paste(str_trim(gene_feature_GEM$locus_tag, side = "both"), ".fasta", sep = "")
@@ -23,6 +24,8 @@ filterMetabolicGene <- function() {
     file.copy(file0, "target_gene")
   }
 }
+
+
 
 #this function is used to just preprocess the fasta file without filteration
 processFasta <- function(gene_test) {
@@ -43,6 +46,8 @@ processFasta <- function(gene_test) {
   
   return(df_list)
 }
+
+
 
 #this function is used to choose the gene based on strain phenotype information
 filterMutationStrainType <- function(gene_test, strain_select) {
@@ -89,6 +94,33 @@ filterMutationStrainType <- function(gene_test, strain_select) {
 }
 
 
+#this function is used to proprocess all the snp for one gene belong to a sample set
+#it should be noted that if the gene belong to minus strand, changeATCG function will be used
+preprocessSNP <- function(gene0) {
+  # inut a gene name,
+  # then the function will read all the SNP information for this gene
+  # output
+  # a dataframe contains each SNP information which including:
+  # chrosome, geneName, ref, alf and completment sign
+  infile <- paste("data/", gene0, sep = "")
+  mutated_test <- read.table(infile, header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+  colnames(mutated_test) <- c("strain", "Gene2", "Chr", "Pos", "Ref", "Alt")
+  mutated_test$complement_sign <- getSingleReactionFormula(gene_feature_GEM$complement_sign, gene_feature_GEM$locus_tag, mutated_test$Gene2)
+  mutated_gene0 <- mutated_test
+  for (i in seq(length(mutated_gene0$Chr))) {
+    if (mutated_gene0$complement_sign[i]) {
+      mutated_gene0$Ref[i] <- changeATCG(mutated_gene0$Ref[i])
+      mutated_gene0$Alt[i] <- changeATCG(mutated_gene0$Alt[i])
+    } else {
+      mutated_gene0$Ref[i] <- mutated_gene0$Ref[i]
+      mutated_gene0$Alt[i] <- mutated_gene0$Alt[i]
+    }
+  }
+  
+  return(mutated_gene0)
+}
+
+
 #---------------version 1
 #the followed two function  were used to estimate the mutation information based on input DNA fasta file
 findPPosition0 <- function(alted_seq, geneName){
@@ -113,6 +145,7 @@ findPPosition0 <- function(alted_seq, geneName){
   result <- unlist(gene_snp[['mutation_position']])
   return(result)
 }
+
 #function to obtain the mutation of amino acids residue in the 3d structure based on sequence blast anlysis
 #but it can be very dangeous using this method, as the insertion or deletion could lead to many mutation in a seq
 countMutationProtein0 <- function (geneName, mutated_gene_seq){
@@ -137,8 +170,8 @@ countMutationProtein0 <- function (geneName, mutated_gene_seq){
 
 #----------------vesion 2 
 #the followed two function  were used to estimate the mutation information based on single SNP information
+
 #using function to obtain the each gene's mutation information based on the processed mutation data
-#These function is used to obtain the count of mutation on portein level
 countMutationProtein <- function (gene_name, mutation_annotation=mutated_gene1){
   #this function could produce the all the results about mutated amino acids information
   #gene_name <- "YDL205C"
@@ -150,6 +183,7 @@ countMutationProtein <- function (gene_name, mutation_annotation=mutated_gene1){
   
   return(tt)
 }
+
 findPPosition <- function(mutatedPosition, alted, geneName){
   #this function is used to find the postion of mutated amino acids based on genomics mutation
   #mutatedPosition = 93192
@@ -175,7 +209,9 @@ findPPosition <- function(mutatedPosition, alted, geneName){
 }
 
 
-#if the cds from the minus strand, then the functin changeATCG should be used to firstly 
+
+
+#changeATCG should be used to firstly,if the cds from the minus strand
 #get the mutation information on the minus strand based on that from the positive strand
 changeATCG <- function (ss){
   # this function was used to get the mutation information from the minus strand based on the mutation information
@@ -314,8 +350,8 @@ PositionResidue <- function(alted_seq, geneName) {
 }
 
 
-#this function return the mutated informaiton based on simple SNP information: mutated position and changed amino acids
-PositionResidue0 <- function(mutatedPosition, alted, geneName) {
+#this function return the mutated informaiton based on SNP information: mutated position and changed amino acids
+PositionResidueSNP <- function(mutatedPosition, alted, geneName) {
   #mutatedPosition = 130975
   #alted ='A'
   #geneName = "YAL012W"
