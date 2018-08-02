@@ -1,30 +1,22 @@
+# this script is showing how to analyze the data for the SNP data in the excel format
+# it is also base for hotspot and clumps analysis method
+# the SNP format is as followed:
+# Chr       pos      Ref       Alt
+# chr1      19971    C         T    
+# chr1      19972    T         C
+
+
+#library
 library(tidyverse)
 library(stringr)
 library(readxl)
-
-#common function
-getSingleReactionFormula <- function(description, reaction_ko, ko) {###description can be any charater of metabolite
-  index <- vector()
-  result <- vector()
-  tt <- vector()
-  for (i in 1:length(ko)){
-    if(length(match(ko[i],reaction_ko))){
-      index <- match(ko[i],reaction_ko)
-      tt <- description[index]
-      result[i] <- paste0(tt, collapse = ";")
-    } else{
-      
-      result[i] <- NA
-    }
-  }
-  return(result)
-}
 
 #get the gene name
 #try to calculate the mutation on the amino acids based on the coordination on the chromosome
 mutated_test <- read_excel("data/snp_adaption_to_high_ethanol.XLS")
 mutated_test$Chr <- str_trim(mutated_test$Chr, side = "both")
 mutated_test$Pos <- as.numeric(mutated_test$Pos)
+
 #function get the gene name based on the mutation position
 getGeneName <- function(chr,mutated_positions,gene_annotation = gene_feature0){
   #input:
@@ -69,23 +61,7 @@ mutated_gene$Alt <- str_trim(mutated_gene$Alt, side = "both")
 #mutated gene information preprocess
 #if mutation_position existed, get the mutated gene
 #input the mutated information of gene from different conditons or strains
-#if the cds from the minus strand, then the functin changeATCG should be used to firstly 
-#get the mutation information on the minus strand based on that from the positive strand
 
-changeATCG <- function (ss){
-  # this function was used to get the mutation information from the minus strand based on the mutation information
-  # on the positive strand
-  if (ss =="A"){
-    ss <- "T"
-  } else if(ss=="C"){
-    ss <- "G"
-  } else if(ss=="T"){
-    ss <-"A"
-  } else if(ss=="G"){
-    ss <-"C"
-  }
-  return(ss)
-}
 mutated_gene$complement_sign <- getSingleReactionFormula(gene_feature_GEM$complement_sign,gene_feature_GEM$locus_tag,mutated_gene$Gene2)
 mutated_gene1 <- mutated_gene
 
@@ -101,44 +77,6 @@ for (i in seq(length(mutated_gene1$Chr))){
 }
 
 
-#using function to obtain the each gene's mutation information based on the processed mutation data
-#These function is used to obtain the count of mutation on portein level
-countMutationProtein <- function (gene_name, mutation_annotation=mutated_gene1){
-  #this function could produce the all the results about mutated amino acids information
-  #gene_name <- "YDL205C"
-  mutated_gene0 <- filter(mutation_annotation, Gene2==gene_name)
-  tt <- rep(0,length(gene_snp[['protein']]))
-  for (i in seq(length(mutated_gene0$Gene2))){
-    tt <- tt + findPPosition(mutated_gene0$Pos[i],mutated_gene0$Alt[i],gene_name)
-  }
- 
-  return(tt)
-}
-
-
-findPPosition <- function(mutatedPosition, alted, geneName){
-  #this function is used to find the postion of mutated amino acids based on genomics mutation
-  #mutatedPosition = 93192
-  #alted ='A'
-  mutation_position <- which(gene_snp[['gene_coordinate']]==mutatedPosition)
-  gene_snp <- getGeneCoordinate(gene_name = geneName, genesum = gene_feature_GEM)
-  gene_snp[['gene']][mutation_position] <- alted
-
-  #translation
-  library(seqinr)
-  realcds <- str_to_lower(paste(gene_snp[['gene']],collapse = ""))
-  toycds <- s2c(realcds)
-  gene_snp[['protein_mutated']] <- translate(seq = toycds)
-
-  #find the relative postion of mutated amino acids
-  aa_position <- which(gene_snp[['protein']] != gene_snp[['protein_mutated']] )
-
-  #calculate the mutation number in the mutated postion (for specific strain -x)
-  gene_snp[['mutation_position']] <- rep(0,length(gene_snp[['protein']])) #initialize the start value for each positions
-  gene_snp[['mutation_position']][aa_position] <- 1
-  result <- unlist(gene_snp[['mutation_position']])
-  return(result)
-}
 
 
 

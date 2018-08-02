@@ -1,3 +1,6 @@
+#this script was used to parse the genome annotation of s288c
+#the result of this script is the base for all other analysis and should be run firstly
+
 library(tidyverse)
 library(stringr)
 
@@ -40,7 +43,6 @@ gene_feature0$locus_tag <- str_replace_all(gene_feature0$locus_tag, "locus_tag="
   str_trim(.,side = "both")
 
 gene_feature0$location <- str_replace_all(gene_feature0$location, "gene ","")
-
 
 
 #mRNA feature summary
@@ -199,3 +201,7 @@ gene_feature_GEM <- gene_feature0[index1,]
 
 ##evaluate the quality
 gene_feature_GEM$check <- ((as.numeric(gene_feature_GEM$cds_length))/3-1) == as.numeric(gene_feature_GEM$aa_length)
+gene_feature_GEM$complement_sign <- str_detect(gene_feature_GEM$cds_location,"complement")
+
+
+

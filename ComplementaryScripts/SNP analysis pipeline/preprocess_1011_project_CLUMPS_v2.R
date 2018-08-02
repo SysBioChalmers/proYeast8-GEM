@@ -1,40 +1,31 @@
 #----------------note
-#this main script is used to handle with the gene mutation from fasta file, not from SNP information
-#it should be careful for the insertion or deletion happened in the genes, in which there existed frameshift mutation
+#this main script is used to handle with the gene mutation only from SNP information
+#in this process, the gene with SNP will be translated into protein, based on which
+#the SNP could be classified into nsSNP and sSNP
+#Only nsSNP is used to mapping onto protein 3D structure
+source('genomics annotation summary.R')
+source('getGeneCoordinate.R')
+source('preprocess_1011_project_function.R')
 
 
-
-#step 1 fasta file preparation
-#choose the metabolic gene file
-filterMetabolicGene() # a target gene file will occured after this file
-
-#in this project, a fasta file could contained different strains, so we need a function to refine each fasta file
-#so that this file just contained the strain or mutation we are interested
+#step0 choose samples that need to be analyzed
 strain_classification <- read_excel("data/strain_classification.xls")
 unique(strain_classification$Clades)
 
-#run the analysis pipeline using an example
-#read each fasta file and change it into a dataframe
-
-#if no filter, we just preprocess the fasta file with all strain
-#obtain the sequence for the gene from each strain
-gene_test1 <- "YCL018W.fasta"#gene_test1 <- "YAL012W.fasta"
-df_list <- processFasta(gene_test = gene_test1) 
-
-
-#then the filter can be used for each dataframe to obtain the strains we need
-#choose the strain in the clades of bioethanol
 strain_select1 <- filter(strain_classification, str_detect(strain_classification$Clades,"Wine")) %>%
   select(.,Standardized_name)
 
-df_list_filter <- filterMutationStrainType(gene_test = gene_test1, strain_select = strain_select1)
 
+#------------new version----------------------------------------------------------
+#------------this version is used to preprocess data from 1011 project
+# step 1 
+#preprocess the SNP information
+ss <- "YAL012W"
+mutated_gene1 <- preprocessSNP(ss)
 
-#count the mutant number in each protein position
-ss <- str_replace_all(gene_test1, ".fasta","")
 gene_snp <- getGeneCoordinate(gene_name = ss, genesum = gene_feature_GEM)
-gene_snp[['pro_mutation_count']] <- countMutationProtein0(geneName  = ss, mutated_gene_seq = df_list_filter)
-
+gene_snp[['pro_mutation_count']] <- countMutationProtein(gene_name = ss, mutation_annotation=mutated_gene1)
+pos_mutation <- which(gene_snp[['pro_mutation_count']] != 0)
 
 
 #step 2 input the structure information
@@ -42,12 +33,12 @@ gene_snp[['pro_mutation_count']] <- countMutationProtein0(geneName  = ss, mutate
 # for 'YAL012W', the PDB structure id is 'https://www.rcsb.org/structure/1n8p'
 
 #input the distance of all the pired residues
-ResidueDistance_1n8p <- read_excel("data/ResidueDistance_YCL018W.xlsx",col_names = FALSE) #in the followed calculation, the matrix dosen't have the col and row names
+ResidueDistance_1n8p <- read_excel("data/ResidueDistance_YAL012W.xlsx",col_names = FALSE) #in the followed calculation, the matrix dosen't have the col and row names
 ResidueDistance_1n8p <- as.matrix(ResidueDistance_1n8p)
 
 #the amino acid sequence in structure is from 2:394 while  the original sequence is from 1:394
 #obtain the mutation information for the structure
-seq_from_3D <- 4:362#seq_from_3D <- 2:394 #"YAL012W.fasta"#this is the coordinated of original protein sequence and should changed into 3D structure coordinates
+seq_from_3D <- 2:394 #"YAL012W.fasta"#this is the coordinated of original protein sequence and should changed into 3D structure coordinates
 amino_acid_3D <- gene_snp[['protein']][seq_from_3D]
 count_mutation_3D <- gene_snp[['pro_mutation_count']][seq_from_3D]
 
@@ -73,6 +64,29 @@ wap_sample0 <- getSampleWAP(pos_mutation_c,sample_standard1,ResidueDistance_1n8p
 #analyze the result
 plotNullDistribution(wap_sample0)
 Strain_3D <- getPvalue(wap_original,wap_sample0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
