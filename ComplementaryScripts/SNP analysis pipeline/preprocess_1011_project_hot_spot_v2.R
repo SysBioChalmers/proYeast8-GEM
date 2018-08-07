@@ -27,7 +27,7 @@ mutated_gene1 <- preprocessSNP(ss)
 
 gene_snp <- getGeneCoordinate(gene_name = ss, genesum = gene_feature_GEM)
 gene_snp[['pro_mutation_count']] <- countMutationProtein(gene_name = ss, mutation_annotation=mutated_gene1)
-
+sum(gene_snp[['pro_mutation_count']])
 gene_snp[['pro_coordinate']] <- 1:length(gene_snp[['protein']])
 pos_mutation <- which(gene_snp[['pro_mutation_count']] != 0)
 
