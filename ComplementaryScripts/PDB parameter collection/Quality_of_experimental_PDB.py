@@ -45,28 +45,7 @@ def getChainInf(oneChain, pdbID):
     chainInf = [pdbID + '.' + oneChain.id, seq12, order12]
     return chainInf
 
-
-#example
-#input
-id = '6cp7'
-infile = '../data/pdb_ex_right_format/' + id + '.pdb'
-outfile = '../result/pdb_ex_seq/' + id
-fastaPDB = open(outfile, 'w')
-p = PDBParser()
-structure = p.get_structure(id, infile)
-chainID = []
-chainInf = []
-for model in structure :
-    for chain in model:
-        s = getChainInf(chain,id)
-        print(s)
-        s1 = '\n'.join(s[0:2])
-        chainID.append(s)
-        chainInf.append(s1)
-
-for item in chainInf:
-    fastaPDB.write("%s\n" % item)
-
+"""save the fasta information for each chain ID"""
 def saveFasta(id):
     '''
     :param id: pdb id
@@ -91,14 +70,39 @@ def saveFasta(id):
         fastaPDB.write("%s\n" % item)
 
 
+# example to display the residue sequence with coordinates
+# single input
+id = 'YOR270C'
+infile = '../data/' + id + '.pdb'
+outfile = '../result/' + id
+fastaPDB = open(outfile, 'w')
+p = PDBParser()
+structure = p.get_structure(id, infile)
+chainID = []
+chainInf = []
+for model in structure :
+    for chain in model:
+        s = getChainInf(chain,id)
+        print(s)
+        s1 = '\n'.join(s[0:2])
+        chainID.append(s)
+        chainInf.append(s1)
+
+for item in chainInf:
+    fastaPDB.write("%s\n" % item)
+fastaPDB.close()
+
+
+
 #batch process
+#this process could produce the residue (amino acids) sequence for all the experimental structures
 pdb_all = os.listdir('../data/pdb_ex_right_format')
 pdb_all = [x.replace('.pdb','') for i,x in enumerate(pdb_all)]
 
 for x in pdb_all:
     saveFasta(x)
 
-#merge all file
+#merge all files
 filenames = os.listdir('../result/pdb_ex_seq')
 
 with open('../result/pdb_ex_seq_summary', 'w') as outfile:
