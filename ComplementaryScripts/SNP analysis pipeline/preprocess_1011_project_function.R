@@ -28,9 +28,10 @@ filterMetabolicGene <- function() {
 
 
 #this function is used to just preprocess the fasta file without filteration
+#used for the early version
 processFasta <- function(gene_test) {
   # read each fasta file and change it into a dataframe
-  # exampel:gene_test <- "YAL012W.fasta"
+  #gene_test <- "YIL160C.fasta"
   gene_name_test <- str_replace_all(gene_test, ".fasta", "")
   fastaFile <- readDNAStringSet(paste("target_gene/", gene_test, sep = ""))
   # obtain the strain name information and sequence information
@@ -96,6 +97,7 @@ filterMutationStrainType <- function(gene_test, strain_select) {
 
 #this function is used to proprocess all the snp for one gene belong to a sample set
 #it should be noted that if the gene belong to minus strand, changeATCG function will be used
+#be careful about the file directory
 preprocessSNP <- function(gene0) {
   # inut a gene name,
   # then the function will read all the SNP information for this gene
@@ -287,17 +289,19 @@ plotNullDistribution <- function(wap_sample) {
   plot(density(wap_sample),
        frame = FALSE, col = "steelblue",
        main = "Density",
-       xlab = "coverage",
+       xlab = "WAP",
        ylab = "Density"
   )
   
   
   plot(ecdf(wap_sample),
        main = "Cumulative density",
-       xlab = "Coverage",
+       xlab = "WAP",
        ylab = "Cumulative"
   )
 }
+
+
 
 #function to calculate the right-tailed p value
 getPvalue <- function(wap_initial, wap_sampling) {
@@ -348,6 +352,7 @@ PositionResidue <- function(alted_seq, geneName) {
   mutatedAA <- paste(aa_type, aa_position, sep = "@@") # this estabolish the relation between the postion and mutated amino acids
   return(mutatedAA)
 }
+
 
 
 #this function return the mutated informaiton based on SNP information: mutated position and changed amino acids
@@ -414,18 +419,31 @@ splitAndCombine <- function(gene, rxn,sep0) { ##one rxn has several genes, this 
   return(rxnGene)
 }
 
+
 #this function is used to get the vertices
-getHotVertice <- function(aa_3d, residue0, aa_pro, distance0 = ResidueDistance_1n8p) {
+getHotVertice <- function(aa_3d, residue0, aa_pro, distance0) {
   #input
   #aa_3d  a vector for the coordinate of PDB structure
-  #residue  a vector for the muated residue information of the stucture
+  #residue0  a vector contained all the muated residue information of the stucture and it can be found the same mutation in residue occured many times
   #aa_pro a vector for the original coordinate of protein aa sequence
   #ditance  a matrix for the distance of the paired residue of pdb structure
   
   #output
   #dataframe contains the inforation of the mutated residues
   
+  
+  #function test
+  #"YAL012W" sequence and structure is used 
+  #aa_3d = seq0
+  # residue0 = residue_3D
+  # aa_pro = seq_from_3D
+  # distance0 = ResidueDistance_1n8p
+  
+  
+  
   # establish the structure coordinate and all the residues
+  # it should be noted that the duplicated mutation in the same position is not considered
+  # the reason to omit the duplicated mutation: to remove so many paired residues
   pos_residue_3d <- data.frame(pos = aa_3d, residue = residue0, stringsAsFactors = FALSE)
   pos_residue_3d <- splitAndCombine(pos_residue_3d$residue, pos_residue_3d$pos, sep0 = "\\;")
   colnames(pos_residue_3d) <- c("residue", "pos_3d")
@@ -450,7 +468,7 @@ getHotVertice <- function(aa_3d, residue0, aa_pro, distance0 = ResidueDistance_1
   }
   
   # calculate the distance between all pair (how many amino acids separate the pair)
-  pos_initial <- 1:length(aa_pro)
+  pos_initial <- aa_3d #1:length(aa_pro) # why use aa_pro???? now it is changed into aa_3d as the distance could be queried based on aa_3d
   all_distance <- vector()
   all_pair_ini <- combn(pos_initial, 2)
   for (i in 1:ncol(all_pair_ini)) {
@@ -458,6 +476,7 @@ getHotVertice <- function(aa_3d, residue0, aa_pro, distance0 = ResidueDistance_1
     d0 <- distance0[s1[1], s1[2]]
     all_distance[i] <- d0
   }
+  
   
   # first filter based on aa_distance and space distance
   all_pair0$aa_distance <- abs(all_pair1$c1 - all_pair1$c2)
@@ -472,6 +491,7 @@ getHotVertice <- function(aa_3d, residue0, aa_pro, distance0 = ResidueDistance_1
   
   all_pair3 <- all_pair2[which(all_pair2$pvalue_pair < 0.05), ]
   return(all_pair3)
+
 }
 
 

@@ -22,7 +22,6 @@ strain_select1 <- filter(strain_classification, str_detect(strain_classification
 #preprocess the SNP information
 ss <- "YAL012W"
 mutated_gene1 <- preprocessSNP(ss)
-
 gene_snp <- getGeneCoordinate(gene_name = ss, genesum = gene_feature_GEM)
 gene_snp[['pro_mutation_count']] <- countMutationProtein(gene_name = ss, mutation_annotation=mutated_gene1)
 pos_mutation <- which(gene_snp[['pro_mutation_count']] != 0)
