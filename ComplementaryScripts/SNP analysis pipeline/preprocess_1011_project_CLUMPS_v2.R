@@ -29,22 +29,22 @@ pos_mutation <- which(gene_snp[['pro_mutation_count']] != 0)
 
 #step 2 input the structure information
 # mapping the mutation postion onto the protein structure
-# for 'YAL012W', the PDB structure id is 'https://www.rcsb.org/structure/1n8p'
-
 #input the distance of all the pired residues
-ResidueDistance_1n8p <- read_excel("data/ResidueDistance_YAL012W.xlsx",col_names = FALSE) #in the followed calculation, the matrix dosen't have the col and row names
-ResidueDistance_1n8p <- as.matrix(ResidueDistance_1n8p)
+#ResidueDistance_1n8p <- read_excel("data/ResidueDistance_YAL012W.xlsx",col_names = FALSE) #in the followed calculation, the matrix dosen't have the col and row names
+dirForDistanceMatrix <- paste("data/ResidueDistance_",ss,".txt", sep = "")
+ResidueDistance <- read.table(dirForDistanceMatrix,sep = ",") #in the followed calculation, the matrix dosen't have the col and row names
+ResidueDistance <- as.matrix(ResidueDistance)
 
 #the amino acid sequence in structure is from 2:394 while  the original sequence is from 1:394
 #obtain the mutation information for the structure
-seq_from_3D <- 2:394 #"YAL012W.fasta"#this is the coordinated of original protein sequence and should changed into 3D structure coordinates
-amino_acid_3D <- gene_snp[['protein']][seq_from_3D]
-count_mutation_3D <- gene_snp[['pro_mutation_count']][seq_from_3D]
+seq_3D_origin <- 2:394 #"YAL012W.fasta"#this is the coordinated of original protein sequence and should changed into 3D structure coordinates
+amino_acid_3D <- gene_snp[['protein']][seq_3D_origin]
+count_mutation_3D <- gene_snp[['pro_mutation_count']][seq_3D_origin]
 
 #mutation position on structure and #mutation number on structure
-pos_mutation_c <- which(count_mutation_3D != 0)
-seq0 <- 1:length(count_mutation_3D) #seq0 is the coordinate of PDB structure
-pos_count_num <- count_mutation_3D[pos_mutation_c]
+pos_mutation_3D <- which(count_mutation_3D != 0)
+seq_3D <- 1:length(count_mutation_3D) #seq_3D is the coordinate of PDB structure
+mutation_count_3D <- count_mutation_3D[pos_mutation_c] # this parameter is not used
 
 
 
@@ -54,16 +54,33 @@ pos_count_num <- count_mutation_3D[pos_mutation_c]
 sample_standard1 <- sampleStand(count_mutation_3D)
 
 #calculate the wap for each pair of mutated residues based on mutation postion
-wap_original <- getTotalWAP(pos_mutation_c,sample_standard1,ResidueDistance_1n8p)
+wap_original <- getTotalWAP(pos_mutation_3D,sample_standard1,ResidueDistance)
 
 #change the postion of mutation while keep the mutation number in each postion
 #only change the postion but not change the mutated number???
-wap_sample0 <- getSampleWAP(pos_mutation_c,sample_standard1,ResidueDistance_1n8p, seq=seq0,n=10000)
+wap_sample0 <- getSampleWAP(pos_mutation_3D,sample_standard1,ResidueDistance, seq=seq_3D, n=10000)
 
 #analyze the result
 plotNullDistribution(wap_sample0)
 Strain_3D <- getPvalue(wap_original,wap_sample0)
 
+
+
+
+
+
+##batch process for the above whole process
+#input we need
+# gene id
+# snp
+# gene_feature_GEM
+# coordinate of pdb on original sequence
+# coordinate of pdb itself
+# residue distance matrix
+
+
+#output
+#p_value with id
 
 
 
