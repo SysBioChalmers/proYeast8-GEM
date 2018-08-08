@@ -72,8 +72,8 @@ def saveFasta(id):
 
 # example to display the residue sequence with coordinates
 # single input
-id = 'YOR270C'
-infile = '../data/' + id + '.pdb'
+id = 'YIL160C'
+infile = '../data/test_pdb/' + id + '.pdb'
 outfile = '../result/' + id
 fastaPDB = open(outfile, 'w')
 p = PDBParser()
@@ -91,6 +91,17 @@ for model in structure :
 for item in chainInf:
     fastaPDB.write("%s\n" % item)
 fastaPDB.close()
+#change chainID into a dataframe for easy observation
+#the chainSum could be used to check the calculated distance
+chainSum = pd.DataFrame(chainID)
+chainSum.columns = ['chainID','residue','order']
+len(chainSum['residue'][0])
+len(chainSum['residue'][1])
+chainA = chainSum['order'][0]
+chainB = chainSum['order'][1]
+chainA0 = np.array(chainA.split(','))
+chainB0 = np.array(chainB.split(','))
+np.setdiff1d(chainB0,chainA0)
 
 
 
