@@ -34,20 +34,20 @@ pos_mutation <- which(gene_snp[['pro_mutation_count']] != 0)
 
 #step 2 input the structure information
 #input the distance of all the pired residues
-ResidueDistance_1n8p <- read_excel("data/ResidueDistance_YAL012W.xlsx",col_names = FALSE) #in the followed calculation, the matrix dosen't have the col and row names
-ResidueDistance_1n8p <- as.matrix(ResidueDistance_1n8p)
-
+dirForDistanceMatrix <- paste("data/ResidueDistance_",ss,".txt", sep = "")
+ResidueDistance <- read.table(dirForDistanceMatrix,sep = ",") #in the followed calculation, the matrix dosen't have the col and row names
+ResidueDistance <- as.matrix(ResidueDistance)
 
 #the amino acid sequence in structure is from 2:394 while  the original sequence is from 1:394
 #obtain the mutation information for the structure
-seq_from_3D <- 2:394#seq_from_3D <- 2:394 #"YAL012W.fasta"#this is the coordinated of original protein sequence and should changed into 3D structure coordinates
-amino_acid_3D <- gene_snp[['protein']][seq_from_3D]
-count_mutation_3D <- gene_snp[['pro_mutation_count']][seq_from_3D]
+seq_3D_origin <- 2:394#seq_from_3D <- 2:394 #"YAL012W.fasta"#this is the coordinated of original protein sequence and should changed into 3D structure coordinates
+amino_acid_3D <- gene_snp[['protein']][seq_3D_origin]
+count_mutation_3D <- gene_snp[['pro_mutation_count']][seq_3D_origin]
 
 #mutation position on structure and #mutation number on structure
-pos_mutation_c <- which(count_mutation_3D != 0)
-seq0 <- 1:length(count_mutation_3D) #seq0 is the coordinate of PDB structure
-pos_count_num <- count_mutation_3D[pos_mutation_c]
+pos_mutation_3D <- which(count_mutation_3D != 0)
+seq_3D <- 1:length(count_mutation_3D) #seq0 is the coordinate of PDB structure
+mutation_count_3D <- count_mutation_3D[pos_mutation_3D]
 
 #wap calculation for each pair mutated residue
 #calculate the standardard sample number
@@ -67,10 +67,10 @@ pos_residue_df <- ResidueSum(pos_residue1)
 
 #mapping the mutate residue onto the original protein sequence
 gene_snp[['residue']] <- getMultipleReactionFormula(pos_residue_df$residue, pos_residue_df$pos,gene_snp[['pro_coordinate']]) 
-residue_3D <- gene_snp[['residue']][seq_from_3D]
+residue_3D <- gene_snp[['residue']][seq_3D_origin]
 
 #obtain the paired residue 
-residue_pair <- getHotVertice(aa_3d = seq0, residue0 = residue_3D, aa_pro = seq_from_3D, distance0 = ResidueDistance_1n8p)
+residue_pair <- getHotVertice(aa_3d = seq_3D, residue0 = residue_3D, aa_pro = seq_3D_origin, distance0 = ResidueDistance)
 
 #calculate closeness of each cluster
 important_hot <- clusterAnalysis(residue_pair)
@@ -80,8 +80,8 @@ important_hot <- clusterAnalysis(residue_pair)
 #calculate the pvalue for each clust
 important_hot$pvalue <- getHotPvalue(cluster0 = important_hot$cluster, 
                                      sample_standard = sample_standard1, 
-                                     distance=ResidueDistance_1n8p, 
-                                     seq = seq0)
+                                     distance=ResidueDistance, 
+                                     seq = seq_3D)
 
 
 
