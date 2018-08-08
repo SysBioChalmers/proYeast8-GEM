@@ -1,6 +1,7 @@
 from Bio.PDB import *
 import os    ##for directory
 import numpy as np
+import pandas as pd
 from Bio.PDB.PDBParser import PDBParser
 from Bio.PDB.Polypeptide import PPBuilder
 
@@ -34,18 +35,18 @@ print(os.getcwd()) #obtain the present directory
 p = PDBParser()
 
 #input the geneID or PDB ID
-pdbID = 'YIL160C'
+pdbID = 'YLL015W'
 chainID = 'A'
 
 #input the relative coordinated of PDB structure
-start0 = 25
-end0 = 417
+start0 = 279
+end0 = 1556
 coordinate = list(range(start0,end0))
 length0 = len(coordinate) + 1
 
 # set directory for the input and output
 infile = '../data/test_pdb/' + pdbID + '.pdb'
-outfile = '/Users/luho/Google Drive/R application and code/protein 3D structure QC and QA/SNP analysis pipeline/data/ResidueDistance_' + gene + '.txt'
+outfile = '/Users/luho/Google Drive/R application and code/protein 3D structure QC and QA/SNP analysis pipeline/data/ResidueDistance_' + pdbID + '.txt'
 
 structure = p.get_structure(pdbID, infile)
 model = structure[0]
@@ -67,3 +68,51 @@ if dimension1[0] == length0:
 else:
     raise ValueError("wrong dimension of distance matrix")
 
+
+
+# batch process
+# the followed code were used to process all the pdb structure at one time
+# it will return the pdb id which need further manual check
+#input all the pdb information
+infile0 = '../data/test_pdb/' + 'pdb_inf_distance.xlsx'
+pdb_inf = pd.read_excel(infile0)
+PDB_check = []
+for i in range(0, len(pdb_inf['PDB_name'])):
+    print(i)
+    # get the paired distance
+    p = PDBParser()
+
+    # input the geneID or PDB ID
+    pdbID = pdb_inf['PDB_name'][i]
+    chainID = pdb_inf['chainID'][i]
+
+    # input the relative coordinated of PDB structure
+    start0 = pdb_inf['start'][i]
+    end0 = pdb_inf['end'][i]
+    coordinate = list(range(start0, end0))
+    length0 = len(coordinate) + 1
+
+    # set directory for the input and output
+    infile = '../data/test_pdb/' + pdbID + '.pdb'
+    outfile = '/Users/luho/Google Drive/R application and code/protein 3D structure QC and QA/SNP analysis pipeline/data/ResidueDistance_' + pdbID + '.txt'
+
+    structure = p.get_structure(pdbID, infile)
+    model = structure[0]
+    chain = model[chainID]  # should input the chain information for each structure
+    ss = calc_dist_matrix(chain, chain)
+
+    # how to add quality control for the distance before save the file for the downstream analysis
+    # First step we can compare the dimension with the relative length
+    # the dimension is 390 for chain A, while the relative coordinates is  25-417
+    # thus it can be found that the actual amino acid length (417-25)=393 is not equal to the dimension of matrix, thus need manual check
+    # In the manual check part,
+    # we can parse the pdb structure and obtain the residue information
+    # then we can compare the dimension of the distance matrix and the length of residue which has coordinates
+    # Finally for a strict comparison, the residue amino acids sequence should be compared the sequence from structure
+
+    dimension1 = list(ss.shape)
+    if dimension1[0] == length0:
+        np.savetxt(outfile, ss, delimiter=',')
+    else:
+        PDB_check.append(pdbID)
+        continue
