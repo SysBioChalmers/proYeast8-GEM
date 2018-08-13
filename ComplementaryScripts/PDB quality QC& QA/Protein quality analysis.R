@@ -112,9 +112,9 @@ qnorm(0.4,mean_Resolution,sd_Resolution,lower.tail = FALSE)  #qnorm is that you 
 
 
 #completeness analysis
-pdb_EX <-pdb_EX[which(pdb_EX$mismatch !="NA"),] 
-pdb_EX$mismatch <- as.numeric(pdb_EX$mismatch)
-dens0 <- density(pdb_EX$mismatch)
+pdb_EX2 <- pdb_EX[which(pdb_EX$mismatch !="NA"),] 
+pdb_EX2$mismatch <- as.numeric(pdb_EX2$mismatch)
+dens0 <- density(pdb_EX2$mismatch)
 plot(dens0, frame = FALSE, col = "steelblue",
      main = "Density of mismatch number",
      xlim=c(0, 20),
@@ -167,11 +167,22 @@ ggplot(data=pdb_analysis, aes(x=reorder(group,-num), y=num,fill=group)) +
 d <- density(pdb_number$number) ##density
 plot(d, main="Density of pdb number") ##density
 
+
+## save the PDB-ex
+length(unique(pdb_EX$UniProtKB_ac))
+write.table(pdb_EX,"result/pdb_EX for PDB structure.txt", row.names = FALSE, sep = "\t")
+
+
+
 ## obtain the Homology PDB file for another 49 proteins with mutation in PDB exp
 gene_ex_homo <- setdiff(gene_EX, gene_EX_filter1)
 index49 <- which(model_homo$locus %in% gene_ex_homo ==TRUE)
 pdb_ex_HOMO <- model_homo[index49,]
 write.table(pdb_ex_HOMO,"result/pdb_homo for PDB structure with mutation.txt", row.names = FALSE, sep = "\t")
+
+
+
+
 
 
 
