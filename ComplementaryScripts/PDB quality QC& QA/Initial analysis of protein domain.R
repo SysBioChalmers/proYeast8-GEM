@@ -9,7 +9,9 @@ gene_all <- read_excel("data/gene_list_yeastGEM.xlsx",  sheet = "Sheet1")
 gene_all$geneNames <- str_trim(gene_all$geneNames, side = "both")
 
 # yeast gene domain from swiss and SGD
-yeast_domain_swiss<- read_excel("data/yeast_domain_Pfam.xls", sheet = "Domain")
+#yeast_domain_swiss0 <- read_excel("data/yeast_domain_Pfam_April.xls", sheet = "Domain")
+yeast_domain_swiss <- read_excel("data/yeast_domain_Pfam_July.xls", sheet = "Domain_July")
+
 yeast_domain_SGD <- read_excel("data/yeast_domain_SGD.xlsx",  sheet = "Sheet4")
 
 #id-mapping in swisss database
@@ -89,7 +91,6 @@ pfam_domain_analysis$num[3] <- number.counter(pfam_domain_number$number,6,20)
 pfam_domain_analysis$num[4] <- number.counter(pfam_domain_number$number,20,100)
 
 
-
 ggplot(data=pfam_domain_analysis, aes(x=reorder(group,-num), y=num,fill=group)) +
   geom_bar(stat="identity") + # reorder: adjust the order
   theme(legend.title = element_blank(), legend.position = "right") +
@@ -102,13 +103,10 @@ ggplot(data=pfam_domain_analysis, aes(x=reorder(group,-num), y=num,fill=group)) 
 ##density
 d <- density(pfam_domain_number$number)
 plot(d, main="Density of domain number",
-    xlim=c(0, 10),
-    ylim=c(0,0.8),
     xlab="Domain number",
     ylab="Density")
 
 ## enrichment analysis for these genes more than 5 domains
 gene_over_5_domain <- filter(pfam_domain_number, number <= 200 & number >= 5)
 write.table(gene_over_5_domain,'result/gene_over_5_domain.txt', row.names = FALSE, sep='\t')
-
 

@@ -9,7 +9,8 @@ library(hongR)
 # https://swissmodel.expasy.org/repository/species/559292
 
 
-model <- read.csv2("data/metaData_swiss_April.txt", sep = "\t", stringsAsFactors = FALSE)
+#model <- read_excel("data/metaData_swiss_April.xlsx")
+model <- read_excel("data/metaData_swiss_July.xlsx")
 geneIDmapping <- read_excel("data/uniprotGeneID_mapping.xlsx", sheet = "Sheet0")
 
 model$id_mapping <- paste(model$UniProtKB_ac, model$template, sep = "@")
@@ -17,20 +18,23 @@ model$locus <- getSingleReactionFormula(geneIDmapping$GeneName,geneIDmapping$Ent
 
 
 
-homology_model <- read_excel("data/Homology_model_info_gangLi_April_2018.xls",
-                      sheet = "model_info")
+#homology_model <- read_excel("data/Homology_model_info_gangLi_April_2018.xls",
+#                      sheet = "model_info")
+homology_model <- read_excel("data/Homology_model_info_gangLi_July_2018.xls",
+                             sheet = "model_info")
 homology_model$id_mapping <- paste(homology_model$UniProtKB_ac, homology_model$SMTLE,sep = "@")
 homology_model$Built_with <- paste(homology_model$ENGIN, homology_model$VERSN,sep = " ")
 
 
 
 # obtain the model simulated by swiss
-model_EXP <- filter(model,provider =="PDB")
+model_EXP <- filter(model, provider =="PDB")
 model_swiss <- filter(model,provider =="SWISSMODEL")
 
+
 # add missing information for model_EXP from old file provided by Gang
-yeast_3D_swiss <- read_excel("data/yeast_3D_swiss.xls")
-yeast_3D_EXP <- filter(yeast_3D_swiss,struct_is_experimental==TRUE)
+yeast_3D_swiss0 <- read_excel("data/yeast_3D_swiss_April.xls")
+yeast_3D_EXP <- filter(yeast_3D_swiss0,struct_is_experimental==TRUE)
 yeast_3D_EXP$id_mapping <- paste(yeast_3D_EXP$seq_uniprot,yeast_3D_EXP$pdb_id,sep = "@")
 model_EXP$Resolution <- getSingleReactionFormula(yeast_3D_EXP$Resolution,yeast_3D_EXP$id_mapping,model_EXP$id_mapping)
 model_EXP$Ligands <- getSingleReactionFormula(yeast_3D_EXP$Ligands,yeast_3D_EXP$id_mapping,model_EXP$id_mapping)
@@ -38,6 +42,10 @@ model_EXP$locus <- getSingleReactionFormula(geneIDmapping$GeneName,geneIDmapping
 model_EXP$Seq_Identity <- "NA"
 model_EXP$Seq_similarity <- "NA"
 
+#input the blast results
+#blast the seq of experimental files with the original protein sequence
+#it should be noted that in this version of data, the amino acids sequence of pdb structure may be not
+#consistent with the the residue sequence included in the protein structure
 mutation <- read_excel("data/map_exppdb_prot_id_April.xlsx") #input the mutation information for the Experimental files
 mutation0 <- mutation %>% separate(qseqid, into = c("PDBid","chain"), sep = "_" )
 mutation0$UniProtKB_ac <- getSingleReactionFormula(geneIDmapping$Entry,geneIDmapping$GeneName,mutation0$sseqid)
@@ -58,7 +66,8 @@ model_EXP$chain <- getSingleReactionFormula(mutation0$chain,mutation0$id_mapping
 
 
 # add missing information for model_swiss from homology_model
-yeast_3D_swiss <- read_excel("data/yeast_3D_swiss.xls")
+#yeast_3D_swiss <- read_excel("data/yeast_3D_swiss_April.xls")
+yeast_3D_swiss <- read_excel("data/yeast_3D_swiss_July.xls") #in this new version, no information for experimental pdb file
 yeast_3D_homo <- filter(yeast_3D_swiss,struct_is_experimental==FALSE)
 yeast_3D_homo$id_mapping <- paste(yeast_3D_homo$seq_uniprot,yeast_3D_homo$pdb_id,sep = "@")
 model_swiss$Resolution <- getSingleReactionFormula(yeast_3D_homo$Resolution,yeast_3D_homo$id_mapping,model_swiss$id_mapping)
