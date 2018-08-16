@@ -1,3 +1,7 @@
+""""This script is mainly used to extract the amino acid sequence from each pdb structure
+8-16-2018, Hongzhong Lu"""
+
+
 from Bio.PDB import *
 import os    ##for directory
 import numpy as np
@@ -111,12 +115,15 @@ np.setdiff1d(chainB0,chainA0)
 #this process could produce the residue (amino acids) sequence for all the experimental structures
 pdb_all = os.listdir('../data/pdb_ex_right_format')
 pdb_all = [x.replace('.pdb','') for i,x in enumerate(pdb_all)]
+pdb_all.remove('.DS_Store') #if not removing the file, will raise errors
 
-for x in pdb_all:
+for i, x in enumerate(pdb_all):
     saveFasta(x)
+    print(i)
 
 #merge all files
 filenames = os.listdir('../result/pdb_ex_seq')
+
 
 with open('../result/pdb_ex_seq_summary', 'w') as outfile:
     for fname in filenames:
