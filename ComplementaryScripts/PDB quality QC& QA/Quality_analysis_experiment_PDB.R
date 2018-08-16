@@ -1,5 +1,6 @@
 source('Preprocess data from swiss database.R')
-source('main_function_for_quality_analysis.R')
+source('some_function_for_quality_analysis.R')
+source('SIFT_yeast.R')
 
 # function used in this part
 # calculate the number between a range (number1, number2)
@@ -49,8 +50,13 @@ blast2$id <- paste(blast2$Entry,str_to_lower(blast2$PDBid),blast2$ChainID, sep =
 df_merged$pident2 <- getMultipleReactionFormula(blast2$pident,blast2$id,df_merged$id_mapping_chain)
 df_merged$mismatch2 <- getMultipleReactionFormula(blast2$mismatch,blast2$id,df_merged$id_mapping_chain)
 
+#obtain the coordinate of the mapped residue from pdb strucutre
+df_merged$qstart2 <- getMultipleReactionFormula(blast2$qstart,blast2$id,df_merged$id_mapping_chain)
+df_merged$qend2 <- getMultipleReactionFormula(blast2$qend,blast2$id,df_merged$id_mapping_chain)
 
-
+#obtain the coordinate of the mapped residue from the original protein sequence
+df_merged$sstart2 <- getMultipleReactionFormula(blast2$sstart,blast2$id,df_merged$id_mapping_chain)
+df_merged$send2 <- getMultipleReactionFormula(blast2$send,blast2$id,df_merged$id_mapping_chain)
 
 
 ## quality evalution
@@ -63,7 +69,6 @@ pdb_number <- filter(pdb_number, !is.na(number))
 
 ##bar based on group
 plotPDBnumber(pdb_number$number)
-
 
 #coverage analysis
 #the coverage for experimental pdb files is close to 1.
@@ -127,8 +132,9 @@ pdb_number_refine <- filter(pdb_number_refine, !is.na(number))
 ##bar based on group
 plotPDBnumber(pdb_number_refine$number)
 
-## save the PDB-ex
-length(unique(pdb_EX$UniProtKB_ac))
+
+## save the PDB-ex after two round of filtration
+write.table(pdb_EX_filter2,"result/pdb_Ex refine for final residue distance calculation.txt", row.names = FALSE, sep = "\t")
 write.table(pdb_EX,"result/pdb_EX for PDB structure.txt", row.names = FALSE, sep = "\t")
 
 
@@ -138,7 +144,7 @@ index2 <- which(model_homo$locus %in% gene_ex_homo ==TRUE)
 pdb_ex_HOMO <- model_homo[index2,]
 write.table(pdb_ex_HOMO,"result/pdb_homo for PDB structure with mutation.txt", row.names = FALSE, sep = "\t")
 
-## obtain the Homology PDB file for another proteins with smaller resolution
+## obtain the Homology PDB file for another 28 proteins with smaller resolution
 gene_ex_lowR <- setdiff(gene_EX_filter1, gene_EX_filter2)
 index3 <- which(model_homo$locus %in% gene_ex_lowR ==TRUE)
 pdb_ex_HOMO2 <- model_homo[index3,]

@@ -1,5 +1,5 @@
 source('Preprocess data from swiss database.R')
-source('main_function_for_quality_analysis.R')
+source('some_function_for_quality_analysis.R')
 
 
 # input the gene information in yeastGEM
@@ -141,6 +141,7 @@ pdb_homo1 <- filter(pdb_HOMO,
                     Seq_similarity >=0.31 &
                     Resolution <= 3.4  )
 gene_homo1 <- unique(pdb_homo1$locus)
+
 
 #filter 2 with a lower standard
 pdb_homo2 <- filter(pdb_HOMO, 
