@@ -20,6 +20,7 @@ model$locus <- getSingleReactionFormula(geneIDmapping$GeneName,geneIDmapping$Ent
 
 #homology_model <- read_excel("data/Homology_model_info_gangLi_April_2018.xls",
 #                      sheet = "model_info")
+#
 homology_model <- read_excel("data/Homology_model_info_gangLi_July_2018.xls",
                              sheet = "model_info")
 homology_model$id_mapping <- paste(homology_model$UniProtKB_ac, homology_model$SMTLE,sep = "@")
@@ -33,35 +34,12 @@ model_swiss <- filter(model,provider =="SWISSMODEL")
 
 
 # add missing information for model_EXP from old file provided by Gang
-yeast_3D_swiss0 <- read_excel("data/yeast_3D_swiss_April.xls")
-yeast_3D_EXP <- filter(yeast_3D_swiss0,struct_is_experimental==TRUE)
+yeast_3D_swiss <- read_excel("data/yeast_3D_swiss_July.xls") 
+yeast_3D_EXP <- filter(yeast_3D_swiss,struct_is_experimental==TRUE)
 yeast_3D_EXP$id_mapping <- paste(yeast_3D_EXP$seq_uniprot,yeast_3D_EXP$pdb_id,sep = "@")
-model_EXP$Resolution <- getSingleReactionFormula(yeast_3D_EXP$Resolution,yeast_3D_EXP$id_mapping,model_EXP$id_mapping)
-model_EXP$Ligands <- getSingleReactionFormula(yeast_3D_EXP$Ligands,yeast_3D_EXP$id_mapping,model_EXP$id_mapping)
+model_EXP$Resolution <- getSingleReactionFormula(yeast_3D_EXP$struct_resolution,yeast_3D_EXP$id_mapping,model_EXP$id_mapping)
+model_EXP$Ligands <- getSingleReactionFormula(yeast_3D_EXP$struct_chemicals,yeast_3D_EXP$id_mapping,model_EXP$id_mapping)
 model_EXP$locus <- getSingleReactionFormula(geneIDmapping$GeneName,geneIDmapping$Entry,model_EXP$UniProtKB_ac)
-model_EXP$Seq_Identity <- "NA"
-model_EXP$Seq_similarity <- "NA"
-
-#input the blast results
-#blast the seq of experimental files with the original protein sequence
-#it should be noted that in this version of data, the amino acids sequence of pdb structure may be not
-#consistent with the the residue sequence included in the protein structure
-mutation <- read_excel("data/map_exppdb_prot_id_April.xlsx") #input the mutation information for the Experimental files
-mutation0 <- mutation %>% separate(qseqid, into = c("PDBid","chain"), sep = "_" )
-mutation0$UniProtKB_ac <- getSingleReactionFormula(geneIDmapping$Entry,geneIDmapping$GeneName,mutation0$sseqid)
-mutation0$id_mapping <- paste(mutation0$UniProtKB_ac, mutation0$PDBid,sep = "@")
-
-model_EXP$pident <- getSingleReactionFormula(mutation0$pident,mutation0$id_mapping,model_EXP$id_mapping)
-model_EXP$length <- getSingleReactionFormula(mutation0$length,mutation0$id_mapping,model_EXP$id_mapping)
-model_EXP$mismatch <- getSingleReactionFormula(mutation0$mismatch,mutation0$id_mapping,model_EXP$id_mapping)
-model_EXP$gapopen <- getSingleReactionFormula(mutation0$gapopen,mutation0$id_mapping,model_EXP$id_mapping)
-model_EXP$qstart <- getSingleReactionFormula(mutation0$qstart,mutation0$id_mapping,model_EXP$id_mapping)
-model_EXP$qend <- getSingleReactionFormula(mutation0$qend,mutation0$id_mapping,model_EXP$id_mapping)
-model_EXP$sstart <- getSingleReactionFormula(mutation0$sstart,mutation0$id_mapping,model_EXP$id_mapping)
-model_EXP$send <- getSingleReactionFormula(mutation0$send,mutation0$id_mapping,model_EXP$id_mapping)
-model_EXP$chain <- getSingleReactionFormula(mutation0$chain,mutation0$id_mapping,model_EXP$id_mapping)
-
-
 
 
 
@@ -70,9 +48,12 @@ model_EXP$chain <- getSingleReactionFormula(mutation0$chain,mutation0$id_mapping
 yeast_3D_swiss <- read_excel("data/yeast_3D_swiss_July.xls") #in this new version, no information for experimental pdb file
 yeast_3D_homo <- filter(yeast_3D_swiss,struct_is_experimental==FALSE)
 yeast_3D_homo$id_mapping <- paste(yeast_3D_homo$seq_uniprot,yeast_3D_homo$pdb_id,sep = "@")
-model_swiss$Resolution <- getSingleReactionFormula(yeast_3D_homo$Resolution,yeast_3D_homo$id_mapping,model_swiss$id_mapping)
-model_swiss$Ligands <- getSingleReactionFormula(yeast_3D_homo$Ligands,yeast_3D_homo$id_mapping,model_swiss$id_mapping)
+
+model_swiss$Resolution <- getSingleReactionFormula(yeast_3D_homo$struct_resolution,yeast_3D_homo$id_mapping,model_swiss$id_mapping)
+model_swiss$Ligands <- getSingleReactionFormula(yeast_3D_homo$struct_chemicals,yeast_3D_homo$id_mapping,model_swiss$id_mapping)
+
 model_swiss$locus <- getSingleReactionFormula(geneIDmapping$GeneName,geneIDmapping$Entry,model_swiss$UniProtKB_ac)
+
 model_swiss$Seq_Identity <- getSingleReactionFormula(homology_model$SID,homology_model$id_mapping,model_swiss$id_mapping)
 model_swiss$Seq_similarity <- getSingleReactionFormula(homology_model$SIM,homology_model$id_mapping,model_swiss$id_mapping)
 model_swiss$Oligo_State <- getSingleReactionFormula(homology_model$OSTAT,homology_model$id_mapping,model_swiss$id_mapping)
@@ -107,8 +88,8 @@ seqence_gene_without3D$geneID0 <- str_replace_all(seqence_gene_without3D$geneNam
 
 model2$wild_sequence <- getSingleReactionFormula(seqence_gene_without3D$sequence,seqence_gene_without3D$geneID0,model2$geneID0)
 model2$uniprot_seq_length <- getSingleReactionFormula(seqence_gene_without3D$length,seqence_gene_without3D$geneID0,model2$geneID0)
-model2$UniProtKB_ac <- getSingleReactionFormula(geneIDmapping$Entry,geneIDmapping$GeneName,model2$locus)
 model2$locus <- getSingleReactionFormula(seqence_gene_without3D$geneName,seqence_gene_without3D$geneID0,model2$geneID0)
+model2$UniProtKB_ac <- getSingleReactionFormula(geneIDmapping$Entry,geneIDmapping$GeneName,model2$locus)
 model2 <- model2 %>%
   separate(Range, c("from", "to"), " - ")
 model2$provider <- "SWISSMODEL"
@@ -116,6 +97,7 @@ model2$pdb_sequence <- NA
     # filter based on gene_t2
 index1 <- which(model2$locus %in% gene_t2 ==TRUE)
 model2 <- model2[index1,]
+model2$coordinate_id <- NA
 
 
 #merge model_swiss and model2 to form the model_homo
@@ -123,6 +105,7 @@ model_swiss0 <- select(model_swiss,
                       UniProtKB_ac, 
                       locus,
                       uniprot_seq_length,
+                      coordinate_id,
                       provider,
                       from,
                       to,
@@ -139,10 +122,12 @@ model_swiss0 <- select(model_swiss,
                       Method
                       )
 
+
 model20 <- select(model2,
                   UniProtKB_ac,
                   locus,
                   uniprot_seq_length,
+                  coordinate_id,
                   provider,
                   from,
                   to,
