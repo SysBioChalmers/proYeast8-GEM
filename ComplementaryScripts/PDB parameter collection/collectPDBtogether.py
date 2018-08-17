@@ -25,11 +25,14 @@ os.system('mv ../pdb_files .')
 
 
 ## code from Hongzhong
-
 import shutil
 import os
-source = '/Users/luho/PycharmProjects/python learning/venv/project2_pdb/data'
-dest1 = '/Users/luho/PycharmProjects/python learning/venv/project2_pdb/pdb_files'
+
+#the dir contains the homology pdb files downloaded from swiss database
+source = '/Users/luho/Documents/pdb file/Swiss model information_2018_7_20/SWISS-MODEL_Repository'
+
+#the dir contains the homology pdb files we used to calculate the residue distance
+dest1 = '/Users/luho/Documents/pdb file/Swiss model information_2018_7_20/pdb_homo'
 #list the files in the directory
 for dirName, subdirList, fileList in os.walk(source):
     print('Found directory: %s' % dirName)
@@ -39,7 +42,6 @@ for dirName, subdirList, fileList in os.walk(source):
             pass
         else:
             shutil.copy(dirName + '/' + fname, dest1)
-
 
 
 
