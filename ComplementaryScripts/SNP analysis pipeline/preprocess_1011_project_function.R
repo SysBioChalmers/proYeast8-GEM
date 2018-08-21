@@ -95,6 +95,51 @@ filterMutationStrainType <- function(gene_test, strain_select) {
 }
 
 
+#changeATCG should be used to firstly,if the cds from the minus strand
+#get the mutation information on the minus strand based on that from the positive strand
+#The followed exlain that why we need changeATCG for gene from minus strand
+#Both + and - strands have 5'-3' and 3'-5' directions, however, the genomic coordinates refer 
+#to only the 5'-3' direction of the reference, +, strand. Your second statement is indeed correct. 
+#Another illustrative example, if you want to find the transcription start site (TSS) of a gene that 
+#spans the region of (in genomic coordinates) 10800 to 11200 in, say, chromosome 11, then you should 
+#also consider which strand the gene is located in. Let's say the base at 10800 is A and the base at 
+#11200 is C. If the gene is in the + strand, than 10800-11200 refer to the 5'-3' of the gene, hence 
+#the TSS is 10800 A. If the genes is in the - strand, then 10800-11200 (always for + strand) corresponds 
+#to the 3'-5' direction of the gene located in the complementary strand, hence the TSS is 11200 G (complementar to C).
+changeATCG <- function (ss){
+  # this function was used to get the mutation information from the minus strand based on the mutation information
+  # on the positive strand
+  if (ss =="A"){
+    ss <- "T"
+  } else if(ss=="C"){
+    ss <- "G"
+  } else if(ss=="T"){
+    ss <-"A"
+  } else if(ss=="G"){
+    ss <-"C"
+  }
+  return(ss)
+}
+
+#this function is used to obtain the metabolic gene list which have SNP, in total there are 36 metabolic genes which
+#don't have the mutation
+getGeneNameWithSNP <- function() {
+  #input
+  #the dir of  file 'gene_snp'
+  #output
+  #the gene list with the snp
+  gene_SNP_sum <- list.files("gene_snp")
+  s <- vector()
+  for (i in seq_along(gene_SNP_sum)) {
+    file0 <- paste("gene_snp/", gene_SNP_sum[i], sep = "")
+    s[i] <- file.info(file0)$size
+  }
+  indexNull <- which(s != 0)
+  gene_withSNP <- gene_SNP_sum[indexNull]
+  return(gene_withSNP)
+}
+
+
 #this function is used to proprocess all the snp for one gene belong to a sample set
 #it should be noted that if the gene belong to minus strand, changeATCG function will be used
 #be careful about the file directory
@@ -104,7 +149,7 @@ preprocessSNP <- function(gene0) {
   # output
   # a dataframe contains each SNP information which including:
   # chrosome, geneName, ref, alf and completment sign
-  infile <- paste("data/", gene0, sep = "")
+  infile <- paste("gene_snp/", gene0, sep = "")
   mutated_test <- read.table(infile, header = FALSE, sep = "\t", stringsAsFactors = FALSE)
   colnames(mutated_test) <- c("strain", "Gene2", "Chr", "Pos", "Ref", "Alt")
   mutated_test$complement_sign <- getSingleReactionFormula(gene_feature_GEM$complement_sign, gene_feature_GEM$locus_tag, mutated_test$Gene2)
@@ -213,22 +258,6 @@ findPPosition <- function(mutatedPosition, alted, geneName){
 
 
 
-#changeATCG should be used to firstly,if the cds from the minus strand
-#get the mutation information on the minus strand based on that from the positive strand
-changeATCG <- function (ss){
-  # this function was used to get the mutation information from the minus strand based on the mutation information
-  # on the positive strand
-  if (ss =="A"){
-    ss <- "T"
-  } else if(ss=="C"){
-    ss <- "G"
-  } else if(ss=="T"){
-    ss <-"A"
-  } else if(ss=="G"){
-    ss <-"C"
-  }
-  return(ss)
-}
 
 
 #fuction to calculate the standard samples contained the mutation in the specific postion
@@ -276,7 +305,7 @@ getSampleWAP <- function(mutated_pos, sample0, distance, seq=seq0, n=10000){
     sample_standard_zero[sample_position] <- fixed_sample
     pos_mutation_t0 <- which(sample_standard_zero != 0)
     wap_sample[i] <- getTotalWAP(pos_mutation_t0,sample_standard_zero,distance)
-    print(sample_position)
+    #print(sample_position)
   }
   
   return(wap_sample)
@@ -315,7 +344,7 @@ getPvalue <- function(wap_initial, wap_sampling) {
   
   index1 <- which(wap_sampling >= wap_initial)
   tail.prob <- (length(index1) + 1) / length(wap_sampling)
-  print(tail.prob)
+  #print(tail.prob)
   return(tail.prob)
 }
 
@@ -380,6 +409,7 @@ PositionResidueSNP <- function(mutatedPosition, alted, geneName) {
   mutatedAA <- paste(aa_type, aa_position, sep = "@@") # this estabolish the relation between the postion and mutated amino acids
   return(mutatedAA)
 }
+
 
 
 #this function is used to put the residue from the same postion together
@@ -562,6 +592,7 @@ getHotPvalue <- function(cluster0, sample_standard, distance, seq) {
   # calculate the p_value
   pvalue <- vector()
   for (i in seq_along(cluster1)) {
+    #print(cluster1[[i]])
     if (length(cluster1[[i]]) >= 2) {
       pos_mutation_t0 <- cluster1[[i]]
       wap_original <- getTotalWAP(pos_mutation_t0, sample_standard, distance)
@@ -577,11 +608,21 @@ getHotPvalue <- function(cluster0, sample_standard, distance, seq) {
 
 
 
+#this function is used to remove the wrong residues obtained by the stop coden
+#if it is stop coden, then the residue could be *, thus the next step will stop
+removeStopCoden <- function(residue_pair00) {
+  #input
+  #residue_pair00, a dataframe contains the information of sigificant pairs
+  #output
+  #a dataframe of sigificant pairs without residue translated by stop coden
+  residue_pair1 <- residue_pair00 %>%
+    separate(V1, into = c("V1a", "V1b"), sep = "@@") %>%
+    separate(V2, into = c("V2a", "V2b"), sep = "@@")
+  residue_pair2 <- filter(residue_pair1, str_detect(V1a, "[:alpha:]") & str_detect(V2a, "[:alpha:]"))
 
-
-
-
-
-
-
+  residue_pair3 <- residue_pair2 %>%
+    unite(V1, V1a, V1b, sep = "@@") %>%
+    unite(V2, V2a, V2b, sep = "@@")
+  return(residue_pair3)
+}
 
