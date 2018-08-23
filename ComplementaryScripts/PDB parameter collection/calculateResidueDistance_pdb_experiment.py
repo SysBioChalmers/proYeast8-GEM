@@ -26,8 +26,16 @@ def calc_dist_matrix(chain_one, chain_two) :
             answer[row, col] = calc_residue_dist(residue_one, residue_two)
     return answer
 
-#test the above function
-def preprocessResidue(chain0, start1, end1):
+#function to preprocess residue from experiment PDB files, sometimes the residue sequence in the structure is different from the coordinates
+#thus we should remove the redundant residue based on the given coordinates
+def preprocessResidueEXP(chain0, start1, end1):
+    '''
+    :param chain0: aimed chain with the coordinates
+    :param start1: start1 mean that in the blast analysis, start1 represent the first residue which could find in original protein
+    :param end1: end1 mean that in the blast analysis, end1 represent the last residue which could find in original protein. start1 and
+    end1 is not consistent with the residue order recorded in pdb file
+    :return: a refined chain which could mapping onto the original protein
+    '''
     chain_one = chain0
     len(chain_one)
     row0 = []
@@ -40,9 +48,6 @@ def preprocessResidue(chain0, start1, end1):
     target_residue = list(range(start1-1,end1))
     residue_one1 = [residue_one0[i] for i in target_residue]
     return residue_one1
-#example
-chain_filter = preprocessResidue(chain0=chain, start1=1, end1=239)
-calc_dist_matrix(chain_filter,chain_filter)
 
 
 #this function could help to check why keyError: 'CA' happened
@@ -67,60 +72,6 @@ pdb_sce0 = pdb_sce
 pdbfile = '/Users/luho/Google Drive/R application and code/protein 3D structure QC and QA/PDB quality analysis/pdb_ex_right_format/'
 exp_pdb_all = os.listdir(pdbfile)
 np.setdiff1d(pdb_sce['coordinate_id0'], exp_pdb_all)
-
-
-#one example to calculate the residue distance
-#get the paired distance
-p = PDBParser()
-
-#input the geneID or PDB ID
-index = 666
-pdbID0 = pdb_sce['template'][index]
-pdbID = pdb_sce0 ['coordinate_id0'][index]
-chainID = pdb_sce0 ['chain_new'][index]
-
-#input the relative coordinated of PDB structure
-start0 = pdb_sce['qstart2'][index]
-end0 = pdb_sce['qend2'][index]
-coordinate = list(range(start0,end0))
-length0 = len(coordinate) + 1
-
-# set directory for the input and output
-infile = pdbfile + pdbID
-outfile = '/Users/luho/Google Drive/R application and code/protein 3D structure QC and QA/SNP analysis pipeline/data/' + pdbID0 + '@' + chainID +'.txt'
-
-structure = p.get_structure(pdbID, infile)
-model = structure[0]
-
-#first obtain the chainID for the model
-chainID0 = []
-for chain in model:
-    chainID0.append(chain.get_id())
-
-if chainID in chainID0:
-    chain = model[chainID]
-    len(chain)
-    chain_filter = preprocessResidue(chain0=chain, start1=start0, end1= end0)
-    ss = calc_dist_matrix(chain_filter, chain_filter)
-    dimension1 = list(ss.shape)
-# how to add quality control for the distance before save the file for the downstream analysis
-# First step we can compare the dimension with the relative length
-# the dimension is 390 for chain A, while the relative coordinates is  25-417
-# thus it can be found that the actual amino acid length (417-25)=393 is not equal to the dimension of matrix, thus need manual check
-# In the manual check part,
-# we can parse the pdb structure and obtain the residue information
-# then we can compare the dimension of the distance matrix and the length of residue which has coordinates
-# Finally for a strict comparison, the residue amino acids sequence should be compared the sequence from structure
-    if dimension1[0] == length0:
-        np.savetxt(outfile, ss, delimiter=',')
-    else:
-        raise ValueError("wrong dimension of distance matrix")
-else:
-    print ("Oops!  ChainID is not right")
-    pass
-
-#find why keyError occured
-calc_residue_dist_at_two_pos(chain,0,72)
 
 
 # batch process
@@ -159,7 +110,7 @@ for i in range(0, len(pdb_inf['coordinate_id0'])):
         chainID0.append(chain.get_id())
     if  chainID in chainID0:
         chain11 = model[chainID]
-        chain_filter = preprocessResidue(chain0=chain11, start1=start0, end1=end0)
+        chain_filter = preprocessResidueEXP(chain0=chain11, start1=start0, end1=end0)
         try:
             ss = calc_dist_matrix(chain_filter, chain_filter)
         except KeyError:
@@ -184,6 +135,8 @@ for i in range(0, len(pdb_inf['coordinate_id0'])):
         chain_error.append(pdbID)
         pass
 
+
+
 '''chain error analysis
 In the above analysis, we could find some chainID is wrong and distance can't be calculated,
 Thus we need find why chainID error occur
@@ -194,5 +147,6 @@ key_error = pd.Series(key_error)
 writer = pd.ExcelWriter('/Users/luho/PycharmProjects/pdb/result/error in residue sequence for experimental pdb file.xlsx')
 key_error.to_excel(writer,'Sheet1')
 writer.save()
+
 
 
