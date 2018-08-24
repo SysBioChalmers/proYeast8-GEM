@@ -122,10 +122,14 @@ pdb_Ex <- filter(pdb_Ex, is.na(pdb_Ex$With_distance))
 pdb_Ex$pdbid <- paste(pdb_Ex$template, pdb_Ex$chain_new, sep = "@")
 pdb_Ex <- select(pdb_Ex, locus, pdbid, qstart2, qend2, sstart2, send2)
 geneWithSNP <- getGeneNameWithSNP()
-pdb_Ex <- pdbid[which(pdb_Ex$locus %in% geneWithSNP ==TRUE),]
+pdb_Ex <- pdb_Ex[which(pdb_Ex$locus %in% geneWithSNP ==TRUE),]
 
+#creat new file to store the results
+outfile0 <- paste('result/hotspot from pdb_ex for ', strain_type, sep = "")
+dir.create(outfile0)
+print(outfile0)
 
-
+#start the batch process
 for (i in 1:1047) {
   # step 1
   # preprocess the SNP information
@@ -147,7 +151,7 @@ for (i in 1:1047) {
   r1 <- pdb_Ex$qstart2[i]
   r2 <- pdb_Ex$qend2[i] # input the corrected residue sequnence
   r3 <- paste(r1, r2, sep = "-")
-  dirForDistanceMatrix <- paste("residue_distance/", pdbID, ".txt", sep = "")
+  dirForDistanceMatrix <- paste("residue_distance/pdb_ex/", pdbID, ".txt", sep = "")
   ResidueDistance0 <- read.table(dirForDistanceMatrix, sep = ",") # in the followed calculation, the matrix dosen't have the col and row names
   ResidueDistance0 <- as.matrix(ResidueDistance0)
   ResidueDistance <- ResidueDistance0 # [r1:r2,r1:r2]
@@ -217,23 +221,17 @@ for (i in 1:1047) {
       important_hot$structure <- pdbID
       important_hot$seq_3D <- r3
       important_hot$stain_type <- strain_type
-      outfile <- paste("result/hot_spot/", pdbID, "_", ss, ".txt", sep = "")
+      outfile <- paste(outfile0, '/',pdbID, "_", ss, ".txt", sep = "")
       write.table(important_hot, outfile, row.names = FALSE, sep = "\t")
     } else {
-      print("NO sigificant pairs")
+      print("------NO sigificant pairs")
       next
     }
   } else {
-    print("Not enough mutation")
+    print("------Not enough mutation")
     next
   }
 }
-
-
-
-
-
-
 
 
 
