@@ -26,7 +26,6 @@ filterMetabolicGene <- function() {
 }
 
 
-
 #this function is used to just preprocess the fasta file without filteration
 #used for the early version
 processFasta <- function(gene_test) {
@@ -165,6 +164,71 @@ preprocessSNP <- function(gene0) {
   }
   
   return(mutated_gene0)
+}
+
+
+# function to get the coordinate information of domain occured in each gene
+getDomainCoordinate <- function(dataframe0) {
+  # input
+  # a dataframe contains the pdb information for each gene, the first column named 'locus' should
+  # contain the geneID
+  
+  # output
+  # a dataframe contains the pdb information with the domain coordinates
+  # firstly read the pfam annotation data
+  domain_pfam0 <- read.table('data/domain_pfam0_for_SNP_pipeline.txt', header = TRUE, sep = "\t")
+  
+  pdb_Ex0 <- dataframe0
+  
+  colnames0 <- colnames(pdb_Ex0)
+  colnames1 <- c("domain_name", "domain_decription", "type", "domain_start0", "domain_end0")
+  colnames2 <- c(colnames0,  colnames1)
+  domain_all <- list()
+  for (j in seq(nrow(pdb_Ex0))) {
+    print(j)
+    domain0 <- filter(domain_pfam0, gene == pdb_Ex0$locus[j])
+    start <- pdb_Ex0$sstart2[j]
+    end <- pdb_Ex0$send2[j]
+    set1 <- start:end
+    domain0_list <- list()
+    domain0_List2 <- list()
+    if (length(domain0$gene) >= 1) {
+      for (i in seq_along(domain0$gene)) {
+        domain0_list[[i]] <- domain0$domain_start[i]:domain0$domain_end[i]
+        domain0_List2[[i]] <- intersect(set1, domain0_list[[i]])
+        if (length(domain0_List2[[i]]) >= 2) {
+          domain0$domain_start0[i] <- domain0_List2[[i]][1]
+          domain0$domain_end0[i] <- domain0_List2[[i]][length(domain0_List2[[i]])]
+        } else {
+          domain0$domain_start0[i] <- "NA"
+          domain0$domain_end0[i] <- "NA"
+        }
+      }
+      
+      # merge domain information
+      domain0 <- domain0 %>% unite(., "domain_inf", colnames1, sep = "##")
+      print(domain0$domain_inf)
+      # trasfer the data into a list
+      domain_all[[j]] <- domain0$domain_inf
+    } else {
+      domain_all[[j]] <- "NA"
+    }
+  }
+  
+  ss <- pdb_Ex0 %>% unite(., pdb_inf, colnames0, sep = "##")
+  
+  domain_all0 <- list()
+  for (i in seq_along(ss$pdb_inf)) {
+    domain_all0[[i]] <- paste(ss$pdb_inf[i], domain_all[[i]], sep = "##")
+  }
+  
+  domain_all1 <- data.frame(pdb_inf = unique(unlist(domain_all0)), stringsAsFactors = FALSE)
+  domain_all2 <- domain_all1 %>% separate(., pdb_inf, into = colnames2, sep = "##")
+  
+  # remove the domain without coordinate
+  domain_all2 <- filter(domain_all2, domain_start0 !='NA' & domain_end0 !='NA')
+  
+  return(domain_all2)
 }
 
 
