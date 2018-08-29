@@ -1,3 +1,6 @@
+##----------note
+##----------the domain analysis will be mainly based on SGD database, not using data from Gang
+
 library(readxl)
 library(readr)
 library(tidyverse)
@@ -9,32 +12,13 @@ gene_all <- read_excel("data/gene_list_yeastGEM.xlsx",  sheet = "Sheet1")
 gene_all$geneNames <- str_trim(gene_all$geneNames, side = "both")
 
 # yeast gene domain from swiss and SGD
-#yeast_domain_swiss0 <- read_excel("data/yeast_domain_Pfam_April.xls", sheet = "Domain")
-yeast_domain_swiss <- read_excel("data/yeast_domain_Pfam_July.xls", sheet = "Domain_July")
+# yeast_domain_swiss0 <- read_excel("data/yeast_domain_Pfam_April.xls", sheet = "Domain")
+yeast_domain_swiss <- read_excel("data/20180808_yeast_3D_information.xls", sheet = "Domain")
 
-yeast_domain_SGD <- read_excel("data/yeast_domain_SGD.xlsx",  sheet = "Sheet4")
 
 #id-mapping in swisss database
 uniprotID_gene <- read_excel("data/uniprotGeneID_mapping.xlsx")
 yeast_domain_swiss$gene <- getSingleReactionFormula(uniprotID_gene$GeneName,uniprotID_gene$Entry,yeast_domain_swiss$`seq id`)
-
-# compare the domain information from both database
-# YDL174C as an example
-# by comparion, the domains in SGD are from multiple databases
-# while the domains information from swiss is mainly from Pfam
-yeast_domain_SGD_YDL174C <- filter(yeast_domain_SGD,`Gene Systematic Name` =="YDL174C")
-yeast_domain_swiss_YDL74C <- filter(yeast_domain_swiss, gene=="YDL174C")
-
-
-# we need refine the domain information from both database to establish the domain-gene-protein-reaction(dGPR)
-# we can firstly comine the domain with the same name when estabolish the map of domain-gene connection
-
-#domain information from sgd for these metabolic genes
-index1 <- which(yeast_domain_SGD$`Gene Systematic Name` %in% gene_all$geneNames ==TRUE)
-domain_SGD <- yeast_domain_SGD[index1,]
-gene_SGD_withDomain <- unique(domain_SGD$`Gene Systematic Name`)
-
-
 
 #domain information from pfam fro these metabolic genes
 index2 <- which(yeast_domain_swiss$gene %in% gene_all$geneNames ==TRUE)
@@ -51,6 +35,7 @@ domain_pfam0 <- select(domain_pfam,
                        type,
                        `E-value`,
                        pdb_id)
+colnames(domain_pfam0) <- c('gene','domain_start','domain_end','domain_name','domain_decription','type','e_value','pdb_id')
 
 #domain statistics analysis from pfam database
 index3 <- which(duplicated(domain_pfam0$`hmm acc`) ==FALSE)
@@ -109,4 +94,26 @@ plot(d, main="Density of domain number",
 ## enrichment analysis for these genes more than 5 domains
 gene_over_5_domain <- filter(pfam_domain_number, number <= 200 & number >= 5)
 write.table(gene_over_5_domain,'result/gene_over_5_domain.txt', row.names = FALSE, sep='\t')
+write.table(domain_pfam0,'result/domain_pfam0_for_SNP_pipeline.txt', row.names = FALSE, sep='\t')
 
+
+
+
+
+# part 2
+yeast_domain_SGD <- read_excel("data/yeast_domain_SGD.xlsx",  sheet = "Sheet4")
+
+# preprocess domain information from SGD database
+yeast_domain_SGD <- filter(yeast_domain_SGD, `Protein Domains Method` == 'Pfam' )
+
+# re_name the column names of SGD domain annotation
+colnames(yeast_domain_SGD) <- c('SGDid','gene','method','domain_name','domain_decription','e_value','domain_start','domain_end','run_data')
+
+# domain information from sgd for these metabolic genes
+index1 <- which(yeast_domain_SGD$gene %in% gene_all$geneNames ==TRUE)
+domain_SGD <- yeast_domain_SGD[index1,]
+gene_SGD_withDomain <- unique(domain_SGD$gene)
+
+# compare the domain information from SGD and pfam
+# it can be found that the latest information from gang is more comprehensive
+domain_SGD_YGR240C <- filter(domain_SGD, gene == 'YGR240C')
