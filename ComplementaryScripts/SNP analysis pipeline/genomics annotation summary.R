@@ -1,9 +1,6 @@
 #this script was used to parse the genome annotation of s288c
 #the result of this script is the base for all other analysis and should be run firstly
-
-library(tidyverse)
-library(stringr)
-
+source('preprocess_1011_project_function.R')
 
 ## parse the genomic gbff file
 s288 <- scan("data/GCF_000146045.2_R64_genomic.gbff", sep = "\n", what = "complex")
@@ -199,9 +196,51 @@ index1 <-  which (gene_feature0$locus_tag %in% gene_list_yeastGEM$geneNames ==TR
 gene_feature_GEM <- gene_feature0[index1,]
 
 
-##evaluate the quality
+# evaluate the quality
+# three check
+# check 1, ratio of gene and the translated protein----OK
+# check 2, length of gene----OK
+# check 3, translated protein seq is equal to that in SGD, index_need_check 570 1220 1221 1222 1223 1224 1225 1226
+# YIL167W is blocked will be removed from the gene list
+#
 gene_feature_GEM$check <- ((as.numeric(gene_feature_GEM$cds_length))/3-1) == as.numeric(gene_feature_GEM$aa_length)
 gene_feature_GEM$complement_sign <- str_detect(gene_feature_GEM$cds_location,"complement")
+gene_feature_GEM$aa_length[570]<- 338 # every protein should have parameter of aa_length
+
+for (i in 1:nrow(gene_feature_GEM)) {
+  print(i)
+  s1 <- gene_feature_GEM$locus_tag[i]
+  gene_snp <- getGeneCoordinate(gene_name = s1, genesum = gene_feature_GEM)
+  realcds <- str_to_lower(paste(gene_snp[["gene"]], collapse = ""))
+  toycds <- s2c(realcds)
+  gene_snp[["protein_mutated"]] <- translate(seq = toycds)
+  s10 <- all(gene_snp[["protein"]] == gene_snp[["protein_mutated"]])
+  gene_feature_GEM$check2[i] <- s10
+  print(s10)
+
+}
+
+# it can be found that 8 genes's traslated protein sequence is not equal to the protein sequence in the database
+# thus we need find the reason
+# initil check showed that the translated aa is not right from original database
+# thus we need use the traslated aa sequence for these 7 genes
+index_check <- which(gene_feature_GEM$check2==FALSE)
+gene_feature_GEM_check <- gene_feature_GEM[index_check,]
+
+for (i in 1:8){
+gene_feature_GEM_check$aa_seq[i] <- getProteinFromCDS(gene_feature_GEM_check$cds_seq[i])
+
+}
+
+# update the dataframe-gene_feature_GEM
+# this data will used all the followed analysis
+gene_feature_GEM <- gene_feature_GEM[-index_check,]
+gene_feature_GEM <- rbind.data.frame(gene_feature_GEM,gene_feature_GEM_check)
+
+
+
+
+
 
 
 

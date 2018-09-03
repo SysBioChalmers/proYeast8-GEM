@@ -120,6 +120,96 @@ changeATCG <- function (ss){
   return(ss)
 }
 
+
+
+#the function is used to obtain a list which contains the coordinate information of each gene
+#here we firstly on metabolic gene from GEM model
+# A T C G 
+#test of this function
+#for (i in 1:1226) {
+#  print(gene_feature_GEM$locus_tag[i])
+#  print(getGeneCoordinate(gene_feature_GEM$locus_tag[i]))
+#}
+getGeneCoordinate <- function(gene_name, genesum = gene_feature_GEM ){
+  #gene_name <- "YIL111W" # example
+  ss <- filter(genesum, locus_tag==gene_name)
+  gene_snp <- list()
+  cds_seq <- vector()
+  if(str_detect(ss$location[1], "complement")==FALSE){ #complement means the seq in the -1 strand
+    ll <- ss$cds_location
+    ll1 <- unlist(str_split(ll, ","))
+    ll1 <- str_replace_all(ll1, "location=join\\(","") %>%
+      str_replace_all(.,"\\)","") %>%
+      str_replace_all(.,"location=", "")
+    tt <- list()
+    for (i in seq(length(ll1))){
+      if(str_detect(ll1[i],"\\.\\." )){
+        tt[[i]] <- unlist(str_split(ll1[i],"\\.\\."))
+      } else{
+        tt[[i]] <- ll1[i]
+      }
+    }
+    
+    tt0 <- list()
+    for (i in seq(length(tt))){
+      if(length(tt[[i]])==2) { 
+        tt0[[i]] <- seq(as.numeric(tt[[i]][1]), as.numeric(tt[[i]][2]),1)
+      } else{
+        tt0[[i]] <-tt[[i]][1]
+      }
+    }
+    
+    cds_seq <- unlist(tt0)
+    
+    gene_snp[['gene']] <- unlist(strsplit(ss$cds_seq[1], split = ""))
+    # cds_location
+    gene_snp[['gene_coordinate']] <- cds_seq
+    gene_snp[['protein']] <- unlist(strsplit(ss$aa_seq[1], split = ""))
+    gene_snp[['protein_coordinate']] <- seq(as.numeric(ss$aa_length[1]))
+  } else{
+    ss <- filter(genesum, locus_tag==gene_name)
+    ll <- ss$cds_location
+    ll1 <- unlist(str_split(ll, ","))
+    ll1 <- str_replace_all(ll1, "location=complement\\(join\\(","") %>%
+      str_replace_all(.,"\\)","") %>%
+      str_replace_all(.,"location=complement\\(", "")
+    tt <- list()
+    
+    for (i in seq(length(ll1))){
+      if(str_detect(ll1[i],"\\.\\." )){
+        tt[[i]] <- unlist(str_split(ll1[i],"\\.\\."))
+      } else{
+        tt[[i]] <- ll1[i]
+      }
+    }
+    
+    tt0 <- list()
+    
+    for (i in seq(length(tt),1,-1)){
+      if(length(tt[[i]]==2)){
+        tt0[[i]] <- seq(as.numeric(tt[[i]][2]), as.numeric(tt[[i]][1]),-1)
+        cds_seq <- c(cds_seq, unlist(tt0[[i]]))
+      } else{
+        tt0[[i]] <- as.numeric(tt[[i]][1])
+        cds_seq <- c(cds_seq, unlist(tt0[[i]]))
+      }
+      
+    }
+    
+    gene_snp[['gene']] <- unlist(strsplit(ss$cds_seq[1], split = ""))
+    # cds_location
+    gene_snp[['gene_coordinate']] <- cds_seq
+    gene_snp[['protein']] <- unlist(strsplit(ss$aa_seq[1], split = ""))
+    gene_snp[['protein_coordinate']] <- seq(as.numeric(ss$aa_length[1]))
+    
+  }
+  
+  return(gene_snp)
+  
+}
+
+
+
 #this function is used to obtain the metabolic gene list which have SNP, in total there are 36 metabolic genes which
 #don't have the mutation
 getGeneNameWithSNP <- function() {
@@ -165,6 +255,19 @@ preprocessSNP <- function(gene0) {
   
   return(mutated_gene0)
 }
+
+# this function can produce the amino acid seq based on cds sequence
+getProteinFromCDS <- function (cds0){
+  #input
+  #cds0, ATGGAAATGA ---cds seq
+  #output , MVQRWLYSTNAKD -- aa seq
+  realcds0 <- str_to_lower(cds0)
+  toycds0 <- s2c(realcds0)
+  protein0 <- translate(seq = toycds0)
+  protein1 <- paste0(protein0, collapse = "")
+  return(protein1)
+}
+
 
 
 # function to get the coordinate information of domain occured in each gene
