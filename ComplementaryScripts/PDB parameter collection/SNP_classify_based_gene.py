@@ -27,11 +27,7 @@ def singleMapping (description, item1, item2, dataframe=True):
             result[i] = None
     return result
 
-gene_feature['cvfName'] = singleMapping(chrom['vcfName'],chrom['annotateName'],gene_feature['chromosome'])
-gene_feature.cvfName.notnull()
-gene_feature0 = gene_feature[gene_feature.cvfName.notnull()]
-len(gene_feature0.cvfName)
-gene_feature1 = gene_feature0[['cvfName', 'start', 'end', 'locus_tag']]
+
 
 
 def getGeneName(sample, annotation = gene_feature1):
@@ -68,6 +64,11 @@ chrom['annotateName'] = chrom['annotateName'].str.lower()
 
 geneGEM = pd.read_excel('../data/gene_list_yeastGEM.xlsx')
 
+gene_feature['cvfName'] = singleMapping(chrom['vcfName'],chrom['annotateName'],gene_feature['chromosome'])
+gene_feature.cvfName.notnull()
+gene_feature0 = gene_feature[gene_feature.cvfName.notnull()]
+len(gene_feature0.cvfName)
+gene_feature1 = gene_feature0[['cvfName', 'start', 'end', 'locus_tag']]
 
 # get gene name based on the gene coordinates in the genome
 # here in the gene_feature1, it mainly contains the coordinates information for these genes which are functional and could be translated into proteins
