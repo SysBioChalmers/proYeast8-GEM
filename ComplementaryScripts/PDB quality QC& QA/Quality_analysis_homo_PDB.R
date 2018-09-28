@@ -16,7 +16,7 @@ gene_EX <- unique(pdb_EX$locus)
 
 gene_no_pdb <- setdiff(gene_all$geneNames, gene_EX)
 index_homology <- which(model_homo$locus %in% gene_no_pdb ==TRUE)
-pdb_HOMO <-model_homo[index_homology,]
+pdb_HOMO <- model_homo[index_homology,]
 gene_HOMO <- unique(pdb_HOMO$locus)
 
 
@@ -31,7 +31,10 @@ pdb_number <- filter(pdb_number, !is.na(number))
 
 ##bar based on group
 plotPDBnumber(pdb_number$number)
-
+ggplot(pdb_number, aes(number)) +
+  geom_density(fill="lightblue") +
+  xlim(-1, 10) +
+  labs(x='PDB number per protein')
 
 #qmean
 mean_qmean <- mean(as.numeric(pdb_HOMO$qmean))
@@ -141,19 +144,28 @@ pdb_homo1 <- filter(pdb_HOMO,
                     Seq_similarity >=0.31 &
                     Resolution <= 3.4  )
 gene_homo1 <- unique(pdb_homo1$locus)
+length(gene_homo1)
 
-
-#filter 2 with a lower standard
+# filter 2 with a lower standard
 pdb_homo2 <- filter(pdb_HOMO, 
                     qmean >= -6.98 & 
                       Seq_Identity >= 17.58 &
                       Seq_similarity >= 0.25 &
                       Resolution <= 3.8  )
 gene_homo2 <- unique(pdb_homo2$locus)
+length(gene_homo2)
+
+# save the result for the pdb_homo with high quality
+# the file can be used as the input to calculate the 
+write.table(pdb_homo1,"result/pdb_homo for PDB structure without experiment pdb.txt", row.names = FALSE, sep = "\t")
 
 
 
-
+# comprehensive analysis of the homology pdb file
+# calculate the ratio of pdb homo in high quality
+pdb_HOMO$quality_type <- "NA"
+pdb_HOMO$quality_type[which(pdb_HOMO$coordinate_id %in% pdb_homo1$coordinate_id)] <- "high quality"
+length(unique(pdb_HOMO$locus))
 
 
 

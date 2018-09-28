@@ -28,7 +28,7 @@ df_merged <- right_join(pdb_EX, pdb_EX0, by = 'id_mapping')
 #then we should bring in the blast results based on sequence using diamond
 #it should be noted that there two different types of sequence for each PDB structure
 #PDB sequence type1, which could be downloaded from PDB database directly
-#PDB sequence type2, which is extracted from each PDB structure
+#PDB sequence type2, which is extracted from each PDB structure using python codes
 #we should compare these two types of sequence
 df_merged$id_mapping_chain <- paste(df_merged$id_mapping, df_merged$chain_new,sep = "@")
 
@@ -69,6 +69,11 @@ pdb_number <- filter(pdb_number, !is.na(number))
 
 ##bar based on group
 plotPDBnumber(pdb_number$number)
+ggplot(pdb_number, aes(number)) +
+  geom_density(fill="lightblue") +
+  xlim(-5, 200) +
+  labs(x='PDB number per protein')
+
 
 #coverage analysis
 #the coverage for experimental pdb files is close to 1.
@@ -89,27 +94,26 @@ mean_Resolution <- mean(as.numeric(pdb_EX1$Resolution))
 pdb_EX1$Resolution <- as.numeric(pdb_EX1$Resolution)
 sd_Resolution <- sd(as.numeric(pdb_EX1$Resolution))
 
+ggplot(pdb_EX1, aes(Resolution)) +
+  geom_density(fill="lightblue") +
+  labs(x='Resolution') +
+  xlim(0,15) +
+  geom_vline(aes(xintercept= 3), color="red", linetype="dashed", size=1)
 
-dens0 <- density(pdb_EX1$Resolution)
-plot(dens0, frame = FALSE, col = "steelblue",
-     main = "Density of Resolution",
-     xlab="Resolution",
-     ylab="Density")
-abline(v=3, col="red")
 pnorm(0.5,mean_Resolution,sd_Resolution) #calculate the the probability smaller than -1.5
 qnorm(0.4,mean_Resolution,sd_Resolution,lower.tail = FALSE)  #qnorm is that you give it a probability, and it returns the number whose cumulative distribution matches the probability
+
+
 
 
 #completeness analysis
 pdb_EX2 <- df_merged[which(!is.na(df_merged$mismatch2) ==TRUE),] 
 pdb_EX2$mismatch2 <- as.numeric(pdb_EX2$mismatch2)
-dens0 <- density(pdb_EX2$mismatch2)
-plot(dens0, frame = FALSE, col = "steelblue",
-     main = "Density of mismatch number",
-     xlab="Mismatch number",
-     xlim=c(0,10),
-     ylab="Density")
-abline(v=1, col="red")
+ggplot(pdb_EX2, aes(mismatch2)) +
+  geom_density(fill="lightblue") +
+  labs(x='Mutation number') +
+  xlim(0,5) +
+  geom_vline(aes(xintercept= 1), color="red", linetype="dashed", size=1)
 
 
 ## using the above code, we merge the blast result with each gene-pdbid relation

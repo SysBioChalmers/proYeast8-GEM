@@ -6,7 +6,7 @@ library(readr)
 library(tidyverse)
 library(stringr)
 library(hongR) # personal packages contain single and multiple mapping
-
+source('some_function_for_quality_analysis.R')
 
 gene_all <- read_excel("data/gene_list_yeastGEM.xlsx",  sheet = "Sheet1")
 gene_all$geneNames <- str_trim(gene_all$geneNames, side = "both")
@@ -38,33 +38,18 @@ domain_pfam0 <- select(domain_pfam,
 colnames(domain_pfam0) <- c('gene','domain_start','domain_end','domain_name','domain_decription','type','e_value','pdb_id')
 
 #domain statistics analysis from pfam database
-index3 <- which(duplicated(domain_pfam0$`hmm acc`) ==FALSE)
+index3 <- which(duplicated(domain_pfam0$domain_name) ==FALSE)
 unique_domain_pfam <- domain_pfam0[index3,]
 
-domain_pfam0$gene_domain <- paste(domain_pfam0$gene, domain_pfam0$`hmm acc`, sep = '_')
+domain_pfam0$gene_domain <- paste(domain_pfam0$gene, domain_pfam0$domain_name, sep = '_')
 index4 <- which(duplicated(domain_pfam0$gene_domain)==FALSE)
 unique_gene_domain <- domain_pfam0[index4,]
 
 #domain number of each metabolic genes
 unique_gene_pfam <- unique(domain_pfam0$gene)
 pfam_domain_number <- data.frame(gene=unique_gene_pfam, stringsAsFactors = FALSE)
-pfam_domain_number$domain <- getMultipleReactionFormula(domain_pfam0$`hmm acc`,domain_pfam0$gene,unique_gene_pfam)
-pfam_domain_number$number <- str_count(pfam_domain_number$domain, ";") +1
-
-unique(pfam_domain_number$number)
-# calculate the number between a range (number1, number2)
-number.counter <-function(ss, number1, number2){  
-  counts <- 0
-  for(i in 1:length(ss)){
-    if (number1 <= ss[i] && ss[i] < number2 ){
-      counts <- counts + 1
-    } else{
-      counts <- counts + 0
-    }
-  }
-  return(counts)
-}
-
+pfam_domain_number$domain <- getMultipleReactionFormula(domain_pfam0$domain_decription,domain_pfam0$gene,unique_gene_pfam)
+pfam_domain_number$number <- calculateUnique(pfam_domain_number$domain)
 
 ##bar based on group
 group <- c('With one','Between 2 and 6','Between 6 and 20','Between 20 and 100')
@@ -75,7 +60,7 @@ pfam_domain_analysis$num[2] <- number.counter(pfam_domain_number$number,2,6)
 pfam_domain_analysis$num[3] <- number.counter(pfam_domain_number$number,6,20)
 pfam_domain_analysis$num[4] <- number.counter(pfam_domain_number$number,20,100)
 
-
+## density analysis
 ggplot(data=pfam_domain_analysis, aes(x=reorder(group,-num), y=num,fill=group)) +
   geom_bar(stat="identity") + # reorder: adjust the order
   theme(legend.title = element_blank(), legend.position = "right") +
@@ -84,12 +69,11 @@ ggplot(data=pfam_domain_analysis, aes(x=reorder(group,-num), y=num,fill=group)) 
   ggtitle("Number analysis of domain for all genes") +
   labs(x="Group",y="Number") 
 
-## density analysis
-##density
-d <- density(pfam_domain_number$number)
-plot(d, main="Density of domain number",
-    xlab="Domain number",
-    ylab="Density")
+ggplot(pfam_domain_number, aes(number)) +
+  geom_density(fill="lightblue") +
+  xlim(0, 8) +
+  labs(x='Domain number per protein') +
+  ggtitle("Density of domain number")
 
 ## enrichment analysis for these genes more than 5 domains
 gene_over_5_domain <- filter(pfam_domain_number, number <= 200 & number >= 5)
@@ -98,9 +82,7 @@ write.table(domain_pfam0,'result/domain_pfam0_for_SNP_pipeline.txt', row.names =
 
 
 
-
-
-# part 2
+# part 2 comparing the domain information between SGD and pfam
 yeast_domain_SGD <- read_excel("data/yeast_domain_SGD.xlsx",  sheet = "Sheet4")
 
 # preprocess domain information from SGD database
