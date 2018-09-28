@@ -153,44 +153,32 @@ cds_fna$gene <- str_replace_all(cds_fna$gene, "locus_tag=", "")
 
 
 
-
-##gene location summary based on the above three files:
-getSingleReactionFormula <- function(description, reaction_ko, ko) {###description can be any charater of metabolite
-  index <- vector()
-  result <- vector()
-  tt <- vector()
-  for (i in 1:length(ko)){
-    if(length(match(ko[i],reaction_ko))){
-      index <- match(ko[i],reaction_ko)
-      tt <- description[index]
-      result[i] <- paste0(tt, collapse = ";")
-    } else{
-      
-      result[i] <- NA
-    }
-  }
-  return(result)
-}
-
-##give the mRNA seq, mRNA length, amino acid sequece and amino acid length
-library(readr)
+#give the mRNA seq, mRNA length, amino acid sequece and amino acid length
+#here we merge the gene info from gene_feature0, sds_fna info and SGD info
 s288_SGD <- read_tsv('data/s288_genome.tsv')
+
 gene_feature0$cds_location <- getSingleReactionFormula(cds_fna$location,cds_fna$gene,gene_feature0$locus_tag)
 gene_feature0$cds_seq <- getSingleReactionFormula(cds_fna$cds,cds_fna$gene,gene_feature0$locus_tag)
 gene_feature0$cds_length <- getSingleReactionFormula(cds_fna$length_cds,cds_fna$gene,gene_feature0$locus_tag)
+gene_feature0 <- gene_feature0[gene_feature0$cds_location != "NA",] #total 6008 genes coud can be translated into proteins
+
 gene_feature0$aa_seq <- getSingleReactionFormula(s288_SGD$protein_residue,s288_SGD$systematic_name,gene_feature0$locus_tag)
 gene_feature0$aa_length <- getSingleReactionFormula(s288_SGD$protein_length,s288_SGD$systematic_name,gene_feature0$locus_tag)
 gene_feature0$chromosome <- getSingleReactionFormula(s288_SGD$chromosome,s288_SGD$systematic_name,gene_feature0$locus_tag)
 gene_feature0$start <- getSingleReactionFormula(s288_SGD$locations_start,s288_SGD$systematic_name,gene_feature0$locus_tag)
 gene_feature0$end <- getSingleReactionFormula(s288_SGD$locations_end,s288_SGD$systematic_name,gene_feature0$locus_tag)
 #gene_feature0$DNA_SGD <- getSingleReactionFormula(s288_SGD$sequence,s288_SGD$systematic_name,gene_feature0$locus_tag) It should be note the gene sequence from SGD seems not right
-
 gene_feature0$start <- as.numeric(gene_feature0$start)
 gene_feature0$end <- as.numeric(gene_feature0$end)
+gene_feature0 <- gene_feature0[gene_feature0$chromosome !="NA", ]
+
+#some genes don't have the coordinate information. These gene are from 1011 project
+gene_with_SNP <- list.files("1011_project")
+gene_with_SNP <- str_replace_all(gene_with_SNP, "\\.fasta", "")
+print("though some gene with SNP but they can be non functional")
 
 
 ##choose the metabolic genes
-library(readxl)
 gene_list_yeastGEM <- read_excel("data/gene_list_yeastGEM.xlsx")
 index1 <-  which (gene_feature0$locus_tag %in% gene_list_yeastGEM$geneNames ==TRUE)
 gene_feature_GEM <- gene_feature0[index1,]
@@ -220,14 +208,14 @@ for (i in 1:nrow(gene_feature_GEM)) {
 
 }
 
-# it can be found that 8 genes's traslated protein sequence is not equal to the protein sequence in the database
+# it can be found that 7 genes's traslated protein sequence is not equal to the protein sequence in the database
 # thus we need find the reason
 # initil check showed that the translated aa is not right from original database
 # thus we need use the traslated aa sequence for these 7 genes
 index_check <- which(gene_feature_GEM$check2==FALSE)
 gene_feature_GEM_check <- gene_feature_GEM[index_check,]
 
-for (i in 1:8){
+for (i in seq_along(index_check)){
 gene_feature_GEM_check$aa_seq[i] <- getProteinFromCDS(gene_feature_GEM_check$cds_seq[i])
 
 }

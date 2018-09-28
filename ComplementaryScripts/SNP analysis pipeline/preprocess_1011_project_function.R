@@ -9,7 +9,7 @@ library(hongR)
 library(centiserve) #this package is used to calculate the closeness centrality
 library(igraph)#form the unique clust based on Floyd-Warshall shortest-paths algorithm
 library(seqinr)
-
+library(readr)
 
 #this function is used to filter fasta file of genes which belong to metabolic
 filterMetabolicGene <- function() {

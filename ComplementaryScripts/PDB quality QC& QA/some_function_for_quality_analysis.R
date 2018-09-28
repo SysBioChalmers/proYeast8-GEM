@@ -1,3 +1,4 @@
+library(ggplot2)
 # calculate the number between a range (number1, number2)
 number.counter <-function(ss, number1, number2){  
   counts <- 0
@@ -37,3 +38,14 @@ plotPDBnumber <- function(pdb_number0) {
     labs(y = "Number", x = "PDB_exp number of protein") +
     theme(legend.title = element_text(size = 10))
 }
+
+
+# function remove the duplicated number in a column of dataframe
+calculateUnique <- function (s1){
+  #s1 <- pfam_domain_number$domain
+  s2 <- str_split(s1, ";")
+  s3 <- sapply(s2, unique)
+  s4 <- sapply(s3, length)
+  return(s4)
+}
+
