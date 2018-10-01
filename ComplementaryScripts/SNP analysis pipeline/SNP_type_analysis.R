@@ -1,8 +1,5 @@
 #----------------note
-# this main script is used to handle with the gene mutation only from SNP information
-# in this process, the gene with SNP will be translated into protein, based on which
-# the SNP could be classified into nsSNP and sSNP
-# Only nsSNP is used to mapping onto protein 3D structure
+# this main script is used to calculate nsSNP number occured for each gene based on SNP number
 source("genomics annotation summary.R")
 source("preprocess_1011_project_function.R")
 
@@ -48,6 +45,9 @@ for (i in 1:nrow(geneGEM_with_SNP_number)) {
     geneGEM_with_SNP_number$nsSNP[i]
   }
 }
-#note
-# YMR207C ref exist error which is due to the protein seq is not consitant between uniprot and sgd
-        
+
+
+
+
+
+

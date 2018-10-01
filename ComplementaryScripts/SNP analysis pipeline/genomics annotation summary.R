@@ -171,7 +171,7 @@ gene_feature0$end <- getSingleReactionFormula(s288_SGD$locations_end,s288_SGD$sy
 gene_feature0$start <- as.numeric(gene_feature0$start)
 gene_feature0$end <- as.numeric(gene_feature0$end)
 gene_feature0 <- gene_feature0[gene_feature0$chromosome !="NA", ]
-
+gene_feature0$complement_sign <- str_detect(gene_feature0$cds_location,"complement")
 #some genes don't have the coordinate information. These gene are from 1011 project
 gene_with_SNP <- list.files("1011_project")
 gene_with_SNP <- str_replace_all(gene_with_SNP, "\\.fasta", "")
@@ -190,44 +190,42 @@ gene_feature_GEM <- gene_feature0[index1,]
 # check 2, length of gene----OK
 # check 3, translated protein seq is equal to that in SGD, index_need_check 570 1220 1221 1222 1223 1224 1225 1226
 # YIL167W is blocked will be removed from the gene list
-#
 gene_feature_GEM$check <- ((as.numeric(gene_feature_GEM$cds_length))/3-1) == as.numeric(gene_feature_GEM$aa_length)
-gene_feature_GEM$complement_sign <- str_detect(gene_feature_GEM$cds_location,"complement")
+#gene_feature_GEM$complement_sign <- str_detect(gene_feature_GEM$cds_location,"complement")
 gene_feature_GEM$aa_length[570]<- 338 # every protein should have parameter of aa_length
-
-for (i in 1:nrow(gene_feature_GEM)) {
-  print(i)
-  s1 <- gene_feature_GEM$locus_tag[i]
-  gene_snp <- getGeneCoordinate(gene_name = s1, genesum = gene_feature_GEM)
-  realcds <- str_to_lower(paste(gene_snp[["gene"]], collapse = ""))
-  toycds <- s2c(realcds)
-  gene_snp[["protein_mutated"]] <- translate(seq = toycds)
-  s10 <- all(gene_snp[["protein"]] == gene_snp[["protein_mutated"]])
-  gene_feature_GEM$check2[i] <- s10
-  print(s10)
-
-}
+print('start check the GEM gene coordinate information')
+translatedProteinGEM <- checkTanslatedProtein(gene_feature_GEM)
+print('the GEM gene coordinate information have been checked')
 
 # it can be found that 7 genes's traslated protein sequence is not equal to the protein sequence in the database
 # thus we need find the reason
 # initil check showed that the translated aa is not right from original database
 # thus we need use the traslated aa sequence for these 7 genes
-index_check <- which(gene_feature_GEM$check2==FALSE)
-gene_feature_GEM_check <- gene_feature_GEM[index_check,]
-
-for (i in seq_along(index_check)){
-gene_feature_GEM_check$aa_seq[i] <- getProteinFromCDS(gene_feature_GEM_check$cds_seq[i])
-
-}
-
 # update the dataframe-gene_feature_GEM
 # this data will used all the followed analysis
-gene_feature_GEM <- gene_feature_GEM[-index_check,]
-gene_feature_GEM <- rbind.data.frame(gene_feature_GEM,gene_feature_GEM_check)
+gene_feature_need_check <- translatedProteinGEM[[2]]
+for (i in seq_along(gene_feature_need_check$locus_tag)){
+  gene_feature_need_check$aa_seq[i] <- getProteinFromCDS(gene_feature_need_check$cds_seq[i])
+  
+}
+gene_feature_right <- translatedProteinGEM[[1]]
+gene_feature_GEM <- rbind.data.frame(gene_feature_right, gene_feature_need_check)
 
 
 
+# final step check the whole genome
+# the same method can be used check the quality of whole genome coordinate information
+print('start check the whole genome coordinate information')
+translatedProtein <- checkTanslatedProtein(gene_feature0)
+print('the whole genome coordinate information have been checked')
 
+gene_feature_need_check2 <- translatedProtein[[2]]
+for (i in seq_along(gene_feature_need_check2$locus_tag)){
+  gene_feature_need_check2$aa_seq[i] <- getProteinFromCDS(gene_feature_need_check2$cds_seq[i])
+  
+}
+gene_feature_right2 <- translatedProtein[[1]]
+gene_feature0 <- rbind.data.frame(gene_feature_right2, gene_feature_need_check2)
 
 
 
