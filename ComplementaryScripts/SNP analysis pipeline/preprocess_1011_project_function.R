@@ -131,7 +131,8 @@ changeATCG <- function (ss){
 #  print(getGeneCoordinate(gene_feature_GEM$locus_tag[i]))
 #}
 getGeneCoordinate <- function(gene_name, genesum = gene_feature_GEM ){
-  #gene_name <- "YIL111W" # example
+  #genesum = gene_feature0
+  #gene_name <- "YMR242C" # example
   ss <- filter(genesum, locus_tag==gene_name)
   gene_snp <- list()
   cds_seq <- vector()
@@ -169,7 +170,7 @@ getGeneCoordinate <- function(gene_name, genesum = gene_feature_GEM ){
   } else{
     ss <- filter(genesum, locus_tag==gene_name)
     ll <- ss$cds_location
-    ll1 <- unlist(str_split(ll, ","))
+    ll1 <- unlist(str_split(ll, ",")) # coordinate of cds
     ll1 <- str_replace_all(ll1, "location=complement\\(join\\(","") %>%
       str_replace_all(.,"\\)","") %>%
       str_replace_all(.,"location=complement\\(", "")
@@ -186,7 +187,8 @@ getGeneCoordinate <- function(gene_name, genesum = gene_feature_GEM ){
     tt0 <- list()
     
     for (i in seq(length(tt),1,-1)){
-      if(length(tt[[i]]==2)){
+      #i=2
+      if(length(tt[[i]])==2){ #code error here, original code:if(length(tt[[i]]==2)); new code:if(length(tt[[i]])==2)
         tt0[[i]] <- seq(as.numeric(tt[[i]][2]), as.numeric(tt[[i]][1]),-1)
         cds_seq <- c(cds_seq, unlist(tt0[[i]]))
       } else{
@@ -208,6 +210,37 @@ getGeneCoordinate <- function(gene_name, genesum = gene_feature_GEM ){
   
 }
 
+
+
+
+# this function is used to check whether the translated protein is equal to the protein sequence
+# from the sgd database, if they are equal, the original cds sequence and protein sequence is consistent in
+# our program
+checkTanslatedProtein <- function(gene_seq_inf) {
+  #input
+  #a gene feature dataframe, each row contains the gene annotation information, like the coordinates, the cds sequence
+  #output
+  #a list contains the gene with right translated protein and the gene with wrong translated protein
+  #example
+  #checkTanslatedProtein(gene_feature0)
+  checkResult <- list()
+  for (i in 1:nrow(gene_seq_inf)) {
+    print(i)
+    # i=4411
+    s1 <- gene_seq_inf$locus_tag[i]
+    gene_snp <- getGeneCoordinate(gene_name = s1, genesum = gene_seq_inf)
+    realcds <- str_to_lower(paste(gene_snp[["gene"]], collapse = ""))
+    toycds <- s2c(realcds)
+    gene_snp[["protein_mutated"]] <- translate(seq = toycds)
+    s10 <- all(gene_snp[["protein"]] == gene_snp[["protein_mutated"]])
+    gene_seq_inf$check2[i] <- s10
+    print(s10)
+  }
+  gene_feature_need_check <- filter(gene_seq_inf, check2 == FALSE)
+  checkResult[["right_feature"]] <- filter(gene_seq_inf, check2 == TRUE) # store the right information
+  checkResult[["wrong_feature"]] <- filter(gene_seq_inf, check2 == FALSE) # store the right information
+  return(checkResult)
+}
 
 
 #this function is used to obtain the metabolic gene list which have SNP, in total there are 36 metabolic genes which
