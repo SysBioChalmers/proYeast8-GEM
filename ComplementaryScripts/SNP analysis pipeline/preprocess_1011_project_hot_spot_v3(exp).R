@@ -5,17 +5,17 @@
 # Only nsSNP is used to mapping onto protein 3D structure
 
 source("genomics annotation summary.R")
-source("getGeneCoordinate.R")
 source("preprocess_1011_project_function.R")
 
 
 # step0 choose samples that need to be analyzed
 strain_classification <- read_excel("data/strain_classification.xls")
 unique(strain_classification$Clades)
-
-strain_type <- "Wine"
-strain_select1 <- filter(strain_classification, str_detect(strain_classification$Clades, strain_type)) %>%
-  select(., Standardized_name)
+#strain_type <- "Wine"
+#strain_select1 <- filter(strain_classification, str_detect(strain_classification$Clades, strain_type)) %>%
+#  select(., Standardized_name)
+strain_type <- "all_strain"
+strain_select1 <- chooseStrain(type = strain_type)
 
 
 
@@ -25,7 +25,7 @@ strain_select1 <- filter(strain_classification, str_detect(strain_classification
 #------------this version is used to preprocess data from 1011 project
 # step 1
 # preprocess the SNP information
-ss <- "YPR110C"
+ss <- "YAL012W"
 mutated_gene0 <- preprocessSNP(ss)
 mutated_gene1 <- mutated_gene0[which(mutated_gene0$strain %in% strain_select1$Standardized_name), ]
 
@@ -38,20 +38,21 @@ pos_mutation <- which(gene_snp[["pro_mutation_count"]] != 0)
 
 # step 2 input the structure information
 # input the distance of all the pired residues
-pdbID <- "4c2m@C"
+pdbID <- "1n8p@A"
 r1 <- 1
-r2 <- 305 # input the corrected residue sequnence
+r2 <- 387 # input the corrected residue sequnence
 r3 <- paste(r1, r2, sep = "-")
-dirForDistanceMatrix <- paste("residue_distance/", pdbID, ".txt", sep = "")
+dirForDistanceMatrix <- paste("residue_distance/pdb_ex/", pdbID, ".txt", sep = "")
 ResidueDistance0 <- read.table(dirForDistanceMatrix, sep = ",") # in the followed calculation, the matrix dosen't have the col and row names
 ResidueDistance0 <- as.matrix(ResidueDistance0)
+dim(ResidueDistance0)
 ResidueDistance <- ResidueDistance0[r1:r2, r1:r2]
 
 
 # the amino acid sequence in structure is from 2:394 while  the original sequence is from 1:394
 # obtain the mutation information for the structure
-p1 <- 31
-p2 <- 335
+p1 <- 2
+p2 <- 388
 p3 <- paste(p1, p2, sep = "-")
 seq_3D_origin <- p1:p2 # seq_from_3D <- 2:394 #"YAL012W.fasta"#this is the coordinated of original protein sequence and should changed into 3D structure coordinates
 amino_acid_3D <- gene_snp[["protein"]][seq_3D_origin]
@@ -232,7 +233,3 @@ for (i in 1:1047) {
     next
   }
 }
-
-
-
-

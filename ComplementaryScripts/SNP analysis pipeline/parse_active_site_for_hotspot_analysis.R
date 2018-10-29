@@ -131,7 +131,7 @@ sce_site_refine0 <- sce_site_refine0 %>% separate(., inf, into = c("description"
 sce_site_refine0$id_p <- paste(sce_site_refine0$orf, sce_site_refine0$coordinate, sep = "@")
 
 
-write.table(sce_site_refine0, "coordinate for the interesting site of sce genome.txt", row.names = FALSE, sep = "\t")
+write.table(sce_site_refine0, "result/coordinate for the interesting site of sce genome.txt", row.names = FALSE, sep = "\t")
 
 
 

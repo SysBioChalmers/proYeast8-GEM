@@ -3,17 +3,6 @@
 source("genomics annotation summary.R")
 source("preprocess_1011_project_function.R")
 
-# newly added function, will integrate the main function
-chooseStrain <- function(type,strain0=strain_classification){
-  if(type=="all_strain"){
-    return(strain0)
-  } else{
-    strain_select <- filter(strain_classification, str_detect(strain_classification$Clades, strain_type)) %>%
-      select(., Standardized_name)
-    return(strain_select)
-  }
-  
-}
 
 # step0 choose samples that need to be analyzed
 strain_classification <- read_excel("data/strain_classification.xls")
