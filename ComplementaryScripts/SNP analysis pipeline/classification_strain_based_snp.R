@@ -5,26 +5,13 @@
 # firstly we obtain the residues mutation of one gene for all strains
 # then we can classify the strains based on the specific residue mutations
 
-
-
-
-
 source("preprocess_1011_project_function.R")
 source("genomics annotation summary.R")
 
-# newly added function, will integrate the main function
-chooseStrain <- function(type,strain0=strain_classification){
-  if(type=="all_strain"){
-    return(strain0)
-  } else{
-    strain_select <- filter(strain_classification, str_detect(strain_classification$Clades, strain_type)) %>%
-      select(., Standardized_name)
-    return(strain_select)
-  }
-  
-}
+
 
 # function to preprocess the SNP information
+# this function will obtain all the mutated residue information for one protein
 printAllMutationWithGene <- function(ss){
   #ss <- 'YMR246W'
   mutated_gene0 <- preprocessSNP(ss)
@@ -53,6 +40,7 @@ printAllMutationWithGene <- function(ss){
 # datainput
 # choose samples that need to be analyzed
 strain_classification <- read_excel("data/strain_classification.xls")
+growth_phenotype <- read.table('data/strain_classification based on relative growth under high temperature.txt',header = TRUE, stringsAsFactors = FALSE)
 strain_type <- "all_strain"
 strain_select1 <- chooseStrain(type = strain_type)
 # choose the interested protein and the related mutation datasets
@@ -151,11 +139,10 @@ mutation_matrix0 <- mutation_matrix
 mutation_matrix0$sum <- rowSums(mutation_matrix0[,2:13])
 table(mutation_matrix0$sum)
 plot(density(mutation_matrix0$sum))
-strain1 <- mutation_matrix0[mutation_matrix0$sum >= 5,] %>% select(.,strain_name)
+strain1 <- mutation_matrix0[mutation_matrix0$sum >= 6,] %>% select(.,strain_name)
 cluster1 <-  growth_phenotype[growth_phenotype$strain_name %in% strain1$strain_name,]
 
-
-strain2 <- mutation_matrix0[mutation_matrix0$sum >= 2 & mutation_matrix0$sum <= 4,] %>% select(.,strain_name)
+strain2 <- mutation_matrix0[mutation_matrix0$sum >= 2 & mutation_matrix0$sum <= 5,] %>% select(.,strain_name)
 cluster2 <-  growth_phenotype[growth_phenotype$strain_name %in% strain2$strain_name,]
 
 
@@ -201,6 +188,10 @@ t.test(x1,x2)
 
 
 
+# further check the growth phenotype for the bioethonal strains
+growth_phenotype$clade <- getSingleReactionFormula(strain_classification$Clades,strain_classification$Standardized_name,growth_phenotype$strain_name)
+# strain name belong to 'g1'(have a higher relative growth in a higher temperature) and bioethonal as well
+strain_need_test <- filter(growth_phenotype, str_detect(clade,'bioethanol'))
+average_growth <- mean(strain_need_test$growth)
 
-  
   

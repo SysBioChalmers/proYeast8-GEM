@@ -4,7 +4,6 @@
 #the SNP could be classified into nsSNP and sSNP
 #Only nsSNP is used to mapping onto protein 3D structure
 source('genomics annotation summary.R')
-source('getGeneCoordinate.R')
 source('preprocess_1011_project_function.R')
 
 
@@ -12,10 +11,9 @@ source('preprocess_1011_project_function.R')
 strain_classification <- read_excel("data/strain_classification.xls")
 unique(strain_classification$Clades)
 
-strain_type <- "Wine"
+strain_type <- "bioethanol"
 strain_select1 <- filter(strain_classification, str_detect(strain_classification$Clades, strain_type)) %>%
   select(., Standardized_name)
-
 
 #------------new version----------------------------------------------------------
 #------------this version is used to preprocess data from 1011 project
@@ -76,10 +74,6 @@ wap_sample0 <- getSampleWAP(pos_mutation_3D,sample_standard1,ResidueDistance, se
 #analyze the result
 plotNullDistribution(wap_sample0)
 Strain_3D <- getPvalue(wap_original,wap_sample0)
-
-
-
-
 
 
 

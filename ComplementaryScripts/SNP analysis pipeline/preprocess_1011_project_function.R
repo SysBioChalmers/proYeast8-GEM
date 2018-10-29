@@ -514,20 +514,27 @@ getSampleWAP <- function(mutated_pos, sample0, distance, seq=seq0, n=10000){
 
 
 #function to plot the desity graph
-plotNullDistribution <- function(wap_sample) {
+#the wap_original0 now can be added as a line in x-axis
+plotNullDistribution <- function(wap_sample, wap_original0=FALSE) {
   plot(density(wap_sample),
-       frame = FALSE, col = "steelblue",
+       frame = FALSE, col = "black",
        main = "Density",
        xlab = "WAP",
        ylab = "Density"
+       
   )
-  
+  if(wap_original0 !=FALSE){
+    abline(v=wap_original0, col="blue", lty=2)
+  }
   
   plot(ecdf(wap_sample),
        main = "Cumulative density",
        xlab = "WAP",
        ylab = "Cumulative"
   )
+  if(wap_original0 !=FALSE){
+    abline(v=wap_original0, col="blue", lty=2)
+  }
 }
 
 
@@ -825,4 +832,25 @@ removeStopCoden <- function(residue_pair00) {
     unite(V2, V2a, V2b, sep = "@@")
   return(residue_pair3)
 }
+
+
+# newly added function, will integrate the main function
+# this function is mainly used to choose the strain based on the strain type defined in 1011 genome sequence project
+# example
+# strain_type <- "all_strain"
+# strain_select1 <- chooseStrain(type = strain_type)
+chooseStrain <- function(type,strain0=strain_classification){
+  #input: type--strain type, like Bioethonal, Wine
+  #output: strains set contained in each type
+  if(type=="all_strain"){
+    return(strain0)
+  } else{
+    strain_select <- filter(strain_classification, str_detect(strain_classification$Clades, strain_type)) %>%
+      select(., Standardized_name)
+    return(strain_select)
+  }
+  
+}
+
+
 

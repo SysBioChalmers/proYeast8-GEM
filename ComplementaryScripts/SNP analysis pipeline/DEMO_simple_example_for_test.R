@@ -178,13 +178,14 @@ g <- graph(c(1,2,2,3,3,4,4,2,2,5,2,6,7,8))
 plot(g)
 closeness.residual(g)
 sp <- shortest.paths(g, v = V(g))
-sp[1,]
+sp[2,]
 
 g <- graph(c('A','B','A','E'))
-weight0 <- c(10,2)
+weight0 <- c(10,10)
 
 plot(g)
 closeness.residual(g, weights = weight0)
+sum(closeness.residual(g, weights = weight0))
 sp <- shortest.paths(g, v = V(g), weights = weight0)
 sp[1,]
 1+1/(2^10)+1/(2^2)
@@ -195,4 +196,8 @@ sp[1,]
 toycds <- s2c("tctgagcaaataaatcgg")
 translate(seq = toycds) # should be c("S", "E", "Q", "I", "N", "R")
 
-
+##
+library(stringr)
+gene_with_SNP <- list.files("1011_project")
+gene_with_SNP <- str_replace_all(gene_with_SNP, "\\.fasta", "")
+write.table(gene_with_SNP, "gene list with SNP", row.names = FALSE, sep = "\t")

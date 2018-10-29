@@ -5,7 +5,6 @@
 # Only nsSNP is used to mapping onto protein 3D structure
 
 source("genomics annotation summary.R")
-source("getGeneCoordinate.R")
 source("preprocess_1011_project_function.R")
 
 
