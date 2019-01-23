@@ -732,6 +732,57 @@ getHotVertice <- function(aa_3d, residue0, aa_pro, distance0) {
 }
 
 
+#this function is used to establish the mapping in the coordinate from protein structure and from protein sequence
+mappingCoordinateFrom3DtoProtein <- function(aa_3d, residue0, aa_pro, distance0) {
+  #input
+  #aa_3d  a vector for the coordinate of PDB structure
+  #residue0  a vector contained all the muated residue information of the stucture and it can be found the same mutation in residue occured many times
+  #aa_pro a vector for the original coordinate of protein aa sequence
+  #ditance  a matrix for the distance of the paired residue of pdb structure
+  
+  #output
+  #dataframe contains the old coordinate from protein sequence and new coordinate from structure
+  
+  
+  #function test
+  aa_3d = seq_3D
+  residue0 = residue_3D
+  aa_pro = seq_3D_origin
+  distance0 = ResidueDistance
+  
+  # establish the structure coordinate and all the residues
+  # it should be noted that the duplicated mutation in the same position is not considered
+  # the reason to omit the duplicated mutation: to remove so many paired residues
+  pos_residue_3d <- data.frame(pos = aa_3d, residue = residue0, stringsAsFactors = FALSE)
+  pos_residue_3d <- splitAndCombine(pos_residue_3d$residue, pos_residue_3d$pos, sep0 = "\\;")
+  colnames(pos_residue_3d) <- c("residue", "pos_3d")
+  #keep the original residue seq based on the protein
+  pos_residue_3d$residue_old <- pos_residue_3d$residue
+  pos_residue_3d <- pos_residue_3d[which(pos_residue_3d$residue != "NA"), ]
+  # replace the protein aa coordinate into the structure coordinate
+  pos_residue_3d <- pos_residue_3d %>% separate(., residue, into = c("residue", "pos_pro"))
+  pos_residue_3d$residue <- paste(pos_residue_3d$residue, pos_residue_3d$pos_3d, sep = "@@") #connect the mutated residue with the coordinate from protein structure
+  return(pos_residue_3d)
+}
+
+getOriginalCoordinateProtein <- function(coordinate0,coordinate_mapping0){
+  coordinate1 <- str_split(coordinate0, ";")
+  new_coordinate0 <- vector()
+  for (i in seq_along(coordinate1)){
+    s0 <- coordinate1[[i]]
+    print('coordinate of residue from protein structure')
+    print(s0)
+    s1 <- getSingleReactionFormula(coordinate_mapping0$residue_old, coordinate_mapping0$residue,s0)
+    print('coordinate of residue from protein sequence')
+    print(s1)
+    s1 <- paste0(s1,collapse = ";")
+    new_coordinate0[i] <- s1
+    
+  }
+  return(new_coordinate0)
+}
+
+
 #this function is used to obtain the cluster analysis results
 clusterAnalysis <- function(residueInf) {
   #input
@@ -842,10 +893,11 @@ removeStopCoden <- function(residue_pair00) {
 chooseStrain <- function(type,strain0=strain_classification){
   #input: type--strain type, like Bioethonal, Wine
   #output: strains set contained in each type
+  colnames(strain0) <- c('Standardized_name','Clades')
   if(type=="all_strain"){
     return(strain0)
   } else{
-    strain_select <- filter(strain_classification, str_detect(strain_classification$Clades, strain_type)) %>%
+    strain_select <- filter(strain0, str_detect(strain0$Clades, type)) %>%
       select(., Standardized_name)
     return(strain_select)
   }
