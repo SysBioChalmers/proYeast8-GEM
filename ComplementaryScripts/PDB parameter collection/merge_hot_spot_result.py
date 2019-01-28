@@ -9,10 +9,26 @@ os.chdir('/Users/luho/PycharmProjects/pdb/code')
 
 #merge all files
 filenames = os.listdir('../data/hotspot from pdb_homo for g4')
-
-
 with open('../result/hotspot_homo_g4', 'w') as outfile:
     for fname in filenames:
         fname0 = '../data/hotspot from pdb_homo for g4/' + fname
+        with open(fname0) as infile:
+            outfile.write(infile.read())
+
+
+#merge all files
+filenames = os.listdir('../data/hotspot from pdb_ex for glycerol_high')
+with open('../result/hotspot from pdb_ex for glycerol_high', 'w') as outfile:
+    for fname in filenames:
+        fname0 = '../data/hotspot from pdb_ex for glycerol_high/' + fname
+        with open(fname0) as infile:
+            outfile.write(infile.read())
+
+
+
+filenames = os.listdir('../data/hotspot from pdb_homo for glycerol_high')
+with open('../result/hotspot from pdb_homo for glycerol_high', 'w') as outfile:
+    for fname in filenames:
+        fname0 = '../data/hotspot from pdb_homo for glycerol_high/' + fname
         with open(fname0) as infile:
             outfile.write(infile.read())

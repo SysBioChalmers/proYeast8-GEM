@@ -1,3 +1,12 @@
+#--------------------------------------------------------------------------------------
+# The code is used to calculate the residue distance for experimental PDB files from PDB
+# model database. It should be careful to do the calculation of residue distance as the
+# residue sequence from actual PDB file can be different from the sequence provided by PDB
+# database. Also it should be careful that the coordinates given by PDB files can be different
+# from the real residue sequence.
+# 2019-01-28 Hongzhong Lu
+#--------------------------------------------------------------------------------------
+
 from Bio.PDB import *
 import os    ##for directory
 import numpy as np

@@ -1,3 +1,12 @@
+#--------------------------------------------------------------------------------------
+# The code is used to calculate the residue distance for homology PDB files from PDB
+# model database.  It should be careful that the coordinates given by PDB files can be different
+# from the real residue sequence. Sometimes it could be found that the chainID provided by swiss
+# model database is wrong. Before calculation, a right chainID should be given for each PDB files.
+# 2019-01-28 Hongzhong Lu
+#--------------------------------------------------------------------------------------
+
+
 from Bio.PDB import *
 import os    ##for directory
 import numpy as np

@@ -3,7 +3,7 @@
 
 
 from Bio.PDB import *
-import os    ##for directory
+import os
 import numpy as np
 import pandas as pd
 from Bio.PDB.PDBParser import PDBParser
@@ -108,6 +108,7 @@ chainB = chainSum['order'][1]
 chainA0 = np.array(chainA.split(','))
 chainB0 = np.array(chainB.split(','))
 np.setdiff1d(chainB0,chainA0)
+
 
 
 
