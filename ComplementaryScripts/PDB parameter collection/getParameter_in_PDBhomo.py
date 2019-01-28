@@ -1,17 +1,9 @@
 """summary of pdb information for models simulated using swiss web service
 input information is the report.html of the simulation results of each protein
 export the summary of pdb parameters.
-
-Hongzhong Lu 2018-3-29
+12th,November, 2018
+Hongzhong Lu
 """
-
-
-import os    ##for directory
-print (os.getcwd()) #obtain the present directory
-
-# set the directory
-os.chdir('/Users/luho/PycharmProjects/python learning/venv/project2_pdb')
-
 
 # import libraries
 import urllib.request
@@ -20,12 +12,21 @@ from bs4 import BeautifulSoup
 import re
 import pandas as pd
 import numpy as np
+import os    ##for directory
+print (os.getcwd()) #obtain the present directory
 
+# set the directory
+os.chdir('/Users/luho/PycharmProjects/pdb/code')
 
 def summarizeProteinStucture(gene0):
+   '''
+   This function was used to obtain all the paramters about the simulated pdb files from swiss model database
+   :param gene0:
+   :return:
+   '''
    # input protein structure model information
-   #gene0 ='YBR294W_2018-03-25'
-   url = "file:///Users/luho/PycharmProjects/python learning/venv/project2_pdb/swiss_model/" + gene0 + "/report.html"
+   # gene0 ='YBR294W_2018-03-25'
+   url = "file:///Users/luho/Documents/pdb%20file/swiss_model_manual%20simulation/" + gene0 + "/report.html"
    response = urllib.request.urlopen(url)
    html = response.read()
    soup0 = BeautifulSoup(html,"lxml")
@@ -158,7 +159,6 @@ def summarizeProteinStucture(gene0):
    return results
 
 
-
 def remove_values_from_list(the_list, val):
    return [value for value in the_list if value != val]
 
@@ -182,26 +182,31 @@ print (hasNumbers('0')) # returns True
 
 
 #process the gene name information
-proteinWithout3D = pd.read_excel('protein_gene_without3D.xlsx')
+proteinWithout3D = pd.read_excel('../data/protein_gene_without3D.xlsx')
 proteinWithSeq = proteinWithout3D[proteinWithout3D['sequence'].notnull()]
+proteinWithSeq['geneName2'] = proteinWithSeq['geneNames'].str.replace('-','')
 geneName = proteinWithSeq['geneName2']
 print(geneName)
-geneWith3D = os.listdir('/Users/luho/PycharmProjects/python learning/venv/project2_pdb/swiss_model')
+
+geneWith3D = os.listdir('/Users/luho/Documents/pdb file/swiss_model_manual simulation')
 geneWith3D = [v for i,v in enumerate(geneWith3D) if v !='.DS_Store']
 geneWith3D_standard = [i.split('_', 1)[0] for i in geneWith3D]
 geneWith3D_standard = [v for i, v in enumerate(geneWith3D_standard) if v !='.DS']
+
 
 """ find protein without simulation"""
 geneNeedCheck = [x for x in geneName if x not in geneWith3D_standard]
 
 proteinStructure = {}
 # batch process
-for i in range(0,212,1):
-    proteinStructure.update(summarizeProteinStucture(gene0=geneWith3D[i]))
+for i in range(len(geneWith3D)):
+   print(i)
+   proteinStructure.update(summarizeProteinStucture(gene0=geneWith3D[i]))
 
 newResults = pd.DataFrame.from_items(proteinStructure.items())
 newResults = newResults.T
 
-writer = pd.ExcelWriter('proteinStructure.xlsx')
+writer = pd.ExcelWriter('../data/proteinStructure2.xlsx')
 newResults.to_excel(writer,'Sheet1')
 writer.save()
+
