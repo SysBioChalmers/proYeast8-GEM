@@ -223,6 +223,14 @@ for (i in 1:1047) {
       important_hot$seq_3D <- r3
       important_hot$stain_type <- strain_type
       outfile <- paste(outfile0, '/',pdbID, "_", ss, ".txt", sep = "")
+
+      # last step: get the mutate residue coordinate from protein seqence
+      # coordinate mapping
+      coordinate_mapping <- mappingCoordinateFrom3DtoProtein(aa_3d = seq_3D, residue0 = residue_3D, aa_pro = seq_3D_origin, distance0 = ResidueDistance)
+      
+      important_hot$cluster <- getOriginalCoordinateProtein(coordinate0=important_hot$cluster, coordinate_mapping0=coordinate_mapping)
+      
+
       write.table(important_hot, outfile, row.names = FALSE, sep = "\t")
     } else {
       print("------NO sigificant pairs")
