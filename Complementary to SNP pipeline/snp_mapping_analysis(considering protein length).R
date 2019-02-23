@@ -29,31 +29,28 @@ df1 <- SNP_num_in_each_strain$homozygous_SNPs
 summary(unlist(df1))
 dens0 <- density(SNP_num_in_each_strain$homozygous_SNPs)
 
-#save the graph in pdf
-pdf("result/SNP_distribution.pdf")
-plot(dens0, frame = FALSE, col = "steelblue",
-     main = "Density of SNP num",
-     xlim = c(0,100000),
-     xlab="SNP number",
-     ylab="Density",     
-     lty=1, 
-     lwd=3)
-dev.off()
+# desntiy plot
+x.element = 'Number of SNP in each strain'
+SNP_num_in_each_strain$type <-'one'
+ggplot(SNP_num_in_each_strain, aes(homozygous_SNPs, fill = TRUE)) +
+  geom_density() +
+  labs(x='Number of SNP in each strain') +
+  theme(axis.text=element_text(size=20,face="bold", family="Arial"),
+        axis.title=element_text(size=24,face="bold", family="Arial") ) +
+  ggtitle(x.element) +
+  theme(panel.background = element_rect(fill = "white", colour = "black", size=1)) +
+  theme(legend.position="none")
+ggsave(out <- paste('result/',x.element,'.png', sep = ""), width=8, height=6, dpi=300)
 
-#save the result in tiff
-tiff("result/SNP_distribution.tiff", width = 6, height = 4, units = 'in', res = 300, compression = 'rle')
-plot(dens0, frame = FALSE, col = "steelblue",
-     main = "Density of SNP num",
-     xlim = c(0,100000),
-     xlab="SNP number",
-     ylab="Density",     
-     lty=1, 
-     lwd=3)
-dev.off()
-
-tiff("result/SNP_distribution2.tiff", width = 4, height = 6, units = 'in', res = 300, compression = 'rle')
-boxplot(df1, ylab="SNP number")
-dev.off()
+# box plot
+ggplot(SNP_num_in_each_strain, aes(x="", y=homozygous_SNPs))+
+  geom_boxplot()+
+  labs(x='', y=x.element) +
+  theme(axis.text=element_text(size=20,face="bold", family="Arial"),
+        axis.title=element_text(size=24,face="bold", family="Arial") ) +
+  ggtitle(x.element) +
+  theme(panel.background = element_rect(fill = "white", colour = "black", size=1))
+ggsave(out <- paste('result/',x.element,'.png', sep = ""), width=8, height=6, dpi=300)
 
 
 #------part2 snp number analysis based on the metabolic gene
@@ -153,6 +150,73 @@ ggplot(geneGEM0, aes(SNP_NUM, nsSNP)) +
   labs(x="total SNP number", y="nsSNP number")
 
 
+# draw the plot using ggplot
+g1 <- geneGEM0[,c('locus_tag','SNP_NUM')]
+colnames(g1) <- c('locus_tag','num')
+g1$type <- 'SNP_NUM'
+g2 <- geneGEM0[,c('locus_tag','nsSNP')]
+colnames(g2) <- c('locus_tag','num')
+g2$type <- 'nsSNP'
+
+g12 <- rbind.data.frame(g1, g2)
+ggplot(g12, aes(num, fill = type, colour = type)) +
+  geom_density(alpha = 0.1) +
+  labs(x='Number of SNP in each gene') +
+  theme(axis.text=element_text(size=20,face="bold", family="Arial"),
+        axis.title=element_text(size=24,face="bold", family="Arial") ) +
+  ggtitle('') +
+  theme(panel.background = element_rect(fill = "white", colour = "black", size = 1)) +
+  theme(legend.position="none")
+ggsave(out <- paste('result/',x.element,'.png', sep = ""), width=8, height=6, dpi=300)
+
+
+#function to plot x y
+plotSNP_FCC <- function(x.element, y.element='nsSNP', data=geneGEM01){
+  library(extrafont)
+  fonts()
+  ggplot(data, aes_string(x=x.element, y=y.element)) +
+    geom_point() +
+    stat_binhex() +
+    scale_fill_gradient(low="black", high="red",
+                        breaks=c(0,2,4,6,8,10),
+                        limits=c(0, 10)) +
+    labs(x="Number of SNP in each gene",y="Number of nsSNP in each gene") +
+    theme(axis.text=element_text(size=20,face="bold", family="Arial"),
+          axis.title=element_text(size=24,face="bold", family="Arial") ) +
+    ggtitle('') +
+    theme(panel.background = element_rect(fill = "white", colour = "black", size=1)) +
+    theme(legend.position="none")
+  ggsave(out <- paste('result/',x.element,'.png', sep = ""), width=8, height=6, dpi=300)
+}
+
+plotSNP_FCC(x.element='SNP_NUM', y.element='nsSNP', data=geneGEM0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #------part 4 snp number analysis based on the all gene
 #we want to look into the function enrichment of gene with least and largest SNP number in a whole genome
@@ -199,7 +263,6 @@ gene_fromGenome_list_lessSNP <- paste0(lessSNP$locus_tag, collapse = ",")
 gene_fromGenome_list_moreSNP <- paste0(moreSNP$locus_tag, collapse = ",")
 
 
-
 #------part5 nsSNP number analysis based on genome
 # input nsSNP for each gene for all strains
 # this dataset is produced based on R codes
@@ -241,28 +304,46 @@ plot(dens1,xlab="",col = "steelblue",
      lwd=3)
 lines(dens2, lty=1,lwd=3)
 title( xlab="Relative number of SNP (nsSNP) ")
+# draw the plot using ggplot
+g1 <- all_gene0[,c('locus_tag','SNP_NUM')]
+colnames(g1) <- c('locus_tag','num')
+g1$type <- 'SNP_NUM'
+g2 <- all_gene0[,c('locus_tag','nsSNP')]
+colnames(g2) <- c('locus_tag','num')
+g2$type <- 'nsSNP'
 
-# vioplot
-library(vioplot)
-x1 <- x
-x2 <- y
-
-vioplot(x1, x2, names=c("SNP", "nsSNP"), col="gold")
-title("Comparison between SNP and nsSNP")
-
-# correlation plot
-ggplot(all_gene0, aes(SNP_NUM, nsSNP)) +
-  geom_bin2d(bins = 80) + 
-  labs(x="total SNP number", y="nsSNP number")
-
-
-
-
-
-
-
+g12 <- rbind.data.frame(g1, g2)
+ggplot(g12, aes(num, fill = type, colour = type)) +
+  geom_density(alpha = 0.1) +
+  labs(x='Number of SNP in each gene') +
+  theme(axis.text=element_text(size=20,face="bold", family="Arial"),
+        axis.title=element_text(size=24,face="bold", family="Arial") ) +
+  ggtitle('') +
+  theme(panel.background = element_rect(fill = "white", colour = "black", size = 1)) +
+  theme(legend.position="none")
+ggsave(out <- paste('result/',x.element,'.png', sep = ""), width=8, height=6, dpi=300)
 
 
+#function to plot x y
+plotSNP_FCC <- function(x.element, y.element='nsSNP', data=geneGEM01){
+  library(extrafont)
+  fonts()
+  ggplot(data, aes_string(x=x.element, y=y.element)) +
+    geom_point() +
+    stat_binhex() +
+    scale_fill_gradient(low="black", high="red",
+                        breaks=c(0,2,4,6,8,10),
+                        limits=c(0, 10)) +
+    labs(x="Number of SNP in each gene",y="Number of nsSNP in each gene") +
+    theme(axis.text=element_text(size=20,face="bold", family="Arial"),
+          axis.title=element_text(size=24,face="bold", family="Arial") ) +
+    ggtitle(x.element) +
+    theme(panel.background = element_rect(fill = "white", colour = "black", size=1)) +
+    theme(legend.position="none")
+  ggsave(out <- paste('result/',x.element,'.png', sep = ""), width=8, height=6, dpi=300)
+}
+
+plotSNP_FCC(x.element='SNP_NUM', y.element='nsSNP', data=all_gene0)
 
 
 

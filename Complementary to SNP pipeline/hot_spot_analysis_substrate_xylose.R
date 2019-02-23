@@ -6,33 +6,32 @@ library(fitdistrplus)
 library(logspline)
 library(hongR)
 library(superheat)
-library(pheatmap)
-library(RColorBrewer)
+
 # input the data
-hotspot_ex_high <- read.table("data/hotspot from pdb_ex for glycerol_high", sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+hotspot_ex_high <- read.table("data/hotspot from pdb_ex for xylose_high", sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 hotspot_ex_high <- filter(hotspot_ex_high, str_detect(hotspot_ex_high$cluster,"cluster")==FALSE ) %>%
   filter(., pvalue <1)
 
-hotspot_ex_medium <- read.table("data/hotspot from pdb_ex for glycerol_medium", sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+hotspot_ex_medium <- read.table("data/hotspot from pdb_ex for xylose_medium", sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 hotspot_ex_medium <- filter(hotspot_ex_medium, str_detect(hotspot_ex_medium$cluster,"cluster")==FALSE ) %>%
   filter(., pvalue <1)
 
-hotspot_ex_low <- read.table("data/hotspot from pdb_ex for glycerol_low", sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+hotspot_ex_low <- read.table("data/hotspot from pdb_ex for xylose_low", sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 hotspot_ex_low <- filter(hotspot_ex_low, str_detect(hotspot_ex_low$cluster,"cluster")==FALSE ) %>%
   filter(., pvalue <1)
 
 
 
 # homo
-hotspot_homo_high <- read.table("data/hotspot from pdb_homo for glycerol_high", sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+hotspot_homo_high <- read.table("data/hotspot from pdb_homo for xylose_high", sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 hotspot_homo_high <- filter(hotspot_homo_high, str_detect(hotspot_homo_high$cluster,"cluster")==FALSE ) %>%
   filter(., pvalue <1)
 
-hotspot_homo_medium <- read.table("data/hotspot from pdb_homo for glycerol_medium", sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+hotspot_homo_medium <- read.table("data/hotspot from pdb_homo for xylose_medium", sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 hotspot_homo_medium <- filter(hotspot_homo_medium, str_detect(hotspot_homo_medium$cluster,"cluster")==FALSE ) %>%
   filter(., pvalue <1)
 
-hotspot_homo_low <- read.table("data/hotspot from pdb_homo for glycerol_low", sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+hotspot_homo_low <- read.table("data/hotspot from pdb_homo for xylose_low", sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 hotspot_homo_low <- filter(hotspot_homo_low, str_detect(hotspot_homo_low$cluster,"cluster")==FALSE ) %>%
   filter(., pvalue <1)
 
@@ -47,13 +46,13 @@ hotspot$pvalue <- as.numeric(hotspot$pvalue)
 
 # input the gene annotation data
 gene_annotation <- read.delim2('/Users/luho/Google Drive/R application and code/protein 3D structure QC and QA/SNP analysis pipeline/data/all_gene_yeast with annotation from different database.txt', header = TRUE, stringsAsFactors = FALSE)
-kinetics_analysis <- read.table("data/enzymesSensitivity_Csources/KcatSensitivities_YEP.txt", header = TRUE, stringsAsFactors = FALSE)
+kinetics_analysis <- read.table("/Users/luho/Documents/GitHub/ecModels/ecYeastGEM/figures/yeast8/results/KcatSensitivities_YEP.txt", header = TRUE, stringsAsFactors = FALSE)
 colnames(kinetics_analysis) <- c("Protein", "glucose", "acetate", "ethanol", "glycerol", "sorbitol", "galactose", "ribose", "xylose")
 
-plot(density(kinetics_analysis$glycerol))
+plot(density(kinetics_analysis$xylose))
 
 
-hotspot$kinectics <- getSingleReactionFormula(kinetics_analysis$glycerol,kinetics_analysis$Protein, hotspot$gene)
+hotspot$kinectics <- getSingleReactionFormula(kinetics_analysis$xylose,kinetics_analysis$Protein, hotspot$gene)
 hotspot$kinectics <- as.numeric(hotspot$kinectics)
 hotspot0 <- hotspot %>% filter(.,kinectics >= 0.000000001)
 
@@ -64,14 +63,14 @@ plot(hotspot$closeness, hotspot$kinectics)
 
 # POST-analysis
 # choose based on group
-hotspot_high <- hotspot0[hotspot0$stain_type =="glycerol_high",]
-hotspot_medium <- hotspot0[hotspot0$stain_type =="glycerol_medium",]
-hotspot_low <- hotspot0[hotspot0$stain_type =="glycerol_low",]
+hotspot_high <- hotspot0[hotspot0$stain_type =="xylose_high",]
+hotspot_medium <- hotspot0[hotspot0$stain_type =="xylose_medium",]
+hotspot_low <- hotspot0[hotspot0$stain_type =="xylose_low",]
 
 
-high <- density(hotspot$closeness[hotspot$stain_type =="glycerol_high"])
-medium <- density(hotspot$closeness[hotspot$stain_type =="glycerol_medium"])
-low <- density(hotspot$closeness[hotspot$stain_type =="glycerol_low"])
+high <- density(hotspot$closeness[hotspot$stain_type =="xylose_high"])
+medium <- density(hotspot$closeness[hotspot$stain_type =="xylose_medium"])
+low <- density(hotspot$closeness[hotspot$stain_type =="xylose_low"])
 
 
 plot(high,col = "steelblue",
@@ -161,56 +160,16 @@ rownames(cluster_sum1) <- cluster_sum1$unique_sign
 cluster_sum2 <- cluster_sum1[,c('ratio_high', 'ratio_medium','ratio_low')]
 colnames(cluster_sum2) <- c('high','medium','low')
 
-
 superheat(cluster_sum2,
           # scale the matrix columns
           scale = FALSE,
           # add row dendrogram
           row.dendrogram = TRUE,
-          left.label.col = "white",
-          left.label.size =3,
-          bottom.label.size = 0.1,
-          left.label.text.size = 4,
-          bottom.label.text.size = 4,
-          grid.hline.col = "DarkGray",
-          grid.vline.col = "DarkGray",
-          heat.pal = c("white", "SandyBrown", "firebrick3"),
-          heat.pal.values = c(0, 0.5, 1),
-          bottom.label.text.angle = 90)
-
-
-write.table(cluster_sum1, "result/hotspot analysis for glycerol.txt", row.names = FALSE, sep = "\t")
-
-
-#plot the heat map for the fcc of the hotspot
-hotspot_fcc <- read.table('data/hotspot_fcc.txt', sep = "\t", stringsAsFactors = FALSE)
-colnames(hotspot_fcc) <- "hotspot"
-
-hotspot_fcc1  <- hotspot_fcc  %>% separate(., hotspot, into = c('gene','mutation'), sep="_")
-hotspot_fcc1$hotspot <- hotspot_fcc$hotspot
-hotspot_fcc1$fcc <- getSingleReactionFormula(kinetics_analysis$glycerol,kinetics_analysis$Protein,hotspot_fcc1$gene)
-write.table(hotspot_fcc1, "result/hotspot_fcc1.txt", row.names = FALSE, sep = "\t")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          left.label.size = 1.2,
+          bottom.label.size = 0.05,
+          left.label.text.size = 2,
+          bottom.label.text.size = 3,
+          grid.hline.col = "white",
+          grid.vline.col = "white")
 
 

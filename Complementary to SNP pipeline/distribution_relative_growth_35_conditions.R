@@ -22,12 +22,15 @@ for (i in conditionList){
 # distribution under glycerol+YP
 j = 'YPGLYCEROL'
 ggplot(pheno, aes_string(j)) +
-  geom_density(fill="lightblue") +
+  geom_density(fill="lightblue", alpha=1) +
   xlab("Relative growth rate") + 
   ylab("Density") +
-  theme_bw() +
-  theme(axis.text=element_text(size=16),
-        axis.title=element_text(size=22))
+  theme(axis.text=element_text(size=20,face="bold", family="Arial"),
+        axis.title=element_text(size=24,face="bold", family="Arial"),
+        legend.text = element_text(size=20,face="bold", family="Arial")) +
+  ggtitle('') +
+  theme(panel.background = element_rect(fill = "white", color="black", size = 1)) +
+  ggsave(out <- paste('result/','growth distribution on glycerol','.eps', sep = ""), width=5, height=5, dpi=300)
 
 #classification of strain based on substrate usage
 #acetate
@@ -84,15 +87,17 @@ strain_glycerol2$type <- 'medium'
 strain_glycerol_classification <- rbind.data.frame(strain_glycerol0 ,strain_glycerol2, strain_glycerol1)
 strain_glycerol_classification$type <- as.factor(strain_glycerol_classification$type)
 strain_glycerol_classification %>%
-  ggplot(aes(x=type,y=YPGLYCEROL, fill=type))+
+  ggplot(aes(x=type,y=YPGLYCEROL, fill=type, alpha=0.5))+
   geom_boxplot(outlier.size=0) +  scale_x_discrete(limits = c('high','medium','low')) +
-  geom_jitter(position=position_jitter(h=.1), aes(color = type), alpha=0.3) +
-  xlab('Strain group') + ylab( 'Relative growth rate') +
-  theme_bw() + 
-  theme(axis.text=element_text(size=16),
-        axis.title=element_text(size=22)) +
-  theme(legend.position = "none")
-
+  geom_jitter(position=position_jitter(h=.1), aes(color = type), alpha=1) +
+  xlab('Strain group') + ylab( 'Relative growth rate')  +
+  theme(legend.position = "none") + 
+  theme(axis.text=element_text(size=20,face="bold", family="Arial"),
+      axis.title=element_text(size=24,face="bold", family="Arial"),
+      legend.text = element_text(size=20,face="bold", family="Arial")) +
+  ggtitle('') +
+  theme(panel.background = element_rect(fill = "white", color="black", size = 1)) +
+  ggsave(out <- paste('result/',' choose strain based on growth of glycerol','.eps', sep = ""), width=5, height=5, dpi=300)
 
 
 
@@ -163,6 +168,32 @@ write.table(strain_ethanol_classification, "result/strain_ethanol_classification
 write.table(strain_ribose_classification, "result/strain_ribose_classification.txt", row.names = FALSE, sep = "\t")
 write.table(strain_galactose_classification, "result/strain_galactose_classification.txt", row.names = FALSE, sep = "\t")
 write.table(strain_glucose_classification, "result/strain_glucose_classification.txt", row.names = FALSE, sep = "\t")
+
+
+
+# for yeastspot3d- focus on growth on 'YPD EtOH 15%'
+# still classify all the strains into three group and choose 50 strains with highest, medium and low growth rate
+#glucose
+strain_PDETOH <- pheno[,c('strain_name','YPDETOH')] #here we choose the relative growth at 40 degree
+plot(density(strain_PDETOH$YPDETOH))
+mean(strain_PDETOH$YPDETOH)
+summary(strain_PDETOH$YPDETOH)
+strain_PDETOH0 <- filter(strain_PDETOH, YPDETOH>=0.565)
+strain_PDETOH1 <- filter(strain_PDETOH, YPDETOH <= 0.146)
+strain_PDETOH2 <- filter(strain_PDETOH, 0.3805 <= YPDETOH & YPDETOH <= 0.3921)
+
+strain_PDETOH0$type <- 'PDETOH_high'
+strain_PDETOH1$type <- 'PDETOH_low'
+strain_PDETOH2$type <- 'PDETOH_medium'
+strain_PDETOH_classification <- rbind.data.frame(strain_PDETOH0, strain_PDETOH1, strain_PDETOH2)
+write.table(strain_PDETOH_classification, "result/strain_PDETOH_classification.txt", row.names = FALSE, sep = "\t")
+
+
+
+
+
+
+
 
 
 
