@@ -12,8 +12,8 @@ source("genomics annotation summary.R")
 strain_classification <- read_excel("data/strain_classification.xls")
 # remove the rows with NA as the name
 strain_classification <-strain_classification[,c('Standardized_name','Clades')]
-#strain_type <- "bioethanol"
-strain_type <- "Wine"
+strain_type <- "wine"
+#strain_type <- "Wine"
 strain_select1 <- chooseStrain(type = strain_type)
 
 
@@ -24,6 +24,7 @@ clumps_homo <- read.table(paste('result0/CLUMPS from pdb_homo for ',strain_type,
 clumps_homo$pdb_source <- "Homo"
 clumps_all <- rbind.data.frame(clumps_ex, clumps_homo)
 clumps_all_fiter <- filter(clumps_all, p_value <= 0.05)
+unique(clumps_all_fiter$locus)
 
 # remove pdb file with the same gene and same residue coordinate
 clumps_all_fiter$combineINF <- paste(clumps_all_fiter$locus, clumps_all_fiter$sstart2, clumps_all_fiter$send2, sep = "@@")
@@ -50,7 +51,7 @@ gene_sum0 <- paste0(gene_sum,collapse = ",")
 # represent the aimed protein
 # in general, we should choose the PDB file contains the longest residue sequence
 #geneset1 <- c('YML100W','YAR035W','YJL068C','YMR246W') #for bioethonal
-geneset1 <- 'YOL049W'
+geneset1 <- 'YML100W'
 geneset1_index <- which(clumps_all_fiter0$locus %in% geneset1)
 geneset1_detail <- clumps_all_fiter0[geneset1_index,]
 
@@ -76,7 +77,8 @@ for (i in 1:length(geneset1_detail$locus)) {
   }
 
   pos_residue_df <- ResidueSum(pos_residue1)
-
+  pos_residue_df$residue[3]
+  
   # mapping the mutate residue onto the original protein sequence
   gene_snp <- getGeneCoordinate(gene_name = ss, genesum = gene_feature_GEM)
   gene_snp[["pro_coordinate"]] <- 1:length(gene_snp[["protein"]])
@@ -100,7 +102,7 @@ for (i in 1:length(geneset1_detail$locus)) {
   result$pdbID <- geneset1_detail$pdbid[i]
   result <- select(result, orf, ref, position, alt, Freq, pdbID)
   print(result)
-  write.table(result, "result/gene_mutation_related_to_glycerol.txt", row.names = FALSE, sep = " ")
+  write.table(result, "result/gene_mutation_related_to_bioethonal.txt", row.names = FALSE, sep = " ")
   
 }
 

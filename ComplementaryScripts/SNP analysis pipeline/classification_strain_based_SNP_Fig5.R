@@ -37,6 +37,7 @@ printAllMutationWithGene <- function(ss){
 
 
 
+
 # datainput
 # choose samples that need to be analyzed
 strain_classification <- read_excel("data/strain_classification.xls")
@@ -61,6 +62,15 @@ p_YMR246W <- printAllMutationWithGene('YMR246W')
 p_YAR035W <- printAllMutationWithGene('YAR035W')
 # YML100W
 p_YML100W <- printAllMutationWithGene('YML100W')
+#-------------------------------------------------
+#check the result
+#p_YML100W$type <- getSingleReactionFormula(strain_classification$Ecological_origins,strain_classification$Standardized_name,p_YML100W$strain)
+#library(tidyverse)
+#snp415 <- filter(p_YML100W, gene_mutation =='YML100W@@V@@415'& type=='Bioethanol')
+#snp422 <- filter(p_YML100W, gene_mutation =='YML100W@@E@@422'& type=='Bioethanol')
+#snp_bioethonal <- filter(p_YML100W, type=='Bioethanol')
+#length(unique(snp_bioethonal$strain))
+#-------------------------------------------------
 # YJL068C
 p_YJL068C <- printAllMutationWithGene('YJL068C')
  
@@ -144,9 +154,10 @@ wilcox.test(x2, x3, alternative = "two.sided")
 
 #plot the result
 strain_classification0 <- rbind.data.frame(cluster1, cluster2, cluster3)
+par(tcl=-0.2)
 boxplot(growth~type,data=strain_classification0, main="", col=terrain.colors(4),
         xlab="Strain classification", ylab="Relative growth rate",
-        ylim=c(0,1), frame=FALSE,cex.lab=1.4, cex.axis=1.2)
+        ylim=c(0,1.2), frame=TRUE,cex.lab=1.4, cex.axis=1.2)
 
 
 
@@ -184,9 +195,10 @@ wilcox.test(x2, x3, alternative = "two.sided")
 
 #plot the result
 strain_classification0 <- rbind.data.frame(cluster1, cluster2, cluster3)
+par(tcl=-0.2)
 boxplot(growth~type,data=strain_classification0, main="", col=terrain.colors(4),
         xlab="Strain classification", ylab="Relative growth rate",
-        ylim=c(0,1), frame=FALSE, cex.lab=1.4, cex.axis=1.2)
+        ylim=c(0,1.2), frame=TRUE, cex.lab=1.4, cex.axis=1.2)
 
 
 # further check the growth phenotype for the bioethonal strains
@@ -195,4 +207,9 @@ growth_phenotype$clade <- getSingleReactionFormula(strain_classification$Clades,
 strain_need_test <- filter(growth_phenotype, str_detect(clade,'bioethanol'))
 average_growth <- mean(strain_need_test$growth)
 
-  
+table(mutation_matrix02$sum)
+
+
+mutation_matrix02$type <- getSingleReactionFormula(strain_classification$Ecological_origins,strain_classification$Standardized_name,mutation_matrix02$strain_name)
+
+
