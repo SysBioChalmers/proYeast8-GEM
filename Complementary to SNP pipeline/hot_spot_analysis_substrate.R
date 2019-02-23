@@ -6,8 +6,7 @@ library(fitdistrplus)
 library(logspline)
 library(hongR)
 library(superheat)
-library(pheatmap)
-library(RColorBrewer)
+
 # input the data
 hotspot_ex_high <- read.table("data/hotspot from pdb_ex for glycerol_high", sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 hotspot_ex_high <- filter(hotspot_ex_high, str_detect(hotspot_ex_high$cluster,"cluster")==FALSE ) %>%
@@ -47,7 +46,7 @@ hotspot$pvalue <- as.numeric(hotspot$pvalue)
 
 # input the gene annotation data
 gene_annotation <- read.delim2('/Users/luho/Google Drive/R application and code/protein 3D structure QC and QA/SNP analysis pipeline/data/all_gene_yeast with annotation from different database.txt', header = TRUE, stringsAsFactors = FALSE)
-kinetics_analysis <- read.table("data/enzymesSensitivity_Csources/KcatSensitivities_YEP.txt", header = TRUE, stringsAsFactors = FALSE)
+kinetics_analysis <- read.table("/Users/luho/Documents/GitHub/ecModels/ecYeastGEM/figures/yeast8/results/KcatSensitivities_YEP.txt", header = TRUE, stringsAsFactors = FALSE)
 colnames(kinetics_analysis) <- c("Protein", "glucose", "acetate", "ethanol", "glycerol", "sorbitol", "galactose", "ribose", "xylose")
 
 plot(density(kinetics_analysis$glycerol))
@@ -55,18 +54,40 @@ plot(density(kinetics_analysis$glycerol))
 
 hotspot$kinectics <- getSingleReactionFormula(kinetics_analysis$glycerol,kinetics_analysis$Protein, hotspot$gene)
 hotspot$kinectics <- as.numeric(hotspot$kinectics)
-hotspot0 <- hotspot %>% filter(.,kinectics >= 0.000000001)
 
-# initial relation between the closenes and kinetics
-plot(hotspot$closeness, hotspot$kinectics)
+hotspot <- hotspot %>% filter(.,kinectics >= 0.000000001)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 # POST-analysis
 # choose based on group
-hotspot_high <- hotspot0[hotspot0$stain_type =="glycerol_high",]
-hotspot_medium <- hotspot0[hotspot0$stain_type =="glycerol_medium",]
-hotspot_low <- hotspot0[hotspot0$stain_type =="glycerol_low",]
+hotspot_high <- hotspot[hotspot$stain_type =="glycerol_high",]
+hotspot_medium <- hotspot[hotspot$stain_type =="glycerol_medium",]
+hotspot_low <- hotspot[hotspot$stain_type =="glycerol_low",]
 
 
 high <- density(hotspot$closeness[hotspot$stain_type =="glycerol_high"])
@@ -87,130 +108,82 @@ lines(low, lty=1,lwd=3)
 
 
 # mapping based on gene pdb id
-high0 <- hotspot_high %>% unite(.,id_mapping,c('gene','structure'), sep = ";")
-medium0 <- hotspot_medium %>% unite(.,id_mapping,c('gene','structure'), sep = ";")
-low0 <- hotspot_low %>% unite(.,id_mapping,c('gene','structure'), sep = ";")
-
-cluster_sum <- rbind.data.frame(high0, medium0, low0)
-cluster_sum$cluster_high <- getMultipleReactionFormula(high0$cluster,high0$id_mapping,cluster_sum$id_mapping)
-cluster_sum$cluster_medium <- getMultipleReactionFormula(medium0$cluster,medium0$id_mapping,cluster_sum$id_mapping)
-cluster_sum$cluster_low <- getMultipleReactionFormula(low0$cluster,low0$id_mapping,cluster_sum$id_mapping)
-
+high0 <- hotspot_high %>% unite(.,id_mapping,c('gene','structure'), sep = "#")
+medium0 <- hotspot_medium %>% unite(.,id_mapping,c('gene','structure'), sep = "#")
+low0 <- hotspot_low %>% unite(.,id_mapping,c('gene','structure'), sep = "#")
+g40 <- hotspot_g4 %>% unite(.,id_mapping,c('gene','structure'), sep = "#")
+high0$cluster_medium <- getMultipleReactionFormula(medium0$cluster,medium0$id_mapping,high0$id_mapping)
+high0$cluster_low <- getMultipleReactionFormula(low0$cluster,low0$id_mapping,high0$id_mapping)
+high0$cluster_g4 <- getMultipleReactionFormula(g40$cluster,g40$id_mapping,high0$id_mapping)
 
 
 
 # calculate the ratio of residues in hotspot of high0 which occured in other groups
-e1 <- vector()
 e2 <- vector()
 e3 <- vector()
+e4 <- vector()
+for (i in seq_along(high0$cluster)) {
+  s1 <- high0$cluster[i]
+  s2 <- high0$cluster_medium[i]
+  s3 <- high0$cluster_low[i]
+  s4 <- high0$cluster_g4[i]
 
-for (i in seq_along(cluster_sum$cluster)) {
-  s1 <- cluster_sum$cluster[i]
-  s2 <- cluster_sum$cluster_high[i]
-  s3 <- cluster_sum$cluster_medium[i]
-  s4 <- cluster_sum$cluster_low[i]
-  
-
-  s10 <- unique(unlist(str_split(s1, ";")))
-  s20 <- unique(unlist(str_split(s2, ";")))
-  s30 <- unique(unlist(str_split(s3, ";")))
-  s40 <- unique(unlist(str_split(s4, ";")))
+  s10 <- unlist(str_split(s1, ";"))
+  s20 <- unlist(str_split(s2, ";"))
+  s30 <- unlist(str_split(s3, ";"))
+  s40 <- unlist(str_split(s4, ";"))
 
   if (length(intersect(s10, s20)) >= 1) {
-    e10 <- length(intersect(s10, s20))/length(s10)
-  } else {
-    e10 <- 0
-  }
-
-  if (length(intersect(s10, s30)) >= 1) {
-    e20 <-length(intersect(s10, s30))/length(s10)
+    e20 <- length(intersect(s10, s20))/length(s10)
   } else {
     e20 <- 0
   }
 
-  if (length(intersect(s10, s40)) >= 1) {
-    e30 <-length(intersect(s10, s40))/length(s10)
+  if (length(intersect(s10, s30)) >= 1) {
+    e30 <-length(intersect(s10, s30))/length(s10)
   } else {
     e30 <- 0
   }
-  
-  e1[i] <- e10
+
+  if (length(intersect(s10, s40)) >= 1) {
+    e40 <- length(intersect(s10, s40))/length(s10)
+  } else {
+    e40 <- 0
+  }
+
   e2[i] <- e20
   e3[i] <- e30
-
+  e4[i] <- e40
 }
 
-cluster_sum$ratio_high <- e1
-cluster_sum$ratio_medium <- e2
-cluster_sum$ratio_low <- e3
-
-#remove the duplicated based on the gene and the cluster
-cluster_sum <- cluster_sum %>% separate(.,id_mapping, into = c('gene','structure'), sep = ";")
-cluster_sum$unique_sign <- paste(cluster_sum$gene, cluster_sum$cluster, sep = "_")
-cluster_sum1 <- cluster_sum[!duplicated(cluster_sum$unique_sign), ]
+high0$in_high <- 1
+high0$in_medium <- e2
+high0$in_low <- e3
+high0$in_g4 <- e4
 
 
 # question: how to filter the redundent hoptspot
-cluster_sum1 <- filter(cluster_sum1,kinectics >= 0.001)
+high1 <- filter(high0,closeness >= 6)
 
 
 # draw the heatmap
-cluster_sum1$unique_sign <- str_replace_all(cluster_sum1$unique_sign, "@@", "@") %>%
-  str_replace_all(.,";","+")
-rownames(cluster_sum1) <- cluster_sum1$unique_sign
-cluster_sum2 <- cluster_sum1[,c('ratio_high', 'ratio_medium','ratio_low')]
-colnames(cluster_sum2) <- c('high','medium','low')
+rownames(high1) <- paste("hotspot",1:length(high1$in_high),sep = "")
+high0_heat <- high1[,c('in_high', 'in_medium','in_low','in_g4')]
+colnames(high0_heat) <- c('high','medium','low','g4')
 
-
-superheat(cluster_sum2,
+superheat(high0_heat,
           # scale the matrix columns
           scale = FALSE,
           # add row dendrogram
           row.dendrogram = TRUE,
-          left.label.col = "white",
-          left.label.size =3,
-          bottom.label.size = 0.1,
+          left.label.size = 0.4,
+          bottom.label.size = 0.05,
           left.label.text.size = 4,
-          bottom.label.text.size = 4,
-          grid.hline.col = "DarkGray",
-          grid.vline.col = "DarkGray",
-          heat.pal = c("white", "SandyBrown", "firebrick3"),
-          heat.pal.values = c(0, 0.5, 1),
-          bottom.label.text.angle = 90)
+          bottom.label.text.size = 5,
+          grid.hline.col = "white",
+          grid.vline.col = "white")
 
 
-write.table(cluster_sum1, "result/hotspot analysis for glycerol.txt", row.names = FALSE, sep = "\t")
-
-
-#plot the heat map for the fcc of the hotspot
-hotspot_fcc <- read.table('data/hotspot_fcc.txt', sep = "\t", stringsAsFactors = FALSE)
-colnames(hotspot_fcc) <- "hotspot"
-
-hotspot_fcc1  <- hotspot_fcc  %>% separate(., hotspot, into = c('gene','mutation'), sep="_")
-hotspot_fcc1$hotspot <- hotspot_fcc$hotspot
-hotspot_fcc1$fcc <- getSingleReactionFormula(kinetics_analysis$glycerol,kinetics_analysis$Protein,hotspot_fcc1$gene)
-write.table(hotspot_fcc1, "result/hotspot_fcc1.txt", row.names = FALSE, sep = "\t")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+write.table(high0, "result/high0 cluster mapping.txt", row.names = FALSE, sep = "\t")
+write.table(high1, "result/high0 cluster mapping filtering.txt", row.names = TRUE, sep = "\t")
 
