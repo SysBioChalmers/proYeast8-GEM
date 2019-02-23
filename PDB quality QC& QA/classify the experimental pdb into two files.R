@@ -1,3 +1,9 @@
+# this code is used to classify the pdb file into two types
+# the first type contains xx.pdb
+# the second type not contains xx.pdb
+# 12th, November, 2018
+# hongzhong lu
+
 source('Preprocess data from swiss database.R')
 source('main_function_for_quality_analysis.R')
 

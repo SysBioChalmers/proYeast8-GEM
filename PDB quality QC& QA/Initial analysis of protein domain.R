@@ -1,6 +1,10 @@
 ##----------note
-##----------the domain analysis will be mainly based on SGD database, not using data from Gang
+##----------the domain analysis will be mainly based on pfam annotation by Gang Li
+##----------the domain information can be used to do the snp mapping analysis based on domain coorinates
+# hongzhong lu
+# 12th, November, 2018
 
+# load main package
 library(readxl)
 library(readr)
 library(tidyverse)
@@ -82,6 +86,12 @@ write.table(domain_pfam0,'result/domain_pfam0_for_SNP_pipeline.txt', row.names =
 
 
 
+
+
+
+
+
+# the followed part is not used in our analysis
 # part 2 comparing the domain information between SGD and pfam
 yeast_domain_SGD <- read_excel("data/yeast_domain_SGD.xlsx",  sheet = "Sheet4")
 

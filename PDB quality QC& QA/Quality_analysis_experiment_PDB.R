@@ -69,6 +69,7 @@ pdb_number <- filter(pdb_number, !is.na(number))
 
 ##bar based on group
 plotPDBnumber(pdb_number$number)
+##density
 ggplot(pdb_number, aes(number)) +
   geom_density(fill="lightblue") +
   xlim(-5, 200) +
