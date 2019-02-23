@@ -206,6 +206,11 @@ wilcox.test(x3, x2, alternative = "two.sided")
 wilcox.test(x2, x4, alternative = "two.sided")
 # plot the result
 strain_classification0 <- rbind.data.frame(cluster1,cluster1b,cluster2, cluster2b)
+par(tcl=-0.2)
 boxplot(growth~type,data=strain_classification0, main="", col=terrain.colors(4),
         xlab="Strain classification", ylab="Relative growth rate",
-        ylim=c(0,1), frame=FALSE, cex.lab=1.5, cex.axis=1.2)
+        ylim=c(0,1), frame=TRUE, cex.lab=1.5, cex.axis=1.2)
+
+
+
+
