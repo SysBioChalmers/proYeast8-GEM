@@ -1,3 +1,7 @@
+# some general function used for the protein quality analysis
+# 12th, November, 2018
+# hongzhong Lu
+
 library(ggplot2)
 # calculate the number between a range (number1, number2)
 number.counter <-function(ss, number1, number2){  
@@ -35,8 +39,13 @@ plotPDBnumber <- function(pdb_number0) {
   ggplot(data = pdb_analysis, aes(x =group , y = num, fill = group)) +
     geom_bar(stat = "identity") + # reorder: adjust the order
     theme(legend.title = element_blank(), legend.position = "right") +
-    labs(y = "Number", x = "PDB_exp number of protein") +
-    theme(legend.title = element_text(size = 10))
+    labs(y = "Number of protein", x = "PDB_EX number") +
+    theme(legend.title = element_text(size = 10)) +
+    theme(axis.text=element_text(size=20,face="bold", family="Arial"),
+          axis.title=element_text(size=24,face="bold", family="Arial") ) +
+    ggtitle('') +
+    theme(panel.background = element_rect(fill = "white", color="black", size = 1)) +
+    theme(legend.position="none")
 }
 
 

@@ -57,25 +57,40 @@ model_swiss$Method <- getSingleReactionFormula(homology_model$MTHD,homology_mode
 gene_all <- read_excel("data/gene_list_yeastGEM.xlsx",  sheet = "Sheet1")
 gene_all$geneNames <- str_trim(gene_all$geneNames, side = "both")
 
+#check the newly added gene in latest yeastGEM version
+proYeast_DataFrame_from_yeastGEM_november <- read_excel("data/proYeast_DataFrame_from_yeastGEM_november.xlsx")
+new_gene <- setdiff(proYeast_DataFrame_from_yeastGEM_november$gene, gene_all$geneNames)
+new_gene <- new_gene[!is.na(new_gene)]
+new_gene0 <- data.frame(geneNames=new_gene, stringsAsFactors = FALSE)
+new_gene0$gene_source <- 'new_gene_yeastGEM'
+new_gene0$note <- NA
+
+#merge the new gene from yeastGEM update into gene list file-'gene_all'
+gene_all <- rbind.data.frame(gene_all, new_gene0)
+
+
+
+
+
     # classify the genes from yeastGEM
     # type1: genes whose pdb files can be found from swiss database directly
     # type1: genes whose pdb files can not be found from swiss database directly
 index0 <- which(model$locus %in% gene_all$geneNames ==TRUE)
 gene_t1 <- unique(model$locus[index0])
-gene_t2 <- setdiff(gene_all$geneNames, gene_t1) #total 181 metabolic gene need manual PDB files simulation
+gene_t2 <- setdiff(gene_all$geneNames, gene_t1) #total 207 metabolic gene need manual PDB files simulation
 
 
     # sumamrize the PDB files and sequence for gene in type2
     # refine the PDB files for 216 metabolic genes which can't be obtained from swiss database
     # These PDB files are obtained one by one using swiss model web service
 model2 <- read_excel("data/proteinStructure_manual check.xlsx", sheet = "Sheet1")
-seqence_gene_without3D <- read_excel("data/protein_gene_without3D.xlsx", sheet = "Sheet1")
-model2$geneID0 <- str_replace_all(model2$geneID,"_2018-03-25","") #geneID0 For mapping of gene with '-'
-seqence_gene_without3D$geneID0 <- str_replace_all(seqence_gene_without3D$geneName,"-","")
+seqence_gene_without3D <- read_excel("result/protein_gene_without3D.xlsx")
+model2 <- model2 %>% separate(.,geneID, into = c('geneID0','Time_to_produce_model'), sep = "_")
+seqence_gene_without3D$geneID0 <- str_replace_all(seqence_gene_without3D$geneNames,"-","")
 
 model2$wild_sequence <- getSingleReactionFormula(seqence_gene_without3D$sequence,seqence_gene_without3D$geneID0,model2$geneID0)
 model2$uniprot_seq_length <- getSingleReactionFormula(seqence_gene_without3D$length,seqence_gene_without3D$geneID0,model2$geneID0)
-model2$locus <- getSingleReactionFormula(seqence_gene_without3D$geneName,seqence_gene_without3D$geneID0,model2$geneID0)
+model2$locus <- getSingleReactionFormula(seqence_gene_without3D$geneNames,seqence_gene_without3D$geneID0,model2$geneID0)
 model2$UniProtKB_ac <- getSingleReactionFormula(geneIDmapping$Entry,geneIDmapping$GeneName,model2$locus)
 model2 <- model2 %>%
   separate(Range, c("from", "to"), " - ")

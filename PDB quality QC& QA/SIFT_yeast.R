@@ -1,5 +1,13 @@
+# this code is used to check the chainID annotation for each pair of PDBid and proteinid
+# hongzhong lu
+# 12th, November
+
+
+# load main package
 library(readr)
 library(readxl)
+library(hongR)
+
 pdb_chain_uniprot <- read_delim("data/pdb_chain_uniprot.csv",  ";", escape_double = FALSE, trim_ws = TRUE)
 pdb_chain_uniprot$id_mapping <- paste(pdb_chain_uniprot$SP_PRIMARY,pdb_chain_uniprot$PDB, sep = "@")
 uniprotGeneID_mapping <- read_excel("data/uniprotGeneID_mapping.xlsx")
