@@ -201,15 +201,16 @@ boxplot(growth~type,data=strain_classification0, main="", col=terrain.colors(4),
         ylim=c(0,1.2), frame=TRUE, cex.lab=1.4, cex.axis=1.2)
 
 
+
 # further check the growth phenotype for the bioethonal strains
-growth_phenotype$clade <- getSingleReactionFormula(strain_classification$Clades,strain_classification$Standardized_name,growth_phenotype$strain_name)
+# growth_phenotype$clade <- getSingleReactionFormula(strain_classification$Clades,strain_classification$Standardized_name,growth_phenotype$strain_name)
 # strain name belong to 'g1'(have a higher relative growth in a higher temperature) and bioethonal as well
-strain_need_test <- filter(growth_phenotype, str_detect(clade,'bioethanol'))
-average_growth <- mean(strain_need_test$growth)
+# strain_need_test <- filter(growth_phenotype, str_detect(clade,'bioethanol'))
+# average_growth <- mean(strain_need_test$growth)
 
-table(mutation_matrix02$sum)
+# table(mutation_matrix02$sum)
 
 
-mutation_matrix02$type <- getSingleReactionFormula(strain_classification$Ecological_origins,strain_classification$Standardized_name,mutation_matrix02$strain_name)
+# mutation_matrix02$type <- getSingleReactionFormula(strain_classification$Ecological_origins,strain_classification$Standardized_name,mutation_matrix02$strain_name)
 
 
