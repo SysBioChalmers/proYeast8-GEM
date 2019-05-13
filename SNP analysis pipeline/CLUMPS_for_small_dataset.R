@@ -140,7 +140,7 @@ wap_sample0 <- getSampleWAP(pos_mutation_c,sample_standard1,ResidueDistance, seq
 plotNullDistribution(wap_sample0, wap_original0 = wap_original)
 Strain_3D <- getPvalue(wap_original,wap_sample0)
 
-
+dim(ResidueDistance)
 
 #second example
 ss = 'YMR246W'

@@ -1,6 +1,6 @@
 #----------------note
 # this main script is used to classify the strain based on residues mutation information obtained
-# from CLUMPS analysis pipeline.
+# from hotspot analysis pipeline.
 # firstly we obtain the residues mutation of one gene for all strains
 # then we can classify the strains based on the specific residue mutations
 source("Analysis_result_SNP_pipeline_hotspot.R")
