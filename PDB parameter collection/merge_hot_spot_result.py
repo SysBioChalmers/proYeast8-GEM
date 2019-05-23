@@ -17,18 +17,59 @@ with open('../result/hotspot_homo_g4', 'w') as outfile:
 
 
 #merge all files
-filenames = os.listdir('../data/hotspot from pdb_ex for glycerol_high')
-with open('../result/hotspot from pdb_ex for glycerol_high', 'w') as outfile:
+filenames = os.listdir('../data/hotspot from pdb_ex for PDETOH_high')
+with open('../result/hotspot from pdb_ex for PDETOH_high', 'w') as outfile:
     for fname in filenames:
-        fname0 = '../data/hotspot from pdb_ex for glycerol_high/' + fname
+        fname0 = '../data/hotspot from pdb_ex for PDETOH_high/' + fname
         with open(fname0) as infile:
             outfile.write(infile.read())
 
 
 
-filenames = os.listdir('../data/hotspot from pdb_homo for glycerol_high')
-with open('../result/hotspot from pdb_homo for glycerol_high', 'w') as outfile:
+filenames = os.listdir('../data/hotspot from pdb_homo for PDETOH_high')
+with open('../result/hotspot from pdb_homo for PDETOH_high', 'w') as outfile:
     for fname in filenames:
-        fname0 = '../data/hotspot from pdb_homo for glycerol_high/' + fname
+        fname0 = '../data/hotspot from pdb_homo for PDETOH_high/' + fname
         with open(fname0) as infile:
             outfile.write(infile.read())
+
+
+
+#merge all files
+filenames = os.listdir('../data/hotspot from pdb_ex for PDETOH_medium')
+with open('../result/hotspot from pdb_ex for PDETOH_medium', 'w') as outfile:
+    for fname in filenames:
+        fname0 = '../data/hotspot from pdb_ex for PDETOH_medium/' + fname
+        with open(fname0) as infile:
+            outfile.write(infile.read())
+
+
+
+filenames = os.listdir('../data/hotspot from pdb_homo for PDETOH_medium')
+with open('../result/hotspot from pdb_homo for PDETOH_medium', 'w') as outfile:
+    for fname in filenames:
+        fname0 = '../data/hotspot from pdb_homo for PDETOH_medium/' + fname
+        with open(fname0) as infile:
+            outfile.write(infile.read())
+
+
+
+#merge all files
+filenames = os.listdir('../data/hotspot from pdb_ex for PDETOH_low')
+with open('../result/hotspot from pdb_ex for PDETOH_low', 'w') as outfile:
+    for fname in filenames:
+        fname0 = '../data/hotspot from pdb_ex for PDETOH_low/' + fname
+        with open(fname0) as infile:
+            outfile.write(infile.read())
+
+
+
+filenames = os.listdir('../data/hotspot from pdb_homo for PDETOH_low')
+with open('../result/hotspot from pdb_homo for PDETOH_low', 'w') as outfile:
+    for fname in filenames:
+        fname0 = '../data/hotspot from pdb_homo for PDETOH_low/' + fname
+        with open(fname0) as infile:
+            outfile.write(infile.read())
+
+
+
