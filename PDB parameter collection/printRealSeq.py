@@ -1,5 +1,9 @@
-""""This script is mainly used to extract the amino acid sequence from each pdb structure
-8-16-2018, Hongzhong Lu"""
+""""
+This script is mainly used to extract the amino acid sequence from each pdb structure
+The residue sequence and related coordinate could be used for the mutation mapping
+8-16-2018, Hongzhong Lu
+
+"""
 
 
 from Bio.PDB import *
@@ -53,7 +57,7 @@ def getChainInf(oneChain, pdbID):
 def saveFasta(id):
     '''
     :param id: pdb id
-    :return:  save the fasta infomation for each chain of this PDB structure
+    :return:  save the fasta information for each chain of this PDB structure
     '''
     infile = '../data/pdb_ex_right_format/' + id + '.pdb'
     outfile = '../result/pdb_ex_seq/' + id
@@ -72,6 +76,8 @@ def saveFasta(id):
 
     for item in chainInf:
         fastaPDB.write("%s\n" % item)
+
+
 
 
 # example to display the residue sequence with coordinates
@@ -131,6 +137,7 @@ with open('../result/pdb_ex_seq_summary', 'w') as outfile:
         fname0 = '../result/pdb_ex_seq/' + fname
         with open(fname0) as infile:
             outfile.write(infile.read())
+
 
 #change the pdb seq file into fasta format
 pdb_seq = open('../result/pdb_ex_seq_summary','r').readlines()

@@ -18,7 +18,7 @@ all_done_pdb = list()
 for item in open(outfile).read().split('//'):
     if len(item)<1: continue
     all_done_pdb.append(item.split('\n')[1])
-print all_done_pdb
+print (all_done_pdb)
 
 
 fhand = open(outfile.replace('raw','raw1'),'w')
@@ -30,11 +30,11 @@ for i in range(sh.nrows-1):
     soup = BeautifulSoup(page,'html.parser')
     contents = soup.find_all('br')
     fhand.write('//\n{}\n'.format(pdb_id))
-    print pdb_id
+    print (pdb_id)
     for item in contents:
         cont = item.text.encode('utf-8')
         if 'Global Stoichiometry' in cont and '//' not in cont:
             fhand.write(cont+'\n')
-            print cont
+            print (cont)
     print
 fhand.close()
