@@ -1,0 +1,3 @@
+"orf" "ref" "position" "alt" "Freq" "pdbID"
+"YML100W" "D" 415 "V" 35 "342_801_5hvo.1.A_5b47a1f6a03a1bf84520fe47"
+"YML100W" "K" 422 "E" 9 "342_801_5hvo.1.A_5b47a1f6a03a1bf84520fe47"

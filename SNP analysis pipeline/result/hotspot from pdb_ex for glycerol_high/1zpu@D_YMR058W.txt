@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"E@@130;I@@168"	2.00782579917654	0.021	"YMR058W"	"22-547"	"1zpu@D"	"1-526"	"glycerol_high"
+"D@@183;K@@353"	2.06051749071099	0.0049	"YMR058W"	"22-547"	"1zpu@D"	"1-526"	"glycerol_high"

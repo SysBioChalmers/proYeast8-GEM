@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"I@@1286;G@@1286"	4	1	"YBR208C"	"633-1831"	"633_1831_3va7.1.A_5aca2192c730d4a15e271272"	"NA-NA"	"glycerol_high"

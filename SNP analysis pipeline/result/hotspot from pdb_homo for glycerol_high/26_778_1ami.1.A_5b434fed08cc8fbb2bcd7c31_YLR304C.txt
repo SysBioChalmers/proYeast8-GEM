@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"G@@713;Y@@713"	4	1	"YLR304C"	"26-778"	"26_778_1ami.1.A_5b434fed08cc8fbb2bcd7c31"	"NA-NA"	"glycerol_high"

@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"P@@341;H@@341"	4	1	"YDR419W"	"1-505"	"5vtp@A"	"2-506"	"glycerol_low"

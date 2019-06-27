@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"D@@158;T@@158"	4	1	"YOR341W"	"1-1664"	"1_1664_4c2m.1.A_5b248a9c7aaa0d7641e1365d"	"NA-NA"	"glycerol_high"
+"M@@1324;M@@1495"	2.00443157268846	0.0066	"YOR341W"	"1-1664"	"1_1664_4c2m.1.A_5b248a9c7aaa0d7641e1365d"	"NA-NA"	"glycerol_high"

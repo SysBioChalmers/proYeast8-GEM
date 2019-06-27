@@ -1,0 +1,5 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@144;L@@153;V@@178"	3.00867066287474	0.0089	"YGR088W"	"10-539"	"10_539_1a4e.1.A_5b3ed9c2a03a1bee2f08d128"	"NA-NA"	"glycerol_low"
+"A@@193;N@@238"	2.00455993938418	0.021	"YGR088W"	"10-539"	"10_539_1a4e.1.A_5b3ed9c2a03a1bee2f08d128"	"NA-NA"	"glycerol_low"
+"T@@255;E@@255"	4	1	"YGR088W"	"10-539"	"10_539_1a4e.1.A_5b3ed9c2a03a1bee2f08d128"	"NA-NA"	"glycerol_low"
+"C@@414;P@@446"	2.00385118444901	0.0261	"YGR088W"	"10-539"	"10_539_1a4e.1.A_5b3ed9c2a03a1bee2f08d128"	"NA-NA"	"glycerol_low"

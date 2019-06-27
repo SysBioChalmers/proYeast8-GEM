@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@56;T@@56"	4	1	"YPL097W"	"56-492"	"56_492_2jan.1.A_5b3d3be7732c1ed6b24dc24c"	"NA-NA"	"glycerol_high"
+"R@@413;M@@488"	2.00625317822111	0.0229	"YPL097W"	"56-492"	"56_492_2jan.1.A_5b3d3be7732c1ed6b24dc24c"	"NA-NA"	"glycerol_high"

@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@114;R@@230"	2.00686239649598	0.0375	"YMR267W"	"34-310"	"34_310_1wgi.1.A_5b3b18b2732c1e31cff13046"	"NA-NA"	"glycerol_high"

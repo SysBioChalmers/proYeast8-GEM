@@ -1,0 +1,7 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"F@@664;I@@666;A@@862;I@@1165"	4.01026638443581	0.0021	"YBR295W"	"553-1216"	"553_1216_4bbj.1.A_5b4f8c2c9ffd12500522ee2b"	"NA-NA"	"glycerol_low"
+"G@@679;K@@680;G@@875"	3.0207290116845	1e-04	"YBR295W"	"553-1216"	"553_1216_4bbj.1.A_5b4f8c2c9ffd12500522ee2b"	"NA-NA"	"glycerol_low"
+"I@@816;N@@816"	4	1	"YBR295W"	"553-1216"	"553_1216_4bbj.1.A_5b4f8c2c9ffd12500522ee2b"	"NA-NA"	"glycerol_low"
+"C@@943;G@@970"	2.00241564221409	0.023	"YBR295W"	"553-1216"	"553_1216_4bbj.1.A_5b4f8c2c9ffd12500522ee2b"	"NA-NA"	"glycerol_low"
+"Q@@1080;A@@1114;V@@1113;D@@1114"	6.02171818037785	0.012	"YBR295W"	"553-1216"	"553_1216_4bbj.1.A_5b4f8c2c9ffd12500522ee2b"	"NA-NA"	"glycerol_low"
+"D@@1146;V@@1216"	2.00469072501012	0.0194	"YBR295W"	"553-1216"	"553_1216_4bbj.1.A_5b4f8c2c9ffd12500522ee2b"	"NA-NA"	"glycerol_low"

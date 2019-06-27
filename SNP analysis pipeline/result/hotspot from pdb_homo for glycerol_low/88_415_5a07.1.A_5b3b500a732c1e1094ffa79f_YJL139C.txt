@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"A@@267;M@@267"	4	1	"YJL139C"	"88-415"	"88_415_5a07.1.A_5b3b500a732c1e1094ffa79f"	"NA-NA"	"glycerol_low"

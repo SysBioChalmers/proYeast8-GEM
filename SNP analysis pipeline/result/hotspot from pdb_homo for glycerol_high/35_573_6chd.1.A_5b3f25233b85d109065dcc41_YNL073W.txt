@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"A@@334;I@@334"	4	1	"YNL073W"	"35-573"	"35_573_6chd.1.A_5b3f25233b85d109065dcc41"	"NA-NA"	"glycerol_high"
+"S@@420;L@@420"	4	1	"YNL073W"	"35-573"	"35_573_6chd.1.A_5b3f25233b85d109065dcc41"	"NA-NA"	"glycerol_high"

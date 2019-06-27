@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"I@@57;S@@157"	2.01027915809658	0.0237	"YIL160C"	"25-409"	"1afw@B"	"1-385"	"glycerol_high"

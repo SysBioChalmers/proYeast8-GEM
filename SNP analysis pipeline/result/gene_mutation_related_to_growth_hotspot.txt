@@ -1,0 +1,5 @@
+"orf" "ref" "position" "alt" "Freq" "pdbID"
+"YJL052W" "K" 24 "R" 1 "1_332_3pym.1.A_5b3aaae6d60c59b81a9931aa"
+"YJL052W" "V" 31 "I" 1 "1_332_3pym.1.A_5b3aaae6d60c59b81a9931aa"
+"YJL052W" "V" 70 "I" 1 "1_332_3pym.1.A_5b3aaae6d60c59b81a9931aa"
+"YJL052W" "A" 73 "S" 1 "1_332_3pym.1.A_5b3aaae6d60c59b81a9931aa"

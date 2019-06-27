@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@287;F@@336"	2.01059087296733	0.0148	"YGR287C"	"4-588"	"3a4a@A"	"1-585"	"glycerol_high"
+"R@@423;Y@@423"	4	1	"YGR287C"	"4-588"	"3a4a@A"	"1-585"	"glycerol_high"
+"G@@556;P@@557;R@@588"	3.01026511592879	0.0135	"YGR287C"	"4-588"	"3a4a@A"	"1-585"	"glycerol_high"

@@ -1,0 +1,5 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@176;T@@176"	4	1	"YBR229C"	"27-899"	"27_899_5dkx.1.A_5b46324b1a200bfe2577c2c2"	"NA-NA"	"glycerol_high"
+"A@@178;N@@373"	2.00878967384796	0.0124	"YBR229C"	"27-899"	"27_899_5dkx.1.A_5b46324b1a200bfe2577c2c2"	"NA-NA"	"glycerol_high"
+"F@@517;I@@523;V@@585"	3.01329904655217	0.0123	"YBR229C"	"27-899"	"27_899_5dkx.1.A_5b46324b1a200bfe2577c2c2"	"NA-NA"	"glycerol_high"
+"V@@696;N@@797"	2.0041004847442	0.0155	"YBR229C"	"27-899"	"27_899_5dkx.1.A_5b46324b1a200bfe2577c2c2"	"NA-NA"	"glycerol_high"

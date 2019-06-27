@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"L@@17;S@@17"	4	1	"YKL026C"	"2-161"	"2_161_2v1m.1.A_5b41a44b08cc8fe35c64b9b1"	"NA-NA"	"glycerol_low"

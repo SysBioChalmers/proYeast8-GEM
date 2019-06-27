@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@173;T@@359"	2.02368133210304	0.0145	"YGR256W"	"7-479"	"7_479_2p4q.1.A_5b3d3b199ffd12b587b02ed1"	"NA-NA"	"glycerol_low"
+"V@@186;S@@264"	2.03582647172387	0.012	"YGR256W"	"7-479"	"7_479_2p4q.1.A_5b3d3b199ffd12b587b02ed1"	"NA-NA"	"glycerol_low"

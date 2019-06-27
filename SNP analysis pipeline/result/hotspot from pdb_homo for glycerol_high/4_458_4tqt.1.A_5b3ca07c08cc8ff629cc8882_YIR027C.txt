@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"L@@113;V@@145;V@@151"	3.00661510605104	0.025	"YIR027C"	"4-458"	"4_458_4tqt.1.A_5b3ca07c08cc8ff629cc8882"	"NA-NA"	"glycerol_high"
+"F@@180;K@@185;R@@244;S@@245"	4.02620928587335	1e-04	"YIR027C"	"4-458"	"4_458_4tqt.1.A_5b3ca07c08cc8ff629cc8882"	"NA-NA"	"glycerol_high"

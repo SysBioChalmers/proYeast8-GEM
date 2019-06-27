@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"A@@351;I@@351"	4	1	"YKL194C"	"32-462"	"32_462_3uh0.1.A_5b3caa3e1a200b1c5481bef4"	"NA-NA"	"glycerol_high"

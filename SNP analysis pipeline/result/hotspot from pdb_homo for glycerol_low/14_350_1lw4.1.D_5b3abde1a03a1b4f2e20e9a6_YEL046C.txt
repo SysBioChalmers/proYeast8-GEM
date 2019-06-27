@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"G@@27;P@@27"	4	1	"YEL046C"	"14-350"	"14_350_1lw4.1.D_5b3abde1a03a1b4f2e20e9a6"	"NA-NA"	"glycerol_low"

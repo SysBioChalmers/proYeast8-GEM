@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@11;T@@70"	2.00213626426294	0.0473	"YAL061W"	"4-374"	"4_374_3ip1.1.A_5b3b2b50d60c59c8c3872a2e"	"NA-NA"	"glycerol_low"
+"Y@@22;R@@22"	4	1	"YAL061W"	"4-374"	"4_374_3ip1.1.A_5b3b2b50d60c59c8c3872a2e"	"NA-NA"	"glycerol_low"
+"A@@34;G@@149"	2.00390983828743	0.0366	"YAL061W"	"4-374"	"4_374_3ip1.1.A_5b3b2b50d60c59c8c3872a2e"	"NA-NA"	"glycerol_low"

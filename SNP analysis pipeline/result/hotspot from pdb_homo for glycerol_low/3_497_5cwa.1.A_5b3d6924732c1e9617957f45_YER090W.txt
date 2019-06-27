@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@181;K@@181"	4	1	"YER090W"	"3-497"	"3_497_5cwa.1.A_5b3d6924732c1e9617957f45"	"NA-NA"	"glycerol_low"

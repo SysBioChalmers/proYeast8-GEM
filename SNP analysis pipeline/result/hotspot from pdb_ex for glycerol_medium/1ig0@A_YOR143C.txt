@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"L@@178;N@@214;T@@214"	5.08297338739521	0.0124	"YOR143C"	"3-317"	"1ig0@A"	"1-315"	"glycerol_medium"
+"V@@237;N@@240;D@@294"	3.04708566832504	0.0018	"YOR143C"	"3-317"	"1ig0@A"	"1-315"	"glycerol_medium"

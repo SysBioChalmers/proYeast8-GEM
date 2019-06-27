@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"I@@142;G@@204;N@@237"	3.00693405820673	0.0841	"YOL140W"	"23-421"	"23_421_2e54.1.A_5b3b3e8c08cc8fdeafb33c95"	"NA-NA"	"glycerol_high"
+"K@@340;I@@363"	2.00262713100158	0.0406	"YOL140W"	"23-421"	"23_421_2e54.1.A_5b3b3e8c08cc8fdeafb33c95"	"NA-NA"	"glycerol_high"

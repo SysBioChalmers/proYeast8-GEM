@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@58;A@@108"	2.00195639547692	0.0293	"YHR042W"	"47-688"	"2bf4@A"	"1-642"	"glycerol_high"
+"W@@143;T@@177"	2.01160056373741	0.014	"YHR042W"	"47-688"	"2bf4@A"	"1-642"	"glycerol_high"
+"V@@236;E@@334"	2.00414959112913	0.0207	"YHR042W"	"47-688"	"2bf4@A"	"1-642"	"glycerol_high"

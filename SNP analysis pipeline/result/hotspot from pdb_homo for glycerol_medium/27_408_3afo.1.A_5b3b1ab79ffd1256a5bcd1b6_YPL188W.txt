@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"P@@180;L@@180"	4	1	"YPL188W"	"27-408"	"27_408_3afo.1.A_5b3b1ab79ffd1256a5bcd1b6"	"NA-NA"	"glycerol_medium"
+"S@@229;F@@260"	2.03168087166314	0.0117	"YPL188W"	"27-408"	"27_408_3afo.1.A_5b3b1ab79ffd1256a5bcd1b6"	"NA-NA"	"glycerol_medium"

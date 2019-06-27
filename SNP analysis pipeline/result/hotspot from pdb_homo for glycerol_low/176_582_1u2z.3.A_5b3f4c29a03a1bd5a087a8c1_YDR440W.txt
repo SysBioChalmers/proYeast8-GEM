@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"Q@@557;D@@557"	4	1	"YDR440W"	"176-582"	"176_582_1u2z.3.A_5b3f4c29a03a1bd5a087a8c1"	"NA-NA"	"glycerol_low"

@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"M@@128;L@@169"	2.00274982413425	0.0237	"YMR246W"	"39-691"	"39_691_5mst.1.A_5b41c4d68fd6f9da68b53e00"	"NA-NA"	"glycerol_low"
+"V@@377;R@@601;P@@601"	5.00448323024988	0.0239	"YMR246W"	"39-691"	"39_691_5mst.1.A_5b41c4d68fd6f9da68b53e00"	"NA-NA"	"glycerol_low"
+"S@@480;L@@504"	2.01513396886743	0.0106	"YMR246W"	"39-691"	"39_691_5mst.1.A_5b41c4d68fd6f9da68b53e00"	"NA-NA"	"glycerol_low"

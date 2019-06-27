@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@535;G@@535"	4	1	"YLR258W"	"2-639"	"2_639_4kqm.1.B_5b41f15d08cc8f2e30c70195"	"NA-NA"	"glycerol_low"

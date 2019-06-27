@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"L@@75;R@@141;N@@141"	5.01250123185314	0.0367	"YDR035W"	"17-369"	"17_369_1hfb.1.A_5b3a851d732c1ef91eb1a6b5"	"NA-NA"	"glycerol_medium"
+"D@@246;S@@246"	4	1	"YDR035W"	"17-369"	"17_369_1hfb.1.A_5b3a851d732c1ef91eb1a6b5"	"NA-NA"	"glycerol_medium"

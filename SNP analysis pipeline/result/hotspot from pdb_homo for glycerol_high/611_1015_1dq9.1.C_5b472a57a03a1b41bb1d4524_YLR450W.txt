@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@751;N@@792"	2.00769753344565	0.0233	"YLR450W"	"611-1015"	"611_1015_1dq9.1.C_5b472a57a03a1b41bb1d4524"	"NA-NA"	"glycerol_high"

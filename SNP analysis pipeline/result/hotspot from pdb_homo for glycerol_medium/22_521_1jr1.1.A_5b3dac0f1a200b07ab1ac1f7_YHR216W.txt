@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"N@@57;A@@485;K@@482;S@@485"	6.03521321095631	0.0175	"YHR216W"	"22-521"	"22_521_1jr1.1.A_5b3dac0f1a200b07ab1ac1f7"	"NA-NA"	"glycerol_medium"
+"D@@489;K@@489"	4	1	"YHR216W"	"22-521"	"22_521_1jr1.1.A_5b3dac0f1a200b07ab1ac1f7"	"NA-NA"	"glycerol_medium"

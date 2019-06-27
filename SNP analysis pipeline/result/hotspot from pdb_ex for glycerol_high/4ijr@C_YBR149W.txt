@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"I@@104;S@@151"	2.00929265221037	0.0298	"YBR149W"	"15-342"	"4ijr@C"	"1-328"	"glycerol_high"
+"S@@181;L@@181"	4	1	"YBR149W"	"15-342"	"4ijr@C"	"1-328"	"glycerol_high"

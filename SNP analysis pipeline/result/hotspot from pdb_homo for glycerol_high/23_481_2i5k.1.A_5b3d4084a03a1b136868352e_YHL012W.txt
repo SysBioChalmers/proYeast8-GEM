@@ -1,0 +1,6 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@129;E@@161"	2.00219215845989	0.0346	"YHL012W"	"23-481"	"23_481_2i5k.1.A_5b3d4084a03a1b136868352e"	"NA-NA"	"glycerol_high"
+"H@@242;K@@378"	2.01783810093408	0.0141	"YHL012W"	"23-481"	"23_481_2i5k.1.A_5b3d4084a03a1b136868352e"	"NA-NA"	"glycerol_high"
+"I@@287;F@@329;L@@360;I@@355"	4.01124867557551	0.004	"YHL012W"	"23-481"	"23_481_2i5k.1.A_5b3d4084a03a1b136868352e"	"NA-NA"	"glycerol_high"
+"K@@293;T@@330"	2.00293652472507	0.0273	"YHL012W"	"23-481"	"23_481_2i5k.1.A_5b3d4084a03a1b136868352e"	"NA-NA"	"glycerol_high"
+"M@@320;E@@320"	4	1	"YHL012W"	"23-481"	"23_481_2i5k.1.A_5b3d4084a03a1b136868352e"	"NA-NA"	"glycerol_high"

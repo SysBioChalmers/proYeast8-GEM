@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@36;C@@36"	4	1	"YBR176W"	"23-293"	"23_293_1oy0.1.A_5b3b080308cc8f09421a59b0"	"NA-NA"	"glycerol_low"

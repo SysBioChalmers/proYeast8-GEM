@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"I@@642;H@@647;I@@810;H@@813"	4.03840123579806	2e-04	"YPR160W"	"27-901"	"27_901_1ygp.1.A_5b4573c79ffd12aba55cbeef"	"NA-NA"	"glycerol_high"

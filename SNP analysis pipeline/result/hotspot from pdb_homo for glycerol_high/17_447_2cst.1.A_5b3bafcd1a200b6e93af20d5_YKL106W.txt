@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"D@@97;I@@124;V@@278;I@@300;S@@303"	5.03575924578347	0.0056	"YKL106W"	"17-447"	"17_447_2cst.1.A_5b3bafcd1a200b6e93af20d5"	"NA-NA"	"glycerol_high"

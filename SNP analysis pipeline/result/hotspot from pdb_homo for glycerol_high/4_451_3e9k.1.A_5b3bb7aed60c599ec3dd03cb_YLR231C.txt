@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@56;Y@@56"	4	1	"YLR231C"	"4-451"	"4_451_3e9k.1.A_5b3bb7aed60c599ec3dd03cb"	"NA-NA"	"glycerol_high"
+"E@@170;R@@170"	4	1	"YLR231C"	"4-451"	"4_451_3e9k.1.A_5b3bb7aed60c599ec3dd03cb"	"NA-NA"	"glycerol_high"

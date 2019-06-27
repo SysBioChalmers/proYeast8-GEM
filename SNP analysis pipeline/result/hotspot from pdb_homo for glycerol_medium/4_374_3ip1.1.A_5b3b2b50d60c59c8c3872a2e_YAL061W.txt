@@ -1,0 +1,6 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"R@@22;Q@@22"	4	1	"YAL061W"	"4-374"	"4_374_3ip1.1.A_5b3b2b50d60c59c8c3872a2e"	"NA-NA"	"glycerol_medium"
+"A@@34;G@@149"	2.00390983828743	0.0379	"YAL061W"	"4-374"	"4_374_3ip1.1.A_5b3b2b50d60c59c8c3872a2e"	"NA-NA"	"glycerol_medium"
+"A@@161;T@@328"	2.00289574931221	0.0398	"YAL061W"	"4-374"	"4_374_3ip1.1.A_5b3b2b50d60c59c8c3872a2e"	"NA-NA"	"glycerol_medium"
+"Y@@185;R@@213"	2.00244752870645	0.0432	"YAL061W"	"4-374"	"4_374_3ip1.1.A_5b3b2b50d60c59c8c3872a2e"	"NA-NA"	"glycerol_medium"
+"R@@215;L@@262"	2.00220700961763	0.05	"YAL061W"	"4-374"	"4_374_3ip1.1.A_5b3b2b50d60c59c8c3872a2e"	"NA-NA"	"glycerol_medium"

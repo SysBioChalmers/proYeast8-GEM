@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"L@@14;Q@@14"	4	1	"YJR117W"	"11-446"	"11_446_4il3.2.A_5b3bb73bd60c59821100614a"	"NA-NA"	"glycerol_low"

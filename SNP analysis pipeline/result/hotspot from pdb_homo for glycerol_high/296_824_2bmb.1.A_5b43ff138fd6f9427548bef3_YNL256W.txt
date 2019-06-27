@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"Q@@329;L@@357"	2.04525199879319	0.0076	"YNL256W"	"296-824"	"296_824_2bmb.1.A_5b43ff138fd6f9427548bef3"	"NA-NA"	"glycerol_high"
+"E@@663;T@@744"	2.00386041373836	0.0282	"YNL256W"	"296-824"	"296_824_2bmb.1.A_5b43ff138fd6f9427548bef3"	"NA-NA"	"glycerol_high"

@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"D@@653;S@@653"	4	1	"YJL101C"	"2-669"	"3lvw@A"	"1-668"	"glycerol_medium"

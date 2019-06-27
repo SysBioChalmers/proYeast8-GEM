@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"L@@292;V@@292"	4	1	"YDR135C"	"205-1512"	"205_1512_6bhu.1.A_5b24712aafa3584c0960762c"	"NA-NA"	"glycerol_high"

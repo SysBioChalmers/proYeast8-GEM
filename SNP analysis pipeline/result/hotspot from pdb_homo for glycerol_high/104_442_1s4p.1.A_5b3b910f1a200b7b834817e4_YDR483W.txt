@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"N@@139;R@@147;R@@251;I@@275;Y@@387"	5.07928774248679	0.0019	"YDR483W"	"104-442"	"104_442_1s4p.1.A_5b3b910f1a200b7b834817e4"	"NA-NA"	"glycerol_high"

@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"M@@128;V@@131;K@@166"	3.00985724898291	0.0011	"YEL041W"	"79-429"	"79_429_3afo.1.B_5b3d452ba03a1bfea8b75d6e"	"NA-NA"	"glycerol_high"
+"E@@143;I@@176"	2.00436108013206	0.0347	"YEL041W"	"79-429"	"79_429_3afo.1.B_5b3d452ba03a1bfea8b75d6e"	"NA-NA"	"glycerol_high"
+"R@@278;N@@398"	2.01023644262131	0.0252	"YEL041W"	"79-429"	"79_429_3afo.1.B_5b3d452ba03a1bfea8b75d6e"	"NA-NA"	"glycerol_high"

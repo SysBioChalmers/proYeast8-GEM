@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@131;I@@152;V@@176"	3.0502234890572	0.0021	"YDL205C"	"4-323"	"4_323_5m6r.1.A_5b3abc41732c1e00950b6785"	"NA-NA"	"glycerol_high"

@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@62;C@@382;V@@382"	5.00619038822691	0.0322	"YHR137W"	"18-509"	"18_509_3ath.1.A_5b3d7f7408cc8f7a1b52accf"	"NA-NA"	"glycerol_high"

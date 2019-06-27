@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"L@@153;R@@365"	2.00529855807921	0.0333	"YOL126C"	"13-372"	"13_372_1sev.1.A_5b3a9e748fd6f9674713b642"	"NA-NA"	"glycerol_low"
+"M@@193;K@@237"	2.01017311052479	0.0296	"YOL126C"	"13-372"	"13_372_1sev.1.A_5b3a9e748fd6f9674713b642"	"NA-NA"	"glycerol_low"

@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"G@@184;A@@352;C@@356;M@@397"	4.0250716289992	6e-04	"YNL142W"	"2-457"	"5aex@B"	"1-456"	"glycerol_medium"

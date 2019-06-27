@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"G@@281;R@@441"	2.03794071132264	0.0114	"YMR170C"	"16-506"	"16_506_4wj9.1.A_5b3d678f1a200bb9aea189f0"	"NA-NA"	"glycerol_medium"

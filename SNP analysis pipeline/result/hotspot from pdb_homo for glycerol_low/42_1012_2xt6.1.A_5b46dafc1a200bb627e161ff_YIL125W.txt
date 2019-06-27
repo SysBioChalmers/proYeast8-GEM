@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"N@@897;E@@923"	2.00507731538495	0.0114	"YIL125W"	"42-1012"	"42_1012_2xt6.1.A_5b46dafc1a200bb627e161ff"	"NA-NA"	"glycerol_low"

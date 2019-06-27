@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"C@@233;D@@233"	4	1	"YBR145W"	"5-351"	"5_351_5yat.1.A_5b3a52fd732c1ef22aa26821"	"NA-NA"	"glycerol_high"

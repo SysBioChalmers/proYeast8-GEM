@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"D@@163;I@@163"	4	1	"YHR190W"	"35-375"	"35_375_3v66.1.A_5b3b7ef61a200b7e447b1595"	"NA-NA"	"glycerol_low"

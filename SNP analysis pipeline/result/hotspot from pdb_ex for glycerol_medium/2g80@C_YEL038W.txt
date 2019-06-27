@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"A@@164;V@@195"	2.00926632168495	0.039	"YEL038W"	"4-226"	"2g80@C"	"1-223"	"glycerol_medium"

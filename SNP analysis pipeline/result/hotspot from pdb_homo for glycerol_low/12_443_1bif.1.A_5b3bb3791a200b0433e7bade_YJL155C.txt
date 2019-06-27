@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"G@@108;K@@175"	2.00196437813321	0.0433	"YJL155C"	"12-443"	"12_443_1bif.1.A_5b3bb3791a200b0433e7bade"	"NA-NA"	"glycerol_low"

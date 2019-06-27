@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"N@@97;E@@97"	4	1	"YDR453C"	"2-195"	"2_195_3sbc.1.A_5b3fcbe71a200b10446b9d78"	"NA-NA"	"glycerol_high"

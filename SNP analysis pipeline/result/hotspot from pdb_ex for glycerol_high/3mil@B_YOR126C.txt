@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"H@@47;I@@47"	4	1	"YOR126C"	"1-234"	"3mil@B"	"1-234"	"glycerol_high"

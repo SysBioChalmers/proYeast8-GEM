@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"I@@67;H@@288"	2.01634585038654	0.0138	"YPL258C"	"2-551"	"2_551_3rm5.1.A_5b3e87b508cc8f8679cce94d"	"NA-NA"	"glycerol_low"
+"G@@209;H@@231"	2.00337473743194	0.0238	"YPL258C"	"2-551"	"2_551_3rm5.1.A_5b3e87b508cc8f8679cce94d"	"NA-NA"	"glycerol_low"
+"R@@346;Y@@346"	4	1	"YPL258C"	"2-551"	"2_551_3rm5.1.A_5b3e87b508cc8f8679cce94d"	"NA-NA"	"glycerol_low"

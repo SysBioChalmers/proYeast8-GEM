@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@140;N@@357"	2.00402844917577	0.0399	"YJR149W"	"24-400"	"24_400_4qiu.1.A_5b3afb188fd6f94f0e705990"	"NA-NA"	"glycerol_low"

@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@52;I@@52"	4	1	"YGR144W"	"16-324"	"3fpz@A"	"1-309"	"glycerol_medium"
+"N@@70;I@@93"	2.01232075257831	0.0272	"YGR144W"	"16-324"	"3fpz@A"	"1-309"	"glycerol_medium"

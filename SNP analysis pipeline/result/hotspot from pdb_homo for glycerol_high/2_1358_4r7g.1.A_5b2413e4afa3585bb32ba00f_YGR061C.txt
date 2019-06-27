@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"N@@879;A@@879"	4	1	"YGR061C"	"2-1358"	"2_1358_4r7g.1.A_5b2413e4afa3585bb32ba00f"	"NA-NA"	"glycerol_high"
+"N@@923;T@@980"	2.00236226167156	0.0139	"YGR061C"	"2-1358"	"2_1358_4r7g.1.A_5b2413e4afa3585bb32ba00f"	"NA-NA"	"glycerol_high"
+"I@@1019;P@@1019"	4	1	"YGR061C"	"2-1358"	"2_1358_4r7g.1.A_5b2413e4afa3585bb32ba00f"	"NA-NA"	"glycerol_high"

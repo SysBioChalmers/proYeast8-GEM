@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@7;Y@@36"	2.00259859451854	0.0301	"YBR248C"	"1-552"	"1_552_1jvn.1.A_5b3e90241a200bc10444e4a6"	"NA-NA"	"glycerol_medium"

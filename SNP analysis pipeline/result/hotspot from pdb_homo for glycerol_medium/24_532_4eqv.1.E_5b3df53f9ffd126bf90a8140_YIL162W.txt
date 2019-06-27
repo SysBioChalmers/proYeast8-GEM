@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"P@@409;A@@431;V@@433;D@@519"	4.04585589465353	0.0191	"YIL162W"	"24-532"	"24_532_4eqv.1.E_5b3df53f9ffd126bf90a8140"	"NA-NA"	"glycerol_medium"

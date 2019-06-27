@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@464;A@@464;D@@464"	9	1	"YMR108W"	"83-646"	"5ims@B"	"1-564"	"glycerol_high"

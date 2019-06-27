@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@132;S@@132"	4	1	"YLR284C"	"19-205"	"19_205_3iav.1.A_5b3bbdf3d60c59eae134cf5d"	"NA-NA"	"glycerol_low"
+"H@@138;L@@195;N@@196"	3.07481642843883	7e-04	"YLR284C"	"19-205"	"19_205_3iav.1.A_5b3bbdf3d60c59eae134cf5d"	"NA-NA"	"glycerol_low"

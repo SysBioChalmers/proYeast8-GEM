@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"M@@125;S@@125"	4	1	"YJR155W"	"4-262"	"4_262_4xk2.1.A_5b3b9616732c1ef08d845c5a"	"NA-NA"	"glycerol_medium"

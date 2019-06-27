@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"M@@135;A@@135"	4	1	"YNL241C"	"7-498"	"7_498_5vg5.4.A_5b3d65309ffd1254ac760be5"	"NA-NA"	"glycerol_medium"
+"V@@358;L@@486"	2.00455939985871	0.025	"YNL241C"	"7-498"	"7_498_5vg5.4.A_5b3d65309ffd1254ac760be5"	"NA-NA"	"glycerol_medium"

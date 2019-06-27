@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@1117;Q@@1117"	4	1	"YBR097W"	"1068-1454"	"1068_1454_5wlc.25.A_5b243f72a52be78bca9a5c54"	"NA-NA"	"glycerol_low"

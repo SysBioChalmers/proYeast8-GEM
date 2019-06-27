@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@72;I@@125"	2.00226907654263	0.0242	"YGL027C"	"35-833"	"35_833_4j5t.1.A_5b441f54732c1ee2155708e8"	"NA-NA"	"glycerol_high"

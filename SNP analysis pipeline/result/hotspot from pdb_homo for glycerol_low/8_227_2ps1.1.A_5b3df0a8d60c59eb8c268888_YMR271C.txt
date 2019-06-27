@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"G@@135;N@@135"	4	1	"YMR271C"	"8-227"	"8_227_2ps1.1.A_5b3df0a8d60c59eb8c268888"	"NA-NA"	"glycerol_low"

@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"R@@499;G@@499"	4	1	"YJR109C"	"23-1114"	"23_1114_5dot.1.A_5b4ccfe4a03a1b5614bfe7e4"	"NA-NA"	"glycerol_low"
+"F@@995;W@@1018"	2.02845496657555	0.0056	"YJR109C"	"23-1114"	"23_1114_5dot.1.A_5b4ccfe4a03a1b5614bfe7e4"	"NA-NA"	"glycerol_low"

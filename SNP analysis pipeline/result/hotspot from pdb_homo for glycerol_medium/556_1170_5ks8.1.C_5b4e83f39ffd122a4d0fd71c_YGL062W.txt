@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"G@@595;P@@595"	4	1	"YGL062W"	"556-1170"	"556_1170_5ks8.1.C_5b4e83f39ffd122a4d0fd71c"	"NA-NA"	"glycerol_medium"
+"G@@662;E@@662"	4	1	"YGL062W"	"556-1170"	"556_1170_5ks8.1.C_5b4e83f39ffd122a4d0fd71c"	"NA-NA"	"glycerol_medium"

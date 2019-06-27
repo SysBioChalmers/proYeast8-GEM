@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"F@@559;A@@559"	4	1	"YEL011W"	"13-699"	"13_699_3aml.1.A_5b41ee82d60c5974dc0cf72c"	"NA-NA"	"glycerol_high"

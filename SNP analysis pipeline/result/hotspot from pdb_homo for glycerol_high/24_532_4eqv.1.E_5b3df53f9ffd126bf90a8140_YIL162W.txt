@@ -1,0 +1,5 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"T@@77;E@@88;H@@151"	3.01545138733346	6e-04	"YIL162W"	"24-532"	"24_532_4eqv.1.E_5b3df53f9ffd126bf90a8140"	"NA-NA"	"glycerol_high"
+"Y@@102;I@@132"	2.0666532143054	0.0064	"YIL162W"	"24-532"	"24_532_4eqv.1.E_5b3df53f9ffd126bf90a8140"	"NA-NA"	"glycerol_high"
+"I@@386;R@@509;E@@509"	5.01843119787899	0.0207	"YIL162W"	"24-532"	"24_532_4eqv.1.E_5b3df53f9ffd126bf90a8140"	"NA-NA"	"glycerol_high"
+"S@@402;P@@409;S@@409;D@@519;A@@431"	7.09571785047707	6e-04	"YIL162W"	"24-532"	"24_532_4eqv.1.E_5b3df53f9ffd126bf90a8140"	"NA-NA"	"glycerol_high"

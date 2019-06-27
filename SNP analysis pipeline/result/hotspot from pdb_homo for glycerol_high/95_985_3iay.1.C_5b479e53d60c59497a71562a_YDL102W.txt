@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@190;Y@@222"	2.00216912376415	0.0198	"YDL102W"	"95-985"	"95_985_3iay.1.C_5b479e53d60c59497a71562a"	"NA-NA"	"glycerol_high"

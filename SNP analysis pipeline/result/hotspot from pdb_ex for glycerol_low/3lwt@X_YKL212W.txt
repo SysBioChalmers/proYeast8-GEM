@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@241;M@@247;A@@370;M@@371;N@@372"	5.10525280012399	4e-04	"YKL212W"	"1-449"	"3lwt@X"	"2-450"	"glycerol_low"

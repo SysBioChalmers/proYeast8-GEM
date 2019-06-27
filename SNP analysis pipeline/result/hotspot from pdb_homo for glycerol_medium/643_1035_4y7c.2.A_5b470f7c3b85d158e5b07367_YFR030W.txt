@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"T@@759;F@@759"	4	1	"YFR030W"	"643-1035"	"643_1035_4y7c.2.A_5b470f7c3b85d158e5b07367"	"NA-NA"	"glycerol_medium"

@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"Y@@168;S@@226"	2.00705736758746	0.0297	"YJL088W"	"10-334"	"10_334_3sds.1.A_5b3a91133b85d1633d2f78b1"	"NA-NA"	"glycerol_low"

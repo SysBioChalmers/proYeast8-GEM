@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@23;L@@23"	4	1	"YBL068W"	"13-321"	"13_321_2h07.1.B_5b3ac0e0732c1eee35dcac51"	"NA-NA"	"glycerol_high"

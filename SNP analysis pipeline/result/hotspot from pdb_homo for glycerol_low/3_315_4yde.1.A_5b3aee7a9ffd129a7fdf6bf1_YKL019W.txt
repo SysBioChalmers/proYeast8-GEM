@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"G@@81;T@@81"	4	1	"YKL019W"	"3-315"	"3_315_4yde.1.A_5b3aee7a9ffd129a7fdf6bf1"	"NA-NA"	"glycerol_low"

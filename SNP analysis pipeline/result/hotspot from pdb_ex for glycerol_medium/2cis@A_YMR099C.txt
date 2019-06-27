@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"L@@15;S@@15"	4	1	"YMR099C"	"2-285"	"2cis@A"	"1-284"	"glycerol_medium"

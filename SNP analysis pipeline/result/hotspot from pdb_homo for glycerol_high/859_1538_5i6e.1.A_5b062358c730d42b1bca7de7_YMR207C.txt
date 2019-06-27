@@ -1,0 +1,7 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"I@@912;V@@950;S@@935;T@@973;D@@974"	5.03274334577157	0.0154	"YMR207C"	"859-1538"	"859_1538_5i6e.1.A_5b062358c730d42b1bca7de7"	"NA-NA"	"glycerol_high"
+"S@@1038;N@@1080"	2.01218599943776	0.0114	"YMR207C"	"859-1538"	"859_1538_5i6e.1.A_5b062358c730d42b1bca7de7"	"NA-NA"	"glycerol_high"
+"G@@1146;T@@1168"	2.01000430194723	0.0121	"YMR207C"	"859-1538"	"859_1538_5i6e.1.A_5b062358c730d42b1bca7de7"	"NA-NA"	"glycerol_high"
+"I@@1304;I@@1325"	2.00644977260249	0.0137	"YMR207C"	"859-1538"	"859_1538_5i6e.1.A_5b062358c730d42b1bca7de7"	"NA-NA"	"glycerol_high"
+"T@@1334;S@@1368;L@@1357;N@@1369;N@@1431"	5.03357452234719	2e-04	"YMR207C"	"859-1538"	"859_1538_5i6e.1.A_5b062358c730d42b1bca7de7"	"NA-NA"	"glycerol_high"
+"L@@1452;S@@1452"	4	1	"YMR207C"	"859-1538"	"859_1538_5i6e.1.A_5b062358c730d42b1bca7de7"	"NA-NA"	"glycerol_high"

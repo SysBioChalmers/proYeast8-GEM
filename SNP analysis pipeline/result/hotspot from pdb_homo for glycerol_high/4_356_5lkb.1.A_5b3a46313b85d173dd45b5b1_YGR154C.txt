@@ -1,0 +1,6 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@41;T@@83"	2.01020631449117	0.0248	"YGR154C"	"4-356"	"4_356_5lkb.1.A_5b3a46313b85d173dd45b5b1"	"NA-NA"	"glycerol_high"
+"K@@58;V@@330"	2.00336712998219	0.0434	"YGR154C"	"4-356"	"4_356_5lkb.1.A_5b3a46313b85d173dd45b5b1"	"NA-NA"	"glycerol_high"
+"S@@68;D@@119"	2.01465309861593	0.0227	"YGR154C"	"4-356"	"4_356_5lkb.1.A_5b3a46313b85d173dd45b5b1"	"NA-NA"	"glycerol_high"
+"R@@202;K@@225;A@@225"	5.05445601411344	0.0177	"YGR154C"	"4-356"	"4_356_5lkb.1.A_5b3a46313b85d173dd45b5b1"	"NA-NA"	"glycerol_high"
+"F@@256;W@@304"	2.00419673256511	0.0339	"YGR154C"	"4-356"	"4_356_5lkb.1.A_5b3a46313b85d173dd45b5b1"	"NA-NA"	"glycerol_high"

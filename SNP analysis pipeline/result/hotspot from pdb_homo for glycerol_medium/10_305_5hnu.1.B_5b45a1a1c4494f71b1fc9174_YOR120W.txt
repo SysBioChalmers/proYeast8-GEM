@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"I@@234;T@@288"	2.01413318400763	0.0267	"YOR120W"	"10-305"	"10_305_5hnu.1.B_5b45a1a1c4494f71b1fc9174"	"NA-NA"	"glycerol_medium"

@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"T@@227;K@@249"	2.01843873503661	0.0235	"YJL126W"	"5-300"	"4hg3@B"	"1-296"	"glycerol_high"

@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"T@@54;P@@54"	4	1	"YPL171C"	"2-398"	"5v4v@A"	"1-397"	"glycerol_low"
+"T@@161;N@@209"	2.00207524684238	0.0518	"YPL171C"	"2-398"	"5v4v@A"	"1-397"	"glycerol_low"

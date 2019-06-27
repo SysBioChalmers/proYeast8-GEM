@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"D@@489;K@@489"	4	1	"YHR216W"	"5-523"	"5_523_4z87.1.A_5b3dac0f1a200b07ab1ac1fc"	"NA-NA"	"glycerol_high"

@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@36;V@@658"	2.00208066433676	0.0163	"YOR151C"	"19-1221"	"19_1221_5xog.1.B_5b4fbeb19ffd12ec1f4ff23d"	"NA-NA"	"glycerol_medium"

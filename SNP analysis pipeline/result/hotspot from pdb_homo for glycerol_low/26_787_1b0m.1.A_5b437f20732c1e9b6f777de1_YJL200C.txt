@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@557;T@@557"	4	1	"YJL200C"	"26-787"	"26_787_1b0m.1.A_5b437f20732c1e9b6f777de1"	"NA-NA"	"glycerol_low"

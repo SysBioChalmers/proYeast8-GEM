@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@201;K@@201"	4	1	"YPL015C"	"1-293"	"1_293_2od2.1.A_5b3a49cd1a200b0aa4dde924"	"NA-NA"	"glycerol_low"
+"R@@216;K@@216"	4	1	"YPL015C"	"1-293"	"1_293_2od2.1.A_5b3a49cd1a200b0aa4dde924"	"NA-NA"	"glycerol_low"

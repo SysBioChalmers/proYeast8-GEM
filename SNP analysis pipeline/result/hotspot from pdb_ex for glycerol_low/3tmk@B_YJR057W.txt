@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"P@@180;M@@180"	4	1	"YJR057W"	"1-213"	"3tmk@B"	"1-213"	"glycerol_low"
