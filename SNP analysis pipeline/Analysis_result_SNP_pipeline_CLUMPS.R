@@ -12,15 +12,15 @@ source("genomics annotation summary.R")
 strain_classification <- read_excel("data/strain_classification.xls")
 # remove the rows with NA as the name
 strain_classification <-strain_classification[,c('Standardized_name','Clades')]
-strain_type <- "wine"
-#strain_type <- "Wine"
+#strain_type <- "wine"
+strain_type <- "bioethanol"
 strain_select1 <- chooseStrain(type = strain_type)
 
 
 # input the data of clumps method
-clumps_ex <- read.table(paste('result0/CLUMPS from pdb_ex for ',strain_type, '/pdb_EX.txt',sep = ""), header= TRUE, sep = "\t", stringsAsFactors = FALSE)
+clumps_ex <- read.table(paste('result/CLUMPS from pdb_ex for ',strain_type, '/pdb_EX.txt',sep = ""), header= TRUE, sep = "\t", stringsAsFactors = FALSE)
 clumps_ex$pdb_source <- "Exp"
-clumps_homo <- read.table(paste('result0/CLUMPS from pdb_homo for ',strain_type, '/pdb_info.txt',sep = ""), header= TRUE, sep = "\t", stringsAsFactors = FALSE)
+clumps_homo <- read.table(paste('result/CLUMPS from pdb_homo for ',strain_type, '/pdb_info.txt',sep = ""), header= TRUE, sep = "\t", stringsAsFactors = FALSE)
 clumps_homo$pdb_source <- "Homo"
 clumps_all <- rbind.data.frame(clumps_ex, clumps_homo)
 clumps_all_fiter <- filter(clumps_all, p_value <= 0.05)
