@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@472;V@@472"	4	1	"YOL033W"	"45-532"	"45_532_6brl.1.A_5b3e1ec59ffd129c4792fcab"	"NA-NA"	"glycerol_low"

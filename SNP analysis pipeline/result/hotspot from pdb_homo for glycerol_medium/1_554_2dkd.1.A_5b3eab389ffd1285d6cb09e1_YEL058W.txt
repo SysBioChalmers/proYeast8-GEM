@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"A@@3;T@@115;D@@159"	3.00836783227165	0.0518	"YEL058W"	"1-554"	"1_554_2dkd.1.A_5b3eab389ffd1285d6cb09e1"	"NA-NA"	"glycerol_medium"
+"K@@196;R@@196"	4	1	"YEL058W"	"1-554"	"1_554_2dkd.1.A_5b3eab389ffd1285d6cb09e1"	"NA-NA"	"glycerol_medium"

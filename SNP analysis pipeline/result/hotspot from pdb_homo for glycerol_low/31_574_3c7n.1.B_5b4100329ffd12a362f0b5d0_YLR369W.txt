@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@176;S@@204"	2.04562995164482	0.0067	"YLR369W"	"31-574"	"31_574_3c7n.1.B_5b4100329ffd12a362f0b5d0"	"NA-NA"	"glycerol_low"
+"L@@242;L@@354;H@@355"	3.03034187415324	1e-04	"YLR369W"	"31-574"	"31_574_3c7n.1.B_5b4100329ffd12a362f0b5d0"	"NA-NA"	"glycerol_low"

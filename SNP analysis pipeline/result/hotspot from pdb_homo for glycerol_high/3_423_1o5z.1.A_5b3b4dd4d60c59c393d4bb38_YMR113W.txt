@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"A@@163;D@@163"	4	1	"YMR113W"	"3-423"	"3_423_1o5z.1.A_5b3b4dd4d60c59c393d4bb38"	"NA-NA"	"glycerol_high"
+"T@@227;E@@227;R@@264"	5.03482925914625	0.0202	"YMR113W"	"3-423"	"3_423_1o5z.1.A_5b3b4dd4d60c59c393d4bb38"	"NA-NA"	"glycerol_high"

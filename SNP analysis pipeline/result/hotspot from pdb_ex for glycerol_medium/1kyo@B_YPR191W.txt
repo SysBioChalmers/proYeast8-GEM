@@ -1,0 +1,5 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"Q@@140;V@@288"	2.00220563574818	0.0494	"YPR191W"	"17-368"	"1kyo@B"	"1-352"	"glycerol_medium"
+"A@@208;I@@208"	4	1	"YPR191W"	"17-368"	"1kyo@B"	"1-352"	"glycerol_medium"
+"K@@266;D@@266"	4	1	"YPR191W"	"17-368"	"1kyo@B"	"1-352"	"glycerol_medium"
+"L@@271;V@@271"	4	1	"YPR191W"	"17-368"	"1kyo@B"	"1-352"	"glycerol_medium"

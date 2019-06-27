@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@22;K@@319"	2.00570253190599	0.0315	"YNL274C"	"4-339"	"4_339_6bii.1.A_5b3a5a3a08cc8fb796d2d2f4"	"NA-NA"	"glycerol_high"
+"E@@144;R@@144"	4	1	"YNL274C"	"4-339"	"4_339_6bii.1.A_5b3a5a3a08cc8fb796d2d2f4"	"NA-NA"	"glycerol_high"
+"Q@@180;A@@203"	2.00264262033457	0.0494	"YNL274C"	"4-339"	"4_339_6bii.1.A_5b3a5a3a08cc8fb796d2d2f4"	"NA-NA"	"glycerol_high"

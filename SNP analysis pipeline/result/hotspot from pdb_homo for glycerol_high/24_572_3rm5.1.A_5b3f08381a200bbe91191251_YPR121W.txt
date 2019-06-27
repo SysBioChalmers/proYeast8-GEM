@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@188;I@@188"	4	1	"YPR121W"	"24-572"	"24_572_3rm5.1.A_5b3f08381a200bbe91191251"	"NA-NA"	"glycerol_high"
+"G@@382;R@@513"	2.003471577951	0.0247	"YPR121W"	"24-572"	"24_572_3rm5.1.A_5b3f08381a200bbe91191251"	"NA-NA"	"glycerol_high"

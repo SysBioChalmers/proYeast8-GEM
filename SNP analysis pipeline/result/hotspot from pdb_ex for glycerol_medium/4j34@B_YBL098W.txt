@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"Q@@137;I@@178"	2.00256064037838	0.0405	"YBL098W"	"1-385"	"4j34@B"	"2-386"	"glycerol_medium"
+"A@@262;A@@283"	2.02804741816725	0.0141	"YBL098W"	"1-385"	"4j34@B"	"2-386"	"glycerol_medium"

@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"E@@303;R@@303"	4	1	"YDR256C"	"15-499"	"1a4e@A"	"1-485"	"glycerol_high"

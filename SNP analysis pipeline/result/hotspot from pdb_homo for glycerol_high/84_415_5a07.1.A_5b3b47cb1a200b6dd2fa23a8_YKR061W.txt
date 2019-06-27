@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"R@@282;E@@282"	4	1	"YKR061W"	"84-415"	"84_415_5a07.1.A_5b3b47cb1a200b6dd2fa23a8"	"NA-NA"	"glycerol_high"

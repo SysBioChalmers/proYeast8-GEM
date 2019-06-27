@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"R@@402;N@@402"	4	1	"YNL045W"	"40-671"	"40_671_2xpz.1.A_5b4147acd60c5944bdb34733"	"NA-NA"	"glycerol_high"

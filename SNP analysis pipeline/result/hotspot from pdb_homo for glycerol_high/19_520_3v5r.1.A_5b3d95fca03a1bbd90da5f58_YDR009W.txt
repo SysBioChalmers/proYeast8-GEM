@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@260;V@@260"	4	1	"YDR009W"	"19-520"	"19_520_3v5r.1.A_5b3d95fca03a1bbd90da5f58"	"NA-NA"	"glycerol_high"
+"I@@275;S@@278;D@@301"	3.01323158501157	7e-04	"YDR009W"	"19-520"	"19_520_3v5r.1.A_5b3d95fca03a1bbd90da5f58"	"NA-NA"	"glycerol_high"
+"T@@287;I@@312"	2.0022478502612	0.0348	"YDR009W"	"19-520"	"19_520_3v5r.1.A_5b3d95fca03a1bbd90da5f58"	"NA-NA"	"glycerol_high"

@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@115;G@@115"	4	1	"YFR033C"	"75-147"	"1ezv@H"	"2-74"	"glycerol_medium"

@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@60;T@@371"	2.001959113186	0.0438	"YIL074C"	"57-468"	"57_468_3ddn.1.B_5b3cef308fd6f9050dafcdbe"	"NA-NA"	"glycerol_low"
+"A@@391;Y@@391"	4	1	"YIL074C"	"57-468"	"57_468_3ddn.1.B_5b3cef308fd6f9050dafcdbe"	"NA-NA"	"glycerol_low"

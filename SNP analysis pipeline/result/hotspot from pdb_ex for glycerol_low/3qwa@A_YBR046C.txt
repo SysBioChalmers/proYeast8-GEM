@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"I@@83;T@@107"	2.00520624955387	0.0373	"YBR046C"	"4-333"	"3qwa@A"	"1-330"	"glycerol_low"
+"I@@133;V@@164;K@@289"	3.03002753422321	0.0585	"YBR046C"	"4-333"	"3qwa@A"	"1-330"	"glycerol_low"

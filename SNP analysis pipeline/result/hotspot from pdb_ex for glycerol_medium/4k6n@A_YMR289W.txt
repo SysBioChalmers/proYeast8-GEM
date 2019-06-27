@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"N@@52;S@@215"	2.00336741934815	0.0352	"YMR289W"	"23-373"	"4k6n@A"	"1-351"	"glycerol_medium"
+"F@@173;V@@173"	4	1	"YMR289W"	"23-373"	"4k6n@A"	"1-351"	"glycerol_medium"
+"S@@199;L@@199"	4	1	"YMR289W"	"23-373"	"4k6n@A"	"1-351"	"glycerol_medium"

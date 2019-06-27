@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"T@@116;V@@116"	4	1	"YGR171C"	"13-533"	"13_533_4mw5.1.A_5b3f1928a03a1bf6f8cc5e72"	"NA-NA"	"glycerol_high"
+"S@@260;Q@@296;K@@327"	3.14675457590572	1e-04	"YGR171C"	"13-533"	"13_533_4mw5.1.A_5b3f1928a03a1bf6f8cc5e72"	"NA-NA"	"glycerol_high"

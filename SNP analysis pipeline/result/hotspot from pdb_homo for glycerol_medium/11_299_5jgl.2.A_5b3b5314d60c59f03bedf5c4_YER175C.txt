@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"F@@16;L@@153;A@@234"	3.00724385726764	0.048	"YER175C"	"11-299"	"11_299_5jgl.2.A_5b3b5314d60c59f03bedf5c4"	"NA-NA"	"glycerol_medium"
+"V@@28;V@@209"	2.00385090696963	0.0443	"YER175C"	"11-299"	"11_299_5jgl.2.A_5b3b5314d60c59f03bedf5c4"	"NA-NA"	"glycerol_medium"
+"E@@157;N@@157"	4	1	"YER175C"	"11-299"	"11_299_5jgl.2.A_5b3b5314d60c59f03bedf5c4"	"NA-NA"	"glycerol_medium"

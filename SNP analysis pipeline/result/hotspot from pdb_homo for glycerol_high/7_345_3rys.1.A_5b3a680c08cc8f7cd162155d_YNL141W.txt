@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"T@@211;P@@211"	4	1	"YNL141W"	"7-345"	"7_345_3rys.1.A_5b3a680c08cc8f7cd162155d"	"NA-NA"	"glycerol_high"

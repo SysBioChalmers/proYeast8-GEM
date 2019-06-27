@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"N@@249;I@@301"	2.00379644841145	0.0303	"YJR131W"	"34-549"	"34_549_1dl2.1.A_5b3e763b3b85d15b734778b9"	"NA-NA"	"glycerol_low"

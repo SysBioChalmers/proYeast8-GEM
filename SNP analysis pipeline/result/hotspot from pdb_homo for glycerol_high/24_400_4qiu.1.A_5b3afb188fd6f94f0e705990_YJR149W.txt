@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"H@@28;T@@289"	2.00476196365098	0.0317	"YJR149W"	"24-400"	"24_400_4qiu.1.A_5b3afb188fd6f94f0e705990"	"NA-NA"	"glycerol_high"
+"V@@140;N@@357"	2.00402844917577	0.0353	"YJR149W"	"24-400"	"24_400_4qiu.1.A_5b3afb188fd6f94f0e705990"	"NA-NA"	"glycerol_high"
+"L@@163;K@@167;V@@189;E@@190"	4.02394473768725	0.002	"YJR149W"	"24-400"	"24_400_4qiu.1.A_5b3afb188fd6f94f0e705990"	"NA-NA"	"glycerol_high"

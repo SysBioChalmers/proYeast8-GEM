@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"D@@65;G@@65"	4	1	"YDL171C"	"54-1547"	"54_1547_1ofd.1.A_5b24f59dafa3589b98d8d209"	"NA-NA"	"glycerol_low"

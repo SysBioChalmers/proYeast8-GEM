@@ -1,0 +1,5 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"H@@36;T@@57"	2.00497456590954	0.0215	"YDL080C"	"13-577"	"13_577_2w93.1.B_5b3ff54b9ffd1209bb2c9629"	"NA-NA"	"glycerol_medium"
+"Y@@204;C@@336"	2.00297818336973	0.0273	"YDL080C"	"13-577"	"13_577_2w93.1.B_5b3ff54b9ffd1209bb2c9629"	"NA-NA"	"glycerol_medium"
+"I@@229;L@@263;S@@414"	3.01926882096129	0.0484	"YDL080C"	"13-577"	"13_577_2w93.1.B_5b3ff54b9ffd1209bb2c9629"	"NA-NA"	"glycerol_medium"
+"M@@344;L@@344"	4	1	"YDL080C"	"13-577"	"13_577_2w93.1.B_5b3ff54b9ffd1209bb2c9629"	"NA-NA"	"glycerol_medium"

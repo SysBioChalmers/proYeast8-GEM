@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"G@@184;A@@352;C@@356;M@@397"	4.02493963103563	5e-04	"YNL142W"	"3-457"	"5aex@D"	"1-455"	"glycerol_high"

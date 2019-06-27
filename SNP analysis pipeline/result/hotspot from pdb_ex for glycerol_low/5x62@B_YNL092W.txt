@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"L@@92;A@@92"	4	1	"YNL092W"	"9-392"	"5x62@B"	"1-384"	"glycerol_low"
+"I@@129;G@@129"	4	1	"YNL092W"	"9-392"	"5x62@B"	"1-384"	"glycerol_low"
+"N@@141;S@@158;T@@227;I@@225;T@@228"	5.01838432100523	0.002	"YNL092W"	"9-392"	"5x62@B"	"1-384"	"glycerol_low"

@@ -1,0 +1,7 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"F@@140;D@@197"	2.00265462755783	0.0393	"YBR199W"	"71-458"	"5a07@B"	"1-388"	"glycerol_high"
+"V@@230;E@@230"	4	1	"YBR199W"	"71-458"	"5a07@B"	"1-388"	"glycerol_high"
+"D@@280;S@@280"	4	1	"YBR199W"	"71-458"	"5a07@B"	"1-388"	"glycerol_high"
+"A@@287;I@@354"	2.02340049096606	0.0175	"YBR199W"	"71-458"	"5a07@B"	"1-388"	"glycerol_high"
+"E@@324;I@@450"	2.00722625344139	0.0246	"YBR199W"	"71-458"	"5a07@B"	"1-388"	"glycerol_high"
+"C@@414;L@@438"	2.00687013069894	0.0232	"YBR199W"	"71-458"	"5a07@B"	"1-388"	"glycerol_high"

@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"N@@90;R@@90"	4	1	"YBR092C"	"34-465"	"34_465_2gfi.1.A_5b3ce5f59ffd12be89cfe6f1"	"NA-NA"	"glycerol_high"

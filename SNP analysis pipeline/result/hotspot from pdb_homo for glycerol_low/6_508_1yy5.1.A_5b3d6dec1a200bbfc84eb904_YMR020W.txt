@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"E@@143;H@@337"	2.00340816123631	0.0264	"YMR020W"	"6-508"	"6_508_1yy5.1.A_5b3d6dec1a200bbfc84eb904"	"NA-NA"	"glycerol_low"
+"V@@150;S@@329"	2.0020218323284	0.0343	"YMR020W"	"6-508"	"6_508_1yy5.1.A_5b3d6dec1a200bbfc84eb904"	"NA-NA"	"glycerol_low"
+"Q@@232;S@@233;C@@473"	3.01465085893977	3e-04	"YMR020W"	"6-508"	"6_508_1yy5.1.A_5b3d6dec1a200bbfc84eb904"	"NA-NA"	"glycerol_low"

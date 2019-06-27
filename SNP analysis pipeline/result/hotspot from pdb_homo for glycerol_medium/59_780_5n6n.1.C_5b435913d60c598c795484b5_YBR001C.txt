@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"F@@445;P@@445"	4	1	"YBR001C"	"59-780"	"59_780_5n6n.1.C_5b435913d60c598c795484b5"	"NA-NA"	"glycerol_medium"

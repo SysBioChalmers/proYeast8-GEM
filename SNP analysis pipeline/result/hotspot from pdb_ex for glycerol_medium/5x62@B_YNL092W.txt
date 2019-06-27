@@ -1,0 +1,7 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"L@@19;L@@20;K@@74;V@@174;L@@92"	5.02109148187632	0.0338	"YNL092W"	"9-392"	"5x62@B"	"1-384"	"glycerol_medium"
+"T@@42;E@@42"	4	1	"YNL092W"	"9-392"	"5x62@B"	"1-384"	"glycerol_medium"
+"I@@129;G@@129"	4	1	"YNL092W"	"9-392"	"5x62@B"	"1-384"	"glycerol_medium"
+"R@@245;F@@284"	2.00216747830543	0.0451	"YNL092W"	"9-392"	"5x62@B"	"1-384"	"glycerol_medium"
+"L@@249;S@@318"	2.01183532133903	0.0209	"YNL092W"	"9-392"	"5x62@B"	"1-384"	"glycerol_medium"
+"V@@283;T@@283"	4	1	"YNL092W"	"9-392"	"5x62@B"	"1-384"	"glycerol_medium"

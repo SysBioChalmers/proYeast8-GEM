@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"L@@271;V@@271"	4	1	"YPR191W"	"17-368"	"3cx5@M"	"1-352"	"glycerol_low"

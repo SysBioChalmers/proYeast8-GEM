@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@253;L@@253"	4	1	"YOR303W"	"199-353"	"199_353_2a9v.1.A_5b3b10509ffd1253dfa5bfa6"	"NA-NA"	"glycerol_high"

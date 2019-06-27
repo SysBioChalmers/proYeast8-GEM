@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"I@@144;V@@144"	4	1	"YGR088W"	"10-539"	"10_539_1a4e.1.A_5b3ed9c2a03a1bee2f08d128"	"NA-NA"	"glycerol_medium"
+"A@@193;I@@236"	2.00302252018513	0.0289	"YGR088W"	"10-539"	"10_539_1a4e.1.A_5b3ed9c2a03a1bee2f08d128"	"NA-NA"	"glycerol_medium"

@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"T@@24;A@@115"	2.00603670249169	0.0239	"YHR201C"	"5-395"	"2qb8@A"	"1-391"	"glycerol_high"
+"F@@284;I@@321"	2.07447763878823	0.0049	"YHR201C"	"5-395"	"2qb8@A"	"1-391"	"glycerol_high"

@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"I@@24;T@@69"	2.00931142198856	0.0264	"YLR180W"	"3-382"	"3_382_2p02.1.A_5b3aae4c8fd6f9a819893617"	"NA-NA"	"glycerol_high"

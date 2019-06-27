@@ -1,0 +1,5 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"I@@9;V@@32;M@@33;L@@99"	4.09461784053617	4e-04	"YKL055C"	"1-273"	"1_273_4hbg.1.A_5b3c92eba03a1bc30f95d646"	"NA-NA"	"glycerol_medium"
+"N@@27;E@@27"	4	1	"YKL055C"	"1-273"	"1_273_4hbg.1.A_5b3c92eba03a1bc30f95d646"	"NA-NA"	"glycerol_medium"
+"D@@49;R@@49"	4	1	"YKL055C"	"1-273"	"1_273_4hbg.1.A_5b3c92eba03a1bc30f95d646"	"NA-NA"	"glycerol_medium"
+"N@@232;T@@259"	2.01605021930495	0.0282	"YKL055C"	"1-273"	"1_273_4hbg.1.A_5b3c92eba03a1bc30f95d646"	"NA-NA"	"glycerol_medium"

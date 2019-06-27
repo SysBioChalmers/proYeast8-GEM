@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"I@@143;A@@143"	4	1	"YJL200C"	"26-787"	"26_787_1b0m.1.A_5b437f20732c1e9b6f777de1"	"NA-NA"	"glycerol_medium"
+"I@@229;I@@262"	2.01587714288426	0.0108	"YJL200C"	"26-787"	"26_787_1b0m.1.A_5b437f20732c1e9b6f777de1"	"NA-NA"	"glycerol_medium"
+"R@@401;I@@439"	2.00601926935514	0.014	"YJL200C"	"26-787"	"26_787_1b0m.1.A_5b437f20732c1e9b6f777de1"	"NA-NA"	"glycerol_medium"

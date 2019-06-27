@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"E@@16;G@@49"	2.00762653943244	0.0414	"YDR408C"	"2-211"	"2_211_1zly.1.A_5b3eb9a7732c1e22c212628f"	"NA-NA"	"glycerol_medium"
+"M@@68;N@@68"	4	1	"YDR408C"	"2-211"	"2_211_1zly.1.A_5b3eb9a7732c1e22c212628f"	"NA-NA"	"glycerol_medium"

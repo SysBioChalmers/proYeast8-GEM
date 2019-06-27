@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"A@@185;I@@185"	4	1	"YFR055W"	"11-340"	"11_340_1cl2.1.A_5b3a8941d60c59a2575fbc9d"	"NA-NA"	"glycerol_high"

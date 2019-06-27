@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"L@@410;A@@410"	4	1	"YGR244C"	"31-422"	"31_422_4xx0.1.B_5b3b4c9d732c1e66e9a5e2c8"	"NA-NA"	"glycerol_high"

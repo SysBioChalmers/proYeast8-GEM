@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"D@@139;S@@139"	4	1	"YOR196C"	"118-401"	"118_401_4u0p.1.A_5b3b1a90d60c59758e8a5ad2"	"NA-NA"	"glycerol_high"

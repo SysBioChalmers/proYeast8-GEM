@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@70;P@@172;L@@569;G@@572"	4.03807837603808	4e-04	"YHR091C"	"70-643"	"70_643_1bs2.1.A_5b40aec11a200b1b80523558"	"NA-NA"	"glycerol_medium"

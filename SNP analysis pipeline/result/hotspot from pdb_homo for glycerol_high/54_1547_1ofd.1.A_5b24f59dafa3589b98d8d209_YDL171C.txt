@@ -1,0 +1,5 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"D@@65;G@@65"	4	1	"YDL171C"	"54-1547"	"54_1547_1ofd.1.A_5b24f59dafa3589b98d8d209"	"NA-NA"	"glycerol_high"
+"T@@314;G@@599"	2.00426734626014	0.0101	"YDL171C"	"54-1547"	"54_1547_1ofd.1.A_5b24f59dafa3589b98d8d209"	"NA-NA"	"glycerol_high"
+"L@@503;E@@504;K@@746"	3.01073687678579	0.0047	"YDL171C"	"54-1547"	"54_1547_1ofd.1.A_5b24f59dafa3589b98d8d209"	"NA-NA"	"glycerol_high"
+"Y@@634;A@@669"	2.01878920033858	0.005	"YDL171C"	"54-1547"	"54_1547_1ofd.1.A_5b24f59dafa3589b98d8d209"	"NA-NA"	"glycerol_high"

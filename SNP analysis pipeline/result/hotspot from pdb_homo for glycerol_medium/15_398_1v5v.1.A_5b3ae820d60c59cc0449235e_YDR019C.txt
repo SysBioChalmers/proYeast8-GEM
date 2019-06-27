@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"A@@110;M@@110"	4	1	"YDR019C"	"15-398"	"15_398_1v5v.1.A_5b3ae820d60c59cc0449235e"	"NA-NA"	"glycerol_medium"
+"I@@313;H@@367"	2.00473864512685	0.0333	"YDR019C"	"15-398"	"15_398_1v5v.1.A_5b3ae820d60c59cc0449235e"	"NA-NA"	"glycerol_medium"

@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"D@@241;V@@344;T@@345"	3.00612335988732	0.0224	"YIL107C"	"182-634"	"182_634_5hr5.1.A_5b440d2bd60c59aa25581603"	"NA-NA"	"glycerol_low"
+"N@@420;E@@477"	2.01112835073688	0.0189	"YIL107C"	"182-634"	"182_634_5hr5.1.A_5b440d2bd60c59aa25581603"	"NA-NA"	"glycerol_low"

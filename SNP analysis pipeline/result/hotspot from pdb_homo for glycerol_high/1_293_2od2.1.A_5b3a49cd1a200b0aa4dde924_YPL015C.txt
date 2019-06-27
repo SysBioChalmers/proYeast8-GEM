@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"I@@12;I@@266"	2.01000342573523	0.0277	"YPL015C"	"1-293"	"1_293_2od2.1.A_5b3a49cd1a200b0aa4dde924"	"NA-NA"	"glycerol_high"
+"D@@24;R@@216"	2.00402943991595	0.0396	"YPL015C"	"1-293"	"1_293_2od2.1.A_5b3a49cd1a200b0aa4dde924"	"NA-NA"	"glycerol_high"
+"M@@164;K@@164"	4	1	"YPL015C"	"1-293"	"1_293_2od2.1.A_5b3a49cd1a200b0aa4dde924"	"NA-NA"	"glycerol_high"

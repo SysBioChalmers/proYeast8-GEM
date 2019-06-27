@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@10;G@@333"	2.00818873226881	0.0258	"YMR318C"	"1-360"	"1ps0@A"	"1-360"	"glycerol_medium"
+"N@@83;G@@83"	4	1	"YMR318C"	"1-360"	"1ps0@A"	"1-360"	"glycerol_medium"
+"T@@277;V@@277"	4	1	"YMR318C"	"1-360"	"1ps0@A"	"1-360"	"glycerol_medium"

@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"D@@280;S@@280"	4	1	"YBR199W"	"71-458"	"5a08@A"	"1-388"	"glycerol_low"

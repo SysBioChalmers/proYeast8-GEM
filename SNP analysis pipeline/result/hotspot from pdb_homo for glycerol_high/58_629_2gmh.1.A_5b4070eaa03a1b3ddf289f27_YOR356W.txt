@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"A@@210;T@@438"	2.00515628933372	0.0236	"YOR356W"	"58-629"	"58_629_2gmh.1.A_5b4070eaa03a1b3ddf289f27"	"NA-NA"	"glycerol_high"
+"G@@460;Q@@489"	2.02185456400778	0.013	"YOR356W"	"58-629"	"58_629_2gmh.1.A_5b4070eaa03a1b3ddf289f27"	"NA-NA"	"glycerol_high"
+"S@@509;N@@562"	2.00295301043179	0.0277	"YOR356W"	"58-629"	"58_629_2gmh.1.A_5b4070eaa03a1b3ddf289f27"	"NA-NA"	"glycerol_high"

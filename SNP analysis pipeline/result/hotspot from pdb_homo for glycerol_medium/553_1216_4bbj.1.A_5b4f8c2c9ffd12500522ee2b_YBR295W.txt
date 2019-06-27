@@ -1,0 +1,7 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"M@@591;L@@658;K@@853"	3.0050307393431	0.0456	"YBR295W"	"553-1216"	"553_1216_4bbj.1.A_5b4f8c2c9ffd12500522ee2b"	"NA-NA"	"glycerol_medium"
+"F@@664;I@@666;A@@862;I@@1165"	4.01026638443581	0.0082	"YBR295W"	"553-1216"	"553_1216_4bbj.1.A_5b4f8c2c9ffd12500522ee2b"	"NA-NA"	"glycerol_medium"
+"G@@679;G@@875"	2.01584901399157	0.0139	"YBR295W"	"553-1216"	"553_1216_4bbj.1.A_5b4f8c2c9ffd12500522ee2b"	"NA-NA"	"glycerol_medium"
+"I@@824;T@@849"	2.00230272430801	0.0287	"YBR295W"	"553-1216"	"553_1216_4bbj.1.A_5b4f8c2c9ffd12500522ee2b"	"NA-NA"	"glycerol_medium"
+"C@@943;G@@970;F@@1009"	3.00459205085951	0.0262	"YBR295W"	"553-1216"	"553_1216_4bbj.1.A_5b4f8c2c9ffd12500522ee2b"	"NA-NA"	"glycerol_medium"
+"Q@@1080;A@@1114;D@@1114"	5.01843292804525	0.0155	"YBR295W"	"553-1216"	"553_1216_4bbj.1.A_5b4f8c2c9ffd12500522ee2b"	"NA-NA"	"glycerol_medium"

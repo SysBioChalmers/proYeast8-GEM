@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@416;R@@416;M@@416"	9	1	"YER069W"	"67-502"	"4ab7@B"	"1-436"	"glycerol_high"

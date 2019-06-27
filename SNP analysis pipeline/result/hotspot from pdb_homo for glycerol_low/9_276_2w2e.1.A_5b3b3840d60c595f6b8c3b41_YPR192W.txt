@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"L@@31;D@@111"	2.00487514922273	0.0494	"YPR192W"	"9-276"	"9_276_2w2e.1.A_5b3b3840d60c595f6b8c3b41"	"NA-NA"	"glycerol_low"
+"I@@53;A@@53"	4	1	"YPR192W"	"9-276"	"9_276_2w2e.1.A_5b3b3840d60c595f6b8c3b41"	"NA-NA"	"glycerol_low"
+"R@@228;P@@255"	2.00785965539284	0.0398	"YPR192W"	"9-276"	"9_276_2w2e.1.A_5b3b3840d60c595f6b8c3b41"	"NA-NA"	"glycerol_low"

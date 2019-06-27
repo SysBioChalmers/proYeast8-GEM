@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"L@@201;V@@201"	4	1	"YBR153W"	"8-242"	"8_242_4ha7.1.A_5b3d6682732c1e179216d2ba"	"NA-NA"	"glycerol_high"

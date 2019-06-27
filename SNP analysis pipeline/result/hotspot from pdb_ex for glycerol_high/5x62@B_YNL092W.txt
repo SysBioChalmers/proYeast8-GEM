@@ -1,0 +1,6 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@26;L@@73;K@@74"	3.00673744726297	6e-04	"YNL092W"	"9-392"	"5x62@B"	"1-384"	"glycerol_high"
+"T@@118;G@@375"	2.00244098010894	0.0436	"YNL092W"	"9-392"	"5x62@B"	"1-384"	"glycerol_high"
+"I@@129;G@@129"	4	1	"YNL092W"	"9-392"	"5x62@B"	"1-384"	"glycerol_high"
+"M@@154;T@@228"	2.00979024425917	0.0244	"YNL092W"	"9-392"	"5x62@B"	"1-384"	"glycerol_high"
+"L@@249;D@@317"	2.01282527161697	0.0214	"YNL092W"	"9-392"	"5x62@B"	"1-384"	"glycerol_high"

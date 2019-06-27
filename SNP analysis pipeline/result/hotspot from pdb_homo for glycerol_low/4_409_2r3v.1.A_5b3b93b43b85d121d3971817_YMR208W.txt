@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"R@@42;S@@163"	2.00405662006462	0.0321	"YMR208W"	"4-409"	"4_409_2r3v.1.A_5b3b93b43b85d121d3971817"	"NA-NA"	"glycerol_low"

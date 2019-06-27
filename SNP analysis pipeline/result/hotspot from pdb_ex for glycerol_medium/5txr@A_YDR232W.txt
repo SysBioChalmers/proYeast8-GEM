@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"D@@406;I@@492"	2.00628724873027	0.0229	"YDR232W"	"70-547"	"5txr@A"	"1-478"	"glycerol_medium"

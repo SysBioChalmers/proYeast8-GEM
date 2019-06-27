@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@206;A@@256;N@@257"	3.086514416615	1e-04	"YKL218C"	"1-318"	"1_318_2zr8.1.A_5b3ac4c11a200b7f94e660ca"	"NA-NA"	"glycerol_medium"
+"L@@212;V@@252"	2.00848712742812	0.0361	"YKL218C"	"1-318"	"1_318_2zr8.1.A_5b3ac4c11a200b7f94e660ca"	"NA-NA"	"glycerol_medium"

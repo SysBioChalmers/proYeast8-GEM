@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@297;R@@297"	4	1	"YDR294C"	"131-579"	"131_579_3mc6.1.A_5b3f79a78fd6f96bb7e904e6"	"NA-NA"	"glycerol_medium"
+"I@@473;S@@473"	4	1	"YDR294C"	"131-579"	"131_579_3mc6.1.A_5b3f79a78fd6f96bb7e904e6"	"NA-NA"	"glycerol_medium"

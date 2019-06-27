@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"H@@426;I@@462"	2.00200316519497	0.0193	"YGR240C"	"10-976"	"10_976_3opy.1.A_5b469438d60c59ce7b3e2c00"	"NA-NA"	"glycerol_low"

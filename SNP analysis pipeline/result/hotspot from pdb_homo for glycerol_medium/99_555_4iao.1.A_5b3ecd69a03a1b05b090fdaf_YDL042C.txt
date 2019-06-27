@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"N@@320;R@@320"	4	1	"YDL042C"	"99-555"	"99_555_4iao.1.A_5b3ecd69a03a1b05b090fdaf"	"NA-NA"	"glycerol_medium"
+"A@@417;I@@417"	4	1	"YDL042C"	"99-555"	"99_555_4iao.1.A_5b3ecd69a03a1b05b090fdaf"	"NA-NA"	"glycerol_medium"

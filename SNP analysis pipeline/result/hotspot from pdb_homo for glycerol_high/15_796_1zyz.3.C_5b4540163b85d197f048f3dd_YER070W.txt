@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"N@@502;G@@558"	2.0244793876026	0.0098	"YER070W"	"15-796"	"15_796_1zyz.3.C_5b4540163b85d197f048f3dd"	"NA-NA"	"glycerol_high"

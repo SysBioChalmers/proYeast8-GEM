@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@569;T@@569"	4	1	"YDR074W"	"554-850"	"554_850_5dxi.1.A_5b455f6c8fd6f9a0abd42c5f"	"NA-NA"	"glycerol_medium"

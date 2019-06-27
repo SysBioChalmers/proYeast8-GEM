@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"E@@157;N@@157"	4	1	"YER175C"	"38-246"	"38_246_6b39.1.A_5b3b5314d60c59f03bedf5c8"	"NA-NA"	"glycerol_medium"

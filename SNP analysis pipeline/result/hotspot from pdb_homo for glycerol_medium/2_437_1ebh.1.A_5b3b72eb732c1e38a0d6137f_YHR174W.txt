@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"G@@52;D@@52"	4	1	"YHR174W"	"2-437"	"2_437_1ebh.1.A_5b3b72eb732c1e38a0d6137f"	"NA-NA"	"glycerol_medium"

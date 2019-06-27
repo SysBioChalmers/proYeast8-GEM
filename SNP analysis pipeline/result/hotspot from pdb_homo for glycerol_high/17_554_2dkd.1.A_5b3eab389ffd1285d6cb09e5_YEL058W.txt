@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@196;R@@196"	4	1	"YEL058W"	"17-554"	"17_554_2dkd.1.A_5b3eab389ffd1285d6cb09e5"	"NA-NA"	"glycerol_high"
+"D@@216;T@@457"	2.0185681064453	0.0143	"YEL058W"	"17-554"	"17_554_2dkd.1.A_5b3eab389ffd1285d6cb09e5"	"NA-NA"	"glycerol_high"
+"V@@335;S@@423"	2.00304225661851	0.0269	"YEL058W"	"17-554"	"17_554_2dkd.1.A_5b3eab389ffd1285d6cb09e5"	"NA-NA"	"glycerol_high"

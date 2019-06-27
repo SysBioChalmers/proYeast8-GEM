@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@157;A@@332"	2.00796859762279	0.0233	"YBL045C"	"27-457"	"27_457_1kyo.1.A_5b3c96a08fd6f9fb85183c47"	"NA-NA"	"glycerol_low"

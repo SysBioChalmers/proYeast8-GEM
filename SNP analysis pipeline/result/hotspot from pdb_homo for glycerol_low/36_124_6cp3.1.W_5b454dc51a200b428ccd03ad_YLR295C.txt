@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"C@@99;T@@99"	4	1	"YLR295C"	"36-124"	"36_124_6cp3.1.W_5b454dc51a200b428ccd03ad"	"NA-NA"	"glycerol_low"

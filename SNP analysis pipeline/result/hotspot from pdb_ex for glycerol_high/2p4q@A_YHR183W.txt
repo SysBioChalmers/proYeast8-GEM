@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"Q@@118;N@@118"	4	1	"YHR183W"	"1-475"	"2p4q@A"	"1-475"	"glycerol_high"

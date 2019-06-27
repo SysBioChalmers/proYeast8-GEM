@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@52;L@@54;H@@491;H@@141"	4.08464058175452	1e-04	"YOL049W"	"6-491"	"6_491_1m0w.1.A_5b3d37ba1a200bb11b817c58"	"NA-NA"	"glycerol_low"

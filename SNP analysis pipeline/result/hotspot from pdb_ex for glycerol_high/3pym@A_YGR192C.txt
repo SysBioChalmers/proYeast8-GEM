@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"A@@37;S@@37"	4	1	"YGR192C"	"1-330"	"3pym@A"	"1-330"	"glycerol_high"

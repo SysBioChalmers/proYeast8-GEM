@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@29;R@@34;V@@35;G@@60;E@@88"	5.02641244839571	0.0729	"YGL256W"	"2-380"	"2_380_3owo.1.A_5b3aaf0cd60c59aa613c3d84"	"NA-NA"	"glycerol_medium"
+"K@@225;V@@323"	2.00326941444408	0.0421	"YGL256W"	"2-380"	"2_380_3owo.1.A_5b3aaf0cd60c59aa613c3d84"	"NA-NA"	"glycerol_medium"

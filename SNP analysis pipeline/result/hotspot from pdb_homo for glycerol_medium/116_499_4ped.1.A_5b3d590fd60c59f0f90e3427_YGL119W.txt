@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"K@@194;R@@194"	4	1	"YGL119W"	"116-499"	"116_499_4ped.1.A_5b3d590fd60c59f0f90e3427"	"NA-NA"	"glycerol_medium"

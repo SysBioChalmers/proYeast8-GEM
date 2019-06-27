@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"T@@61;G@@61"	4	1	"YKL069W"	"4-177"	"3ko6@B"	"1-174"	"glycerol_high"
+"E@@108;R@@108"	4	1	"YKL069W"	"4-177"	"3ko6@B"	"1-174"	"glycerol_high"

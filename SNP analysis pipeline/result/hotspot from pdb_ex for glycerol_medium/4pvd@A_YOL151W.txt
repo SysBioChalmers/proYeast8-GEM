@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"T@@26;N@@49"	2.07808214383982	0.0069	"YOL151W"	"1-342"	"4pvd@A"	"1-342"	"glycerol_medium"
+"E@@74;C@@118"	2.013804038628	0.024	"YOL151W"	"1-342"	"4pvd@A"	"1-342"	"glycerol_medium"
+"L@@134;S@@163"	2.00624200687776	0.0325	"YOL151W"	"1-342"	"4pvd@A"	"1-342"	"glycerol_medium"

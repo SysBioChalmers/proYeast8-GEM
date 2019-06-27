@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"S@@59;K@@108"	2.01412144996382	0.0232	"YHR179W"	"2-399"	"2_399_3tx9.1.A_5b3aeaa39ffd12d85f9edc24"	"NA-NA"	"glycerol_medium"
+"G@@193;N@@193"	4	1	"YHR179W"	"2-399"	"2_399_3tx9.1.A_5b3aeaa39ffd12d85f9edc24"	"NA-NA"	"glycerol_medium"

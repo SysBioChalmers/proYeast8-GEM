@@ -1,0 +1,4 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"N@@29;N@@57"	2.00570820795086	0.0337	"YDL243C"	"5-304"	"5_304_4xk2.1.A_5b3ab603732c1e8fd911db14"	"NA-NA"	"glycerol_high"
+"K@@172;I@@299"	2.00271594298124	0.0488	"YDL243C"	"5-304"	"5_304_4xk2.1.A_5b3ab603732c1e8fd911db14"	"NA-NA"	"glycerol_high"
+"C@@255;I@@284"	2.00274409152995	0.044	"YDL243C"	"5-304"	"5_304_4xk2.1.A_5b3ab603732c1e8fd911db14"	"NA-NA"	"glycerol_high"

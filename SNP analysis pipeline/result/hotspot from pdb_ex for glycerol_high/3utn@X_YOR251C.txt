@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"P@@178;T@@178"	4	1	"YOR251C"	"1-303"	"3utn@X"	"1-303"	"glycerol_high"

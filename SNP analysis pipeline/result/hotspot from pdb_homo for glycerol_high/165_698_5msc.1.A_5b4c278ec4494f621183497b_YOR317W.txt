@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"R@@175;G@@196;F@@199"	3.04355141793107	0.0011	"YOR317W"	"165-698"	"165_698_5msc.1.A_5b4c278ec4494f621183497b"	"NA-NA"	"glycerol_high"
+"L@@600;H@@664"	2.03949285983044	0.0089	"YOR317W"	"165-698"	"165_698_5msc.1.A_5b4c278ec4494f621183497b"	"NA-NA"	"glycerol_high"

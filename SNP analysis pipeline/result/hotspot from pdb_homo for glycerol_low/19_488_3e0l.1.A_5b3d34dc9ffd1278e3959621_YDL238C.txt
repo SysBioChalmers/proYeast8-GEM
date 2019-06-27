@@ -1,0 +1,3 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"I@@327;A@@327"	4	1	"YDL238C"	"19-488"	"19_488_3e0l.1.A_5b3d34dc9ffd1278e3959621"	"NA-NA"	"glycerol_low"
+"T@@429;R@@453"	2.00648920244151	0.0231	"YDL238C"	"19-488"	"19_488_3e0l.1.A_5b3d34dc9ffd1278e3959621"	"NA-NA"	"glycerol_low"

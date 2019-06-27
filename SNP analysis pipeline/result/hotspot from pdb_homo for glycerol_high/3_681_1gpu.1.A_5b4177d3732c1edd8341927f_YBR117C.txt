@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"I@@215;I@@242;I@@246"	3.01814737923996	0.0014	"YBR117C"	"3-681"	"3_681_1gpu.1.A_5b4177d3732c1edd8341927f"	"NA-NA"	"glycerol_high"

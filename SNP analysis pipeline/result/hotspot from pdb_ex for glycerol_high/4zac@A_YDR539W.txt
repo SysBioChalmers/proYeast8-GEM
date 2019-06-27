@@ -1,0 +1,2 @@
+"cluster"	"closeness"	"pvalue"	"gene"	"seq_3D_origin"	"structure"	"seq_3D"	"stain_type"
+"V@@29;Y@@55"	2.06260273093618	0.0053	"YDR539W"	"1-502"	"4zac@A"	"1-502"	"glycerol_high"
