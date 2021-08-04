@@ -1,4 +1,4 @@
-This repository contains the protein 3D structure information for current consensus genome-scale metabolic model of _Saccharomyces cerevisiae_.
+This repository contains the protein 3D structure of high-resolution for all enzymes from current consensus genome-scale metabolic model of _Saccharomyces cerevisiae_.
 
 To run mutation mapping analysis, please firstly download the residue distance data from the followed link:
 https://figshare.com/articles/dataset/Structure_data_collection_for_Saccharomyces_cerevisiae/13341674
